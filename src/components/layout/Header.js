@@ -46,13 +46,17 @@ class Header extends Component {
     if (TEACHER_MODES.includes(mode)) {
       if (view === DEFAULT_VIEW) {
         return (
-          <IconButton href={addQueryParamsToUrl({ view: DASHBOARD_VIEW })}>
+          <IconButton
+            href={`index.html${addQueryParamsToUrl({ view: DASHBOARD_VIEW })}`}
+          >
             <CloudIcon nativeColor="#fff" />
           </IconButton>
         );
       }
       return (
-        <IconButton href={addQueryParamsToUrl({ view: DEFAULT_VIEW })}>
+        <IconButton
+          href={`index.html${addQueryParamsToUrl({ view: DEFAULT_VIEW })}`}
+        >
           <TableIcon nativeColor="#fff" />
         </IconButton>
       );
