@@ -77,7 +77,7 @@ const getAppInstanceResources = async ({
   }
 };
 
-const postAppInstanceResource = async ({ data, userId } = {}) => async (
+const postAppInstanceResource = async ({ data, userId, type } = {}) => async (
   dispatch,
   getState
 ) => {
@@ -89,6 +89,7 @@ const postAppInstanceResource = async ({ data, userId } = {}) => async (
 
     const body = {
       data,
+      type,
       appInstance: appInstanceId,
       // here you can specify who the resource will belong to
       // but applies if the user making the request is an admin

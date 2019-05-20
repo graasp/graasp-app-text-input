@@ -28,7 +28,7 @@ const isErrorResponse = async response => {
 
 const getApiContext = getState => {
   const { context } = getState();
-  const { apiHost, appInstanceId, spaceId } = context;
+  const { apiHost, appInstanceId, spaceId, userId } = context;
   if (!apiHost) {
     throw Error(MISSING_API_HOST_MESSAGE);
   }
@@ -38,7 +38,7 @@ const getApiContext = getState => {
   if (!spaceId) {
     throw Error(MISSING_SPACE_ID_MESSAGE);
   }
-  return { apiHost, appInstanceId, spaceId };
+  return { apiHost, appInstanceId, spaceId, userId };
 };
 
 export { flag, isErrorResponse, getApiContext };

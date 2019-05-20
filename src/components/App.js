@@ -33,16 +33,14 @@ export class App extends Component {
     props.dispatchGetContext();
     // then get the app instance
     props.dispatchGetAppInstance();
+    // then get the resources
+    props.dispatchGetAppInstanceResources();
   }
 
   async componentDidMount() {
-    const { lang, appInstanceId, dispatchGetAppInstanceResources } = this.props;
+    const { lang } = this.props;
     // set the language on first load
     this.handleChangeLang(lang);
-    // only fetch app instance resources if app instance id is available
-    if (appInstanceId) {
-      await dispatchGetAppInstanceResources(appInstanceId);
-    }
   }
 
   async componentDidUpdate({

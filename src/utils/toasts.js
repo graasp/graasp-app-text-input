@@ -7,7 +7,7 @@ import {
 
 const showErrorToast = payload => {
   let message = UNEXPECTED_ERROR_MESSAGE;
-  if (payload instanceof String) {
+  if (payload instanceof String || typeof payload === 'string') {
     message = payload;
   } else if (payload instanceof Object) {
     if (payload.message) {
@@ -21,7 +21,8 @@ const showErrorToast = payload => {
 
   toast.error(message, {
     toastId: message,
-    autoClose: false,
+    autoClose: true,
+    position: 'bottom-right',
   });
 };
 
