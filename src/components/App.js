@@ -2,11 +2,12 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withTranslation } from 'react-i18next';
 import PropTypes from 'prop-types';
-import TeacherView from './modes/teacher/TeacherView';
 import StudentView from './modes/student/StudentView';
 import { getAppInstanceResources, getContext } from '../actions';
 import { DEFAULT_LANG, DEFAULT_MODE } from '../config/settings';
+import { DEFAULT_VIEW } from '../config/views';
 import { getAppInstance } from '../actions/appInstance';
+import TeacherMode from './modes/teacher/TeacherMode';
 
 export class App extends Component {
   static propTypes = {
@@ -19,11 +20,13 @@ export class App extends Component {
     appInstanceId: PropTypes.string,
     lang: PropTypes.string,
     mode: PropTypes.string,
+    view: PropTypes.string,
   };
 
   static defaultProps = {
     lang: DEFAULT_LANG,
     mode: DEFAULT_MODE,
+    view: DEFAULT_VIEW,
     appInstanceId: null,
   };
 
@@ -64,7 +67,7 @@ export class App extends Component {
   };
 
   render() {
-    const { mode } = this.props;
+    const { mode, view } = this.props;
 
     switch (mode) {
       // show teacher view when in producer (educator) mode
@@ -72,7 +75,7 @@ export class App extends Component {
       case 'producer':
       case 'educator':
       case 'admin':
-        return <TeacherView />;
+        return <TeacherMode view={view} />;
 
       // by default go with the consumer (learner) mode
       case 'student':
@@ -87,6 +90,7 @@ export class App extends Component {
 const mapStateToProps = ({ context }) => ({
   lang: context.lang,
   mode: context.mode,
+  view: context.view,
   appInstanceId: context.appInstanceId,
 });
 

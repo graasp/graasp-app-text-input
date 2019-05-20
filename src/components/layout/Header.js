@@ -5,8 +5,13 @@ import AppBar from '@material-ui/core/AppBar';
 import Typography from '@material-ui/core/Typography';
 import Toolbar from '@material-ui/core/Toolbar';
 import { withStyles } from '@material-ui/core/styles';
+import CloudIcon from '@material-ui/icons/Cloud';
+import { IconButton } from '@material-ui/core';
+import TableIcon from '@material-ui/icons/TableChart';
 import { withTranslation } from 'react-i18next';
 import { ReactComponent as Logo } from '../../resources/logo.svg';
+import { DEFAULT_MODE, TEACHER_MODES } from '../../config/settings';
+import { DEFAULT_VIEW, DASHBOARD_VIEW } from '../../config/views';
 import './Header.css';
 import { addQueryParamsToUrl } from '../../utils/url';
 
@@ -14,8 +19,8 @@ class Header extends Component {
   static propTypes = {
     t: PropTypes.func.isRequired,
     classes: PropTypes.shape({}).isRequired,
-    appInstanceId: PropTypes.string,
-    spaceId: PropTypes.string,
+    mode: PropTypes.string,
+    view: PropTypes.string,
   };
 
   static styles = theme => ({
@@ -32,41 +37,28 @@ class Header extends Component {
   });
 
   static defaultProps = {
-    appInstanceId: null,
-    spaceId: null,
+    mode: DEFAULT_MODE,
+    view: DEFAULT_VIEW,
   };
 
-  renderAppInstanceLink = () => {
-    const { appInstanceId, t } = this.props;
-    if (!appInstanceId) {
+  renderViewButtons() {
+    const { mode, view } = this.props;
+    if (TEACHER_MODES.includes(mode)) {
+      if (view === DEFAULT_VIEW) {
+        return (
+          <IconButton href={addQueryParamsToUrl({ view: DASHBOARD_VIEW })}>
+            <CloudIcon nativeColor="#fff" />
+          </IconButton>
+        );
+      }
       return (
-        <a
-          href={addQueryParamsToUrl({
-            appInstanceId: '6156e70ab253020033364411',
-          })}
-          className="HeaderLink"
-        >
-          {t('Use Sample App Instance')}
-        </a>
+        <IconButton href={addQueryParamsToUrl({ view: DEFAULT_VIEW })}>
+          <TableIcon nativeColor="#fff" />
+        </IconButton>
       );
     }
-    return <div />;
-  };
-
-  renderSpaceLink = () => {
-    const { spaceId, t } = this.props;
-    if (!spaceId) {
-      return (
-        <a
-          href={addQueryParamsToUrl({ spaceId: '5b56e70ab253020033364411' })}
-          className="HeaderLink"
-        >
-          {t('Use Sample Space')}
-        </a>
-      );
-    }
-    return <div />;
-  };
+    return null;
+  }
 
   render() {
     const { t, classes } = this.props;
@@ -78,8 +70,7 @@ class Header extends Component {
             <Typography variant="h6" color="inherit" className={classes.grow}>
               {t('Input')}
             </Typography>
-            {this.renderSpaceLink()}
-            {this.renderAppInstanceLink()}
+            {this.renderViewButtons()}
           </Toolbar>
         </AppBar>
       </header>
@@ -90,6 +81,8 @@ class Header extends Component {
 const mapStateToProps = ({ context }) => ({
   appInstanceId: context.appInstanceId,
   spaceId: context.spaceId,
+  mode: context.mode,
+  view: context.view,
 });
 
 const ConnectedComponent = connect(mapStateToProps)(Header);

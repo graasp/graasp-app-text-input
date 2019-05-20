@@ -20,6 +20,7 @@ import App from './App';
 const styles = {
   root: {
     flexGrow: 1,
+    height: '100%',
   },
 };
 

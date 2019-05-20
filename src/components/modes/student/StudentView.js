@@ -12,6 +12,7 @@ import {
 } from '../../../actions';
 import { FEEDBACK, INPUT } from '../../../config/appInstanceResourceTypes';
 import Loader from '../../common/Loader';
+import { MAX_INPUT_LENGTH, MAX_ROWS } from '../../../config/settings';
 
 const styles = theme => ({
   main: {
@@ -150,11 +151,14 @@ class StudentView extends Component {
           <form className={classes.container} noValidate autoComplete="off">
             <TextField
               autoFocus
+              inputProps={{
+                maxlength: MAX_INPUT_LENGTH,
+              }}
               key="inputTextField"
               id="inputTextField"
               label={t('Type Here')}
               multiline
-              rowsMax="5"
+              rowsMax={MAX_ROWS}
               value={text}
               onChange={this.handleChangeText}
               className={classes.textField}

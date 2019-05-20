@@ -5,7 +5,8 @@ import {
   GET_CONTEXT_SUCCEEDED,
 } from '../types';
 import { flag } from './common';
-import { DEFAULT_API_HOST } from '../config/settings';
+import { DEFAULT_API_HOST, DEFAULT_MODE } from '../config/settings';
+import { DEFAULT_VIEW } from '../config/views';
 
 // flags
 const flagGettingContext = flag(FLAG_GETTING_CONTEXT);
@@ -18,7 +19,8 @@ const getContext = () => dispatch => {
   dispatch(flagGettingContext(true));
   try {
     const {
-      mode = 'default',
+      mode = DEFAULT_MODE,
+      view = DEFAULT_VIEW,
       lang = 'en',
       apiHost = DEFAULT_API_HOST,
       appInstanceId = null,
@@ -29,6 +31,7 @@ const getContext = () => dispatch => {
     } = Qs.parse(window.location.search, { ignoreQueryPrefix: true });
     const context = {
       mode,
+      view,
       lang,
       apiHost,
       appInstanceId,

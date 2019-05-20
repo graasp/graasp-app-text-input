@@ -5,12 +5,14 @@ import {
   DEFAULT_MODE,
 } from '../config/settings';
 import { showErrorToast } from '../utils/toasts';
+import { DEFAULT_VIEW } from '../config/views';
 
 const INITIAL_STATE = {
   apiHost: DEFAULT_API_HOST,
   // the properties below come from the context via the query string
   lang: DEFAULT_LANG,
   mode: DEFAULT_MODE,
+  view: DEFAULT_VIEW,
   appInstanceId: null,
   spaceId: null,
   subSpaceId: null,
