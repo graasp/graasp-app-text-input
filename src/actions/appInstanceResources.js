@@ -22,6 +22,7 @@ import {
 import { flag, getApiContext, isErrorResponse } from './common';
 import { showErrorToast } from '../utils/toasts';
 import { MISSING_APP_INSTANCE_RESOURCE_ID_MESSAGE } from '../constants/messages';
+import { APP_INSTANCE_RESOURCE_FORMAT } from '../config/formats';
 
 const flagGettingAppInstanceResources = flag(
   FLAG_GETTING_APP_INSTANCE_RESOURCES
@@ -90,6 +91,7 @@ const postAppInstanceResource = async ({ data, userId, type } = {}) => async (
     const body = {
       data,
       type,
+      format: APP_INSTANCE_RESOURCE_FORMAT,
       appInstance: appInstanceId,
       // here you can specify who the resource will belong to
       // but applies if the user making the request is an admin
