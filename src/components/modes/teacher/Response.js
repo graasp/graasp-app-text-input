@@ -58,8 +58,15 @@ class Response extends Component {
   };
 
   handleConfirmDelete = () => {
-    const { _id, dispatchDeleteAppInstanceResource } = this.props;
+    const {
+      _id,
+      dispatchDeleteAppInstanceResource,
+      feedbackResource,
+    } = this.props;
     dispatchDeleteAppInstanceResource(_id);
+    if (!_.isEmpty(feedbackResource)) {
+      dispatchDeleteAppInstanceResource(feedbackResource._id);
+    }
     this.handleToggleConfirmDialog(false)();
   };
 
