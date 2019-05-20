@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { withTranslation } from 'react-i18next';
 import PropTypes from 'prop-types';
 import StudentView from './modes/student/StudentView';
-import { getAppInstanceResources, getContext } from '../actions';
+import { getContext } from '../actions';
 import { DEFAULT_LANG, DEFAULT_MODE } from '../config/settings';
 import { DEFAULT_VIEW } from '../config/views';
 import { getAppInstance } from '../actions/appInstance';
@@ -16,7 +16,6 @@ export class App extends Component {
     }).isRequired,
     dispatchGetContext: PropTypes.func.isRequired,
     dispatchGetAppInstance: PropTypes.func.isRequired,
-    dispatchGetAppInstanceResources: PropTypes.func.isRequired,
     appInstanceId: PropTypes.string,
     lang: PropTypes.string,
     mode: PropTypes.string,
@@ -36,28 +35,23 @@ export class App extends Component {
     props.dispatchGetContext();
     // then get the app instance
     props.dispatchGetAppInstance();
-    // then get the resources
-    props.dispatchGetAppInstanceResources();
   }
 
-  async componentDidMount() {
+  componentDidMount() {
     const { lang } = this.props;
     // set the language on first load
     this.handleChangeLang(lang);
   }
 
-  async componentDidUpdate({
-    lang: prevLang,
-    appInstanceId: prevAppInstanceId,
-  }) {
-    const { lang, appInstanceId, dispatchGetAppInstanceResources } = this.props;
+  componentDidUpdate({ lang: prevLang, appInstanceId: prevAppInstanceId }) {
+    const { lang, appInstanceId, dispatchGetAppInstance } = this.props;
     // handle a change of language
     if (lang !== prevLang) {
       this.handleChangeLang(lang);
     }
     // handle receiving the app instance id
     if (appInstanceId !== prevAppInstanceId) {
-      await dispatchGetAppInstanceResources();
+      dispatchGetAppInstance();
     }
   }
 
@@ -97,7 +91,6 @@ const mapStateToProps = ({ context }) => ({
 const mapDispatchToProps = {
   dispatchGetContext: getContext,
   dispatchGetAppInstance: getAppInstance,
-  dispatchGetAppInstanceResources: getAppInstanceResources,
 };
 
 const ConnectedApp = connect(

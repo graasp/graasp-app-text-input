@@ -7,6 +7,7 @@ import Grid from '@material-ui/core/Grid';
 import TextField from '@material-ui/core/TextField';
 import { connect } from 'react-redux';
 import {
+  getAppInstanceResources,
   patchAppInstanceResource,
   postAppInstanceResource,
 } from '../../../actions';
@@ -46,6 +47,7 @@ class StudentView extends Component {
     t: PropTypes.func.isRequired,
     dispatchPostAppInstanceResource: PropTypes.func.isRequired,
     dispatchPatchAppInstanceResource: PropTypes.func.isRequired,
+    dispatchGetAppInstanceResources: PropTypes.func.isRequired,
     classes: PropTypes.shape({
       main: PropTypes.object,
       message: PropTypes.object,
@@ -73,6 +75,13 @@ class StudentView extends Component {
       dispatchPatchAppInstanceResource({ data, id: inputResourceId });
     }
   }, 1000);
+
+  constructor(props) {
+    super(props);
+    const { userId } = props;
+    // get the resources for this user
+    props.dispatchGetAppInstanceResources({ userId });
+  }
 
   componentDidMount() {
     const { text } = this.props;
@@ -196,6 +205,7 @@ const mapStateToProps = ({ context, appInstanceResources }) => {
 };
 
 const mapDispatchToProps = {
+  dispatchGetAppInstanceResources: getAppInstanceResources,
   dispatchPostAppInstanceResource: postAppInstanceResource,
   dispatchPatchAppInstanceResource: patchAppInstanceResource,
 };
