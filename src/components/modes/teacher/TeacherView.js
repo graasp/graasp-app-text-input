@@ -12,6 +12,7 @@ import {
 } from '../../../actions';
 import { getUsers } from '../../../actions/users';
 import Responses from './Responses';
+import { INPUT } from '../../../config/appInstanceResourceTypes';
 
 /**
  * helper method to render the rows of the app instance resource table
@@ -89,7 +90,9 @@ export class TeacherView extends Component {
         <Grid item xs={12} className={classes.main}>
           <Responses
             students={students}
-            appInstanceResources={appInstanceResources}
+            appInstanceResources={appInstanceResources.filter(
+              resource => resource.type === INPUT
+            )}
           />
         </Grid>
       </Grid>

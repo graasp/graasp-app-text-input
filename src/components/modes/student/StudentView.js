@@ -10,7 +10,7 @@ import {
   patchAppInstanceResource,
   postAppInstanceResource,
 } from '../../../actions';
-import { INPUT } from '../../../config/appInstanceResourceTypes';
+import { FEEDBACK, INPUT } from '../../../config/appInstanceResourceTypes';
 import Loader from '../../common/Loader';
 
 const styles = theme => ({
@@ -49,7 +49,7 @@ class StudentView extends Component {
       main: PropTypes.object,
       message: PropTypes.object,
     }).isRequired,
-    helperText: PropTypes.string,
+    feedback: PropTypes.string,
     userId: PropTypes.string,
     inputResourceId: PropTypes.string,
     ready: PropTypes.bool,
@@ -58,7 +58,7 @@ class StudentView extends Component {
   };
 
   static defaultProps = {
-    helperText: '',
+    feedback: '',
     userId: null,
     inputResourceId: null,
     activity: false,
@@ -133,8 +133,12 @@ class StudentView extends Component {
   };
 
   render() {
-    const { t, classes, helperText, ready } = this.props;
+    const { t, classes, ready } = this.props;
     const { text } = this.state;
+    let { feedback } = this.props;
+    if (feedback && feedback !== '') {
+      feedback = `${t('Feedback')}: ${feedback}`;
+    }
 
     if (!ready) {
       return <Loader />;
@@ -155,7 +159,7 @@ class StudentView extends Component {
               onChange={this.handleChangeText}
               className={classes.textField}
               margin="normal"
-              helperText={helperText}
+              helperText={feedback}
               variant="outlined"
               fullWidth
             />
@@ -171,6 +175,11 @@ const mapStateToProps = ({ context, appInstanceResources }) => {
   const inputResource = appInstanceResources.content.find(({ user, type }) => {
     return user === userId && type === INPUT;
   });
+  const feedbackResource = appInstanceResources.content.find(
+    ({ user, type }) => {
+      return user === userId && type === FEEDBACK;
+    }
+  );
 
   return {
     userId,
@@ -178,6 +187,7 @@ const mapStateToProps = ({ context, appInstanceResources }) => {
     activity: Boolean(appInstanceResources.activity.length),
     ready: appInstanceResources.ready,
     text: inputResource && inputResource.data,
+    feedback: feedbackResource && feedbackResource.data,
   };
 };
 

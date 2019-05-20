@@ -56,7 +56,9 @@ class Responses extends Component {
     if (!appInstanceResources.length) {
       return (
         <TableRow>
-          <TableCell align="center">{t('No Responses')}</TableCell>
+          <TableCell align="center" colSpan={4}>
+            {t('No Responses')}
+          </TableCell>
         </TableRow>
       );
     }

@@ -1,2 +1,2 @@
-// eslint-disable-next-line import/prefer-default-export
 export const INPUT = 'input';
+export const FEEDBACK = 'feedback';
