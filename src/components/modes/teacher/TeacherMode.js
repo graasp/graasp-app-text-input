@@ -5,17 +5,20 @@ import TeacherView from './TeacherView';
 import TeacherDashboard from './TeacherDashboard';
 import { DEFAULT_VIEW, DASHBOARD_VIEW } from '../../../config/views';
 import { getAppInstanceResources } from '../../../actions';
+import Loader from '../../common/Loader';
 
 class TeacherMode extends Component {
   static propTypes = {
     appInstanceId: PropTypes.string,
     view: PropTypes.string,
+    activity: PropTypes.bool,
     dispatchGetAppInstanceResources: PropTypes.func.isRequired,
   };
 
   static defaultProps = {
     view: 'normal',
     appInstanceId: null,
+    activity: false,
   };
 
   constructor(props) {
@@ -34,7 +37,10 @@ class TeacherMode extends Component {
   }
 
   render() {
-    const { view } = this.props;
+    const { view, activity } = this.props;
+    if (activity) {
+      return <Loader />;
+    }
     switch (view) {
       case DASHBOARD_VIEW:
         return <TeacherDashboard />;
@@ -44,8 +50,9 @@ class TeacherMode extends Component {
     }
   }
 }
-const mapStateToProps = ({ context }) => ({
+const mapStateToProps = ({ context, appInstanceResources }) => ({
   appInstanceId: context.appInstanceId,
+  activity: appInstanceResources.activity.length,
 });
 
 const mapDispatchToProps = {
