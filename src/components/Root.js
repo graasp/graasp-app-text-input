@@ -8,7 +8,6 @@ import {
   withStyles,
 } from '@material-ui/core/styles';
 import { ToastContainer } from 'react-toastify';
-import indigo from '@material-ui/core/colors/indigo';
 import pink from '@material-ui/core/colors/pink';
 import grey from '@material-ui/core/colors/grey';
 import orange from '@material-ui/core/colors/orange';
@@ -26,7 +25,9 @@ const styles = {
 
 const theme = createMuiTheme({
   palette: {
-    primary: indigo,
+    primary: {
+      main: '#5050d2',
+    },
     secondary: pink,
     default: grey,
     background: {
