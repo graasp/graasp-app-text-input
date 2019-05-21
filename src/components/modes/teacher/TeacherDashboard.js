@@ -21,14 +21,19 @@ class TeacherDashboard extends Component {
 
   static styles = {
     container: {
-      height: '100%',
+      // 64px is the height of the header
+      height: 'calc(100% - 64px)',
       width: '100%',
     },
   };
 
   render() {
     const { words, classes } = this.props;
-    return <WordCloud className={classes.container} words={words} />;
+    return (
+      <div className={classes.container}>
+        <WordCloud words={words} />
+      </div>
+    );
   }
 }
 
