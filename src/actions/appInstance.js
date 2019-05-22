@@ -3,7 +3,7 @@ import {
   DEFAULT_GET_REQUEST,
   DEFAULT_PATCH_REQUEST,
 } from '../config/api';
-import { flag, getApiContext, isErrorResponse } from './common';
+import { flag, getApiContext, isErrorResponse, postMessage } from './common';
 import {
   FLAG_GETTING_APP_INSTANCE,
   FLAG_PATCHING_APP_INSTANCE,
@@ -11,6 +11,8 @@ import {
   GET_APP_INSTANCE_SUCCEEDED,
   PATCH_APP_INSTANCE_FAILED,
   PATCH_APP_INSTANCE_SUCCEEDED,
+  GET_APP_INSTANCE,
+  PATCH_APP_INSTANCE,
 } from '../types';
 
 const flagGettingAppInstance = flag(FLAG_GETTING_APP_INSTANCE);
@@ -19,7 +21,15 @@ const flagPatchingAppInstance = flag(FLAG_PATCHING_APP_INSTANCE);
 const getAppInstance = async () => async (dispatch, getState) => {
   dispatch(flagGettingAppInstance(true));
   try {
-    const { appInstanceId, apiHost } = getApiContext(getState);
+    const { appInstanceId, apiHost, offline } = getApiContext(getState);
+
+    console.log(offline); // todo
+    // if offline send message to parent requesting resources
+    if (offline) {
+      return postMessage({
+        type: GET_APP_INSTANCE,
+      });
+    }
 
     const url = `//${apiHost + APP_INSTANCES_ENDPOINT}/${appInstanceId}`;
 
@@ -51,7 +61,15 @@ const patchAppInstance = async ({ data } = {}) => async (
 ) => {
   dispatch(flagPatchingAppInstance(true));
   try {
-    const { appInstanceId, apiHost } = getApiContext(getState);
+    const { appInstanceId, apiHost, offline } = getApiContext(getState);
+
+    console.log(offline); // todo
+    // if offline send message to parent requesting resources
+    if (offline) {
+      return postMessage({
+        type: PATCH_APP_INSTANCE,
+      });
+    }
 
     const url = `//${apiHost + APP_INSTANCES_ENDPOINT}/${appInstanceId}`;
     const body = {

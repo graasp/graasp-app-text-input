@@ -6,6 +6,7 @@ import { withStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import TextField from '@material-ui/core/TextField';
 import { connect } from 'react-redux';
+import Button from '@material-ui/core/Button';
 import {
   getAppInstanceResources,
   patchAppInstanceResource,
@@ -36,11 +37,15 @@ const styles = theme => ({
     marginLeft: theme.spacing.unit,
     marginRight: theme.spacing.unit,
   },
+  button: {
+    marginRight: theme.spacing.unit,
+  },
 });
 
 class StudentView extends Component {
   state = {
     text: '',
+    createdInputResource: false,
   };
 
   static propTypes = {
@@ -49,13 +54,17 @@ class StudentView extends Component {
     dispatchPatchAppInstanceResource: PropTypes.func.isRequired,
     dispatchGetAppInstanceResources: PropTypes.func.isRequired,
     classes: PropTypes.shape({
-      main: PropTypes.object,
-      message: PropTypes.object,
+      main: PropTypes.string,
+      container: PropTypes.string,
+      message: PropTypes.string,
+      button: PropTypes.string,
+      textField: PropTypes.string,
     }).isRequired,
     feedback: PropTypes.string,
     userId: PropTypes.string,
     inputResourceId: PropTypes.string,
     ready: PropTypes.bool,
+    offline: PropTypes.bool,
     activity: PropTypes.bool,
     text: PropTypes.string,
   };
@@ -66,6 +75,7 @@ class StudentView extends Component {
     inputResourceId: null,
     activity: false,
     ready: false,
+    offline: false,
     text: null,
   };
 
@@ -84,8 +94,12 @@ class StudentView extends Component {
   }
 
   componentDidMount() {
-    const { text } = this.props;
-    this.createInputAppInstanceResource();
+    const { text, offline } = this.props;
+
+    // on mount creation of app instance resource only online
+    if (!offline) {
+      this.createInputAppInstanceResource();
+    }
     if (text) {
       this.setState({ text });
     }
@@ -99,14 +113,17 @@ class StudentView extends Component {
     },
     { text: prevStateText }
   ) {
-    const { inputResourceId, text, userId } = this.props;
+    const { inputResourceId, text, userId, offline } = this.props;
 
-    if (
-      inputResourceId !== prevInputAppInstanceResourceId ||
-      userId !== prevUserId ||
-      !inputResourceId
-    ) {
-      this.createInputAppInstanceResource();
+    // on update creation of app instance resource only online
+    if (!offline) {
+      if (
+        inputResourceId !== prevInputAppInstanceResourceId ||
+        userId !== prevUserId ||
+        !inputResourceId
+      ) {
+        this.createInputAppInstanceResource();
+      }
     }
 
     // set state here safely by ensuring that it does not cause an infinite loop
@@ -124,23 +141,74 @@ class StudentView extends Component {
       ready,
       activity,
     } = this.props;
-    // create the resource to save the text if it does not exist
-    if (ready && !inputResourceId && !activity) {
-      dispatchPostAppInstanceResource({ userId, data: '', type: INPUT });
+    const { createdInputResource } = this.state;
+
+    // only create this resource once
+    if (!createdInputResource) {
+      // if there is no user id we cannot create the resource, so abort,
+      // otherwise create the resource to save the text if it does not exist
+      if (userId && ready && !inputResourceId && !activity) {
+        dispatchPostAppInstanceResource({ userId, data: '', type: INPUT });
+        this.setState({ createdInputResource: true });
+      }
     }
   };
 
   handleChangeText = ({ target }) => {
     const { value } = target;
-    const { userId } = this.props;
+    const { userId, offline } = this.props;
     this.setState({
       text: value,
     });
-    // only save if there is actually a userId
-    if (userId) {
+    // only save automatically if online and there is actually a userId
+    if (!offline && userId) {
       this.saveToApi({ data: value });
     }
   };
+
+  handleClickSaveText = () => {
+    const { text } = this.state;
+    const {
+      dispatchPatchAppInstanceResource,
+      dispatchPostAppInstanceResource,
+      inputResourceId,
+      userId,
+    } = this.props;
+
+    // if there is a resource id already, update, otherwise create
+    if (inputResourceId) {
+      dispatchPatchAppInstanceResource({
+        data: text,
+        id: inputResourceId,
+      });
+    } else {
+      dispatchPostAppInstanceResource({
+        data: text,
+        type: INPUT,
+        userId,
+      });
+    }
+  };
+
+  renderButton() {
+    const { t, offline, classes } = this.props;
+
+    // button is only visible offline
+    if (!offline) {
+      return null;
+    }
+    return (
+      <div align="right" className={classes.button}>
+        <Button
+          variant="contained"
+          color="primary"
+          onClick={this.handleClickSaveText}
+        >
+          {t('Save')}
+        </Button>
+      </div>
+    );
+  }
 
   render() {
     const { t, classes, ready } = this.props;
@@ -177,6 +245,7 @@ class StudentView extends Component {
               fullWidth
             />
           </form>
+          {this.renderButton()}
         </Grid>
       </Grid>
     );
@@ -184,7 +253,7 @@ class StudentView extends Component {
 }
 
 const mapStateToProps = ({ context, appInstanceResources }) => {
-  const { userId } = context;
+  const { userId, offline } = context;
   const inputResource = appInstanceResources.content.find(({ user, type }) => {
     return user === userId && type === INPUT;
   });
@@ -196,7 +265,8 @@ const mapStateToProps = ({ context, appInstanceResources }) => {
 
   return {
     userId,
-    inputResourceId: inputResource && inputResource._id,
+    offline,
+    inputResourceId: inputResource && (inputResource.id || inputResource._id),
     activity: Boolean(appInstanceResources.activity.length),
     ready: appInstanceResources.ready,
     text: inputResource && inputResource.data,

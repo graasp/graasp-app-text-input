@@ -21,7 +21,7 @@ const Loader = ({ classes }) => (
 );
 
 Loader.propTypes = {
-  classes: PropTypes.shape({ root: PropTypes.object }).isRequired,
+  classes: PropTypes.shape({ root: PropTypes.string }).isRequired,
 };
 
 const StyledComponent = withStyles(styles)(Loader);

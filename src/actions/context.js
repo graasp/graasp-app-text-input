@@ -4,7 +4,7 @@ import {
   GET_CONTEXT_FAILED,
   GET_CONTEXT_SUCCEEDED,
 } from '../types';
-import { flag } from './common';
+import { flag, receiveMessage } from './common';
 import { DEFAULT_API_HOST, DEFAULT_MODE } from '../config/settings';
 import { DEFAULT_VIEW } from '../config/views';
 
@@ -28,6 +28,7 @@ const getContext = () => dispatch => {
       subSpaceId = null,
       userId = null,
       sessionId = null,
+      offline = false,
     } = Qs.parse(window.location.search, { ignoreQueryPrefix: true });
     const context = {
       mode,
@@ -39,7 +40,14 @@ const getContext = () => dispatch => {
       sessionId,
       spaceId,
       subSpaceId,
+      offline,
     };
+
+    // if offline, we need to set up the listeners here
+    if (offline) {
+      window.addEventListener('message', receiveMessage(dispatch));
+    }
+
     dispatch({
       type: GET_CONTEXT_SUCCEEDED,
       payload: context,

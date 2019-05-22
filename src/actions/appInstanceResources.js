@@ -18,8 +18,12 @@ import {
   FLAG_DELETING_APP_INSTANCE_RESOURCE,
   DELETE_APP_INSTANCE_RESOURCE_FAILED,
   DELETE_APP_INSTANCE_RESOURCE_SUCCEEDED,
+  GET_APP_INSTANCE_RESOURCES,
+  POST_APP_INSTANCE_RESOURCE,
+  PATCH_APP_INSTANCE_RESOURCE,
+  DELETE_APP_INSTANCE_RESOURCE,
 } from '../types';
-import { flag, getApiContext, isErrorResponse } from './common';
+import { flag, getApiContext, isErrorResponse, postMessage } from './common';
 import { showErrorToast } from '../utils/toasts';
 import { MISSING_APP_INSTANCE_RESOURCE_ID_MESSAGE } from '../constants/messages';
 import { APP_INSTANCE_RESOURCE_FORMAT } from '../config/formats';
@@ -42,7 +46,26 @@ const getAppInstanceResources = async ({
 } = {}) => async (dispatch, getState) => {
   dispatch(flagGettingAppInstanceResources(true));
   try {
-    const { appInstanceId, apiHost } = getApiContext(getState);
+    const {
+      appInstanceId,
+      apiHost,
+      offline,
+      spaceId,
+      subSpaceId,
+    } = getApiContext(getState);
+
+    // if offline send message to parent requesting resources
+    if (offline) {
+      return postMessage({
+        type: GET_APP_INSTANCE_RESOURCES,
+        payload: {
+          type,
+          spaceId,
+          subSpaceId,
+          appInstanceId,
+        },
+      });
+    }
 
     let url = `//${apiHost +
       APP_INSTANCE_RESOURCES_ENDPOINT}?appInstanceId=${appInstanceId}`;
@@ -84,7 +107,29 @@ const postAppInstanceResource = async ({ data, userId, type } = {}) => async (
 ) => {
   dispatch(flagPostingAppInstanceResource(true));
   try {
-    const { appInstanceId, apiHost } = await getApiContext(getState);
+    const {
+      appInstanceId,
+      apiHost,
+      offline,
+      spaceId,
+      subSpaceId,
+    } = await getApiContext(getState);
+
+    // if offline send message to parent requesting to create a resource
+    if (offline) {
+      return postMessage({
+        type: POST_APP_INSTANCE_RESOURCE,
+        payload: {
+          data,
+          type,
+          spaceId,
+          subSpaceId,
+          format: APP_INSTANCE_RESOURCE_FORMAT,
+          appInstanceId,
+          userId,
+        },
+      });
+    }
 
     const url = `//${apiHost + APP_INSTANCE_RESOURCES_ENDPOINT}`;
 
@@ -128,7 +173,27 @@ const patchAppInstanceResource = async ({ id, data } = {}) => async (
 ) => {
   dispatch(flagPatchingAppInstanceResource(true));
   try {
-    const { apiHost } = await getApiContext(getState);
+    const {
+      appInstanceId,
+      apiHost,
+      offline,
+      spaceId,
+      subSpaceId,
+    } = await getApiContext(getState);
+
+    // if offline send message to parent requesting to patch resource
+    if (offline) {
+      return postMessage({
+        type: PATCH_APP_INSTANCE_RESOURCE,
+        payload: {
+          data,
+          spaceId,
+          subSpaceId,
+          appInstanceId,
+          id,
+        },
+      });
+    }
 
     if (!id) {
       return showErrorToast(MISSING_APP_INSTANCE_RESOURCE_ID_MESSAGE);
@@ -167,7 +232,15 @@ const patchAppInstanceResource = async ({ id, data } = {}) => async (
 const deleteAppInstanceResource = async id => async (dispatch, getState) => {
   dispatch(flagDeletingAppInstanceResource(true));
   try {
-    const { apiHost } = await getApiContext(getState);
+    const { apiHost, offline } = await getApiContext(getState);
+
+    console.log(offline); // todo
+    // if offline send message to parent requesting to delete a resource
+    if (offline) {
+      return postMessage({
+        type: DELETE_APP_INSTANCE_RESOURCE,
+      });
+    }
 
     if (!id) {
       return showErrorToast(MISSING_APP_INSTANCE_RESOURCE_ID_MESSAGE);
