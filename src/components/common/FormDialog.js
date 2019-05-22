@@ -31,6 +31,15 @@ class FormDialog extends Component {
     initialInput: '',
   };
 
+  componentDidMount() {
+    const { initialInput } = this.props;
+    if (initialInput !== '') {
+      this.setState({
+        input: initialInput,
+      });
+    }
+  }
+
   componentDidUpdate(prevProps, prevState) {
     const { initialInput } = this.props;
     const { initialInput: prevInitialInput } = prevProps;
