@@ -16,6 +16,7 @@ import {
 } from '../../../actions';
 import { FEEDBACK } from '../../../config/appInstanceResourceTypes';
 import FormDialog from '../../common/FormDialog';
+import { showErrorToast } from '../../../utils/toasts';
 
 class Response extends Component {
   state = {
@@ -77,11 +78,20 @@ class Response extends Component {
       dispatchPostAppInstanceResource,
       dispatchPatchAppInstanceResource,
     } = this.props;
+
+    const { id } = student;
+
+    if (!id) {
+      showErrorToast(
+        'Currently we do not support giving feedback to anonymous users.'
+      );
+    }
+
     // if no feedback resource yet, create it, otherwise, update it
     if (_.isEmpty(feedbackResource)) {
       dispatchPostAppInstanceResource({
         data: feedback,
-        userId: student.id,
+        userId: id,
         type: FEEDBACK,
       });
     } else {

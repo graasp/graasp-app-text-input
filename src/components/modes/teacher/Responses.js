@@ -63,9 +63,14 @@ class Responses extends Component {
       );
     }
 
+    const anonymousUser = {
+      name: t('Anonymous'),
+    };
+
     // map each app instance resource to a row in the table
     return appInstanceResources.map(({ _id, user, data }) => {
-      const studentObject = students.find(student => student.id === user) || {};
+      const studentObject =
+        students.find(student => student.id === user) || anonymousUser;
       return (
         <Response _id={_id} key={_id} student={studentObject} data={data} />
       );
