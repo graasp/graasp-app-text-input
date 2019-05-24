@@ -14,6 +14,7 @@ const DEFAULT_SETTINGS = {
 
 const INITIAL_STATE = {
   settings: DEFAULT_SETTINGS,
+  ready: false,
 };
 
 export default (state = INITIAL_STATE, { payload, type }) => {
@@ -25,9 +26,15 @@ export default (state = INITIAL_STATE, { payload, type }) => {
         return {
           ...payload,
           settings: DEFAULT_SETTINGS,
+          // mark instance as ready
+          ready: true,
         };
       }
-      return payload;
+      return {
+        ...payload,
+        // mark instance as ready
+        ready: true,
+      };
 
     case PATCH_APP_INSTANCE_FAILED:
     case GET_APP_INSTANCE_FAILED:

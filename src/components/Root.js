@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { I18nextProvider } from 'react-i18next';
-import { connect } from 'react-redux';
 import {
   MuiThemeProvider,
   createMuiTheme,
@@ -12,7 +11,6 @@ import pink from '@material-ui/core/colors/pink';
 import grey from '@material-ui/core/colors/grey';
 import orange from '@material-ui/core/colors/orange';
 import 'react-toastify/dist/ReactToastify.css';
-import Header from './layout/Header';
 import i18nConfig from '../config/i18n';
 import App from './App';
 
@@ -45,11 +43,10 @@ const theme = createMuiTheme({
   },
 });
 
-const Root = ({ headerVisible, classes }) => (
+const Root = ({ classes }) => (
   <div className={classes.root}>
     <MuiThemeProvider theme={theme}>
       <I18nextProvider i18n={i18nConfig}>
-        {headerVisible ? <Header /> : null}
         <App />
         <ToastContainer />
       </I18nextProvider>
@@ -61,14 +58,8 @@ Root.propTypes = {
   classes: PropTypes.shape({
     root: PropTypes.string,
   }).isRequired,
-  headerVisible: PropTypes.bool.isRequired,
 };
-
-const mapStateToProps = ({ appInstance }) => ({
-  // by default this is true, but you can change that in the reducer
-  headerVisible: appInstance.settings.headerVisible,
-});
 
 const StyledComponent = withStyles(styles)(Root);
 
-export default connect(mapStateToProps)(StyledComponent);
+export default StyledComponent;

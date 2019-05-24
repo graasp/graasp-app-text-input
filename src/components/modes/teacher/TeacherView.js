@@ -4,31 +4,30 @@ import { withStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import { withTranslation } from 'react-i18next';
 import PropTypes from 'prop-types';
+import Fab from '@material-ui/core/Fab';
+import SettingsIcon from '@material-ui/icons/Settings';
 import './TeacherView.css';
 import {
   patchAppInstanceResource,
   postAppInstanceResource,
   deleteAppInstanceResource,
+  getUsers,
+  openSettings,
 } from '../../../actions';
-import { getUsers } from '../../../actions/users';
 import Responses from './Responses';
 import { INPUT } from '../../../config/appInstanceResourceTypes';
-
-/**
- * helper method to render the rows of the app instance resource table
- * @param appInstanceResources
- * @param dispatchPatchAppInstanceResource
- * @param dispatchDeleteAppInstanceResource
- * @returns {*}
- */
+import Settings from './Settings';
 
 export class TeacherView extends Component {
   static propTypes = {
     classes: PropTypes.shape({
       root: PropTypes.string,
       main: PropTypes.string,
+      fab: PropTypes.string,
     }).isRequired,
+    t: PropTypes.func.isRequired,
     dispatchGetUsers: PropTypes.func.isRequired,
+    dispatchOpenSettings: PropTypes.func.isRequired,
     // inside the shape method you should put the shape
     // that the resources your app uses will have
     appInstanceResources: PropTypes.arrayOf(
@@ -59,6 +58,12 @@ export class TeacherView extends Component {
       padding: theme.spacing.unit,
       overflowX: 'hidden',
     },
+    fab: {
+      margin: theme.spacing.unit,
+      position: 'fixed',
+      bottom: theme.spacing.unit * 2,
+      right: theme.spacing.unit * 2,
+    },
   });
 
   constructor(props) {
@@ -70,8 +75,10 @@ export class TeacherView extends Component {
   render() {
     // extract properties from the props object
     const {
+      t,
       students,
       appInstanceResources,
+      dispatchOpenSettings,
       // this property allows us to do styling and is injected by withStyles
       classes,
     } = this.props;
@@ -87,6 +94,15 @@ export class TeacherView extends Component {
             />
           </Grid>
         </Grid>
+        <Settings />
+        <Fab
+          color="primary"
+          aria-label={t('Settings')}
+          className={classes.fab}
+          onClick={dispatchOpenSettings}
+        >
+          <SettingsIcon />
+        </Fab>
       </div>
     );
   }
@@ -109,6 +125,7 @@ const mapDispatchToProps = {
   dispatchPostAppInstanceResource: postAppInstanceResource,
   dispatchPatchAppInstanceResource: patchAppInstanceResource,
   dispatchDeleteAppInstanceResource: deleteAppInstanceResource,
+  dispatchOpenSettings: openSettings,
 };
 
 const ConnectedComponent = connect(
