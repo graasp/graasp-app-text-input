@@ -25,6 +25,7 @@ import { INPUT } from '../../../config/appInstanceResourceTypes';
 export class TeacherView extends Component {
   static propTypes = {
     classes: PropTypes.shape({
+      root: PropTypes.string,
       main: PropTypes.string,
     }).isRequired,
     dispatchGetUsers: PropTypes.func.isRequired,
@@ -51,23 +52,12 @@ export class TeacherView extends Component {
     root: {
       width: '100%',
       marginTop: theme.spacing.unit * 3,
-      overflowX: 'auto',
     },
     main: {
       textAlign: 'center',
       margin: theme.spacing.unit,
-    },
-    button: {
-      marginTop: theme.spacing.unit * 3,
-    },
-    table: {
-      minWidth: 700,
-    },
-    message: {
       padding: theme.spacing.unit,
-      backgroundColor: theme.status.danger.background[500],
-      color: theme.status.danger.color,
-      marginBottom: theme.spacing.unit * 2,
+      overflowX: 'hidden',
     },
   });
 
@@ -86,16 +76,18 @@ export class TeacherView extends Component {
       classes,
     } = this.props;
     return (
-      <Grid container spacing={0}>
-        <Grid item xs={12} className={classes.main}>
-          <Responses
-            students={students}
-            appInstanceResources={appInstanceResources.filter(
-              resource => resource.type === INPUT
-            )}
-          />
+      <div>
+        <Grid container spacing={0} className={classes.root}>
+          <Grid item xs={12} className={classes.main}>
+            <Responses
+              students={students}
+              appInstanceResources={appInstanceResources.filter(
+                resource => resource.type === INPUT
+              )}
+            />
+          </Grid>
         </Grid>
-      </Grid>
+      </div>
     );
   }
 }
