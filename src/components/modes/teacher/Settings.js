@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
@@ -8,6 +8,7 @@ import { connect } from 'react-redux';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import { withTranslation } from 'react-i18next';
 import { closeSettings, patchAppInstance } from '../../../actions';
+import Loader from '../../common/Loader';
 
 function getModalStyle() {
   const top = 50;
@@ -37,6 +38,7 @@ class Settings extends Component {
   static propTypes = {
     classes: PropTypes.shape({}).isRequired,
     open: PropTypes.bool.isRequired,
+    activity: PropTypes.bool.isRequired,
     settings: PropTypes.shape({
       headerVisible: PropTypes.bool.isRequired,
       lang: PropTypes.string.isRequired,
@@ -75,10 +77,13 @@ class Settings extends Component {
     dispatchCloseSettings();
   };
 
-  render() {
-    const { t, classes, open, settings } = this.props;
-
+  renderModalContent() {
+    const { t, settings, activity } = this.props;
     const { headerVisible } = settings;
+
+    if (activity) {
+      return <Loader />;
+    }
 
     const switchControl = (
       <Switch
@@ -88,6 +93,19 @@ class Settings extends Component {
         value="headerVisibility"
       />
     );
+
+    return (
+      <Fragment>
+        <FormControlLabel
+          control={switchControl}
+          label={t('Show Header to Students')}
+        />
+      </Fragment>
+    );
+  }
+
+  render() {
+    const { open, classes, t } = this.props;
 
     return (
       <div>
@@ -101,10 +119,7 @@ class Settings extends Component {
             <Typography variant="h5" id="modal-title">
               {t('Settings')}
             </Typography>
-            <FormControlLabel
-              control={switchControl}
-              label={t('Show Header to Students')}
-            />
+            {this.renderModalContent()}
           </div>
         </Modal>
       </div>
@@ -117,8 +132,9 @@ const mapStateToProps = ({ layout, appInstance }) => {
     open: layout.settings.open,
     settings: {
       // by default this is true
-      headerVisible: appInstance.settings.headerVisible,
+      headerVisible: appInstance.content.settings.headerVisible,
     },
+    activity: appInstance.activity.length,
   };
 };
 

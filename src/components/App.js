@@ -100,7 +100,7 @@ export class App extends Component {
 }
 
 const mapStateToProps = ({ context, appInstance }) => ({
-  headerVisible: appInstance.settings.headerVisible,
+  headerVisible: appInstance.content.settings.headerVisible,
   lang: context.lang,
   mode: context.mode,
   view: context.view,
