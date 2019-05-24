@@ -8,6 +8,7 @@ import EditIcon from '@material-ui/icons/Edit';
 import { connect } from 'react-redux';
 import { withTranslation } from 'react-i18next';
 import PropTypes from 'prop-types';
+import CircularProgress from '@material-ui/core/CircularProgress';
 import ConfirmDialog from '../../common/ConfirmDialog';
 import {
   deleteAppInstanceResource,
@@ -26,6 +27,7 @@ class Response extends Component {
 
   static propTypes = {
     t: PropTypes.func.isRequired,
+    activity: PropTypes.bool.isRequired,
     dispatchDeleteAppInstanceResource: PropTypes.func.isRequired,
     dispatchPostAppInstanceResource: PropTypes.func.isRequired,
     dispatchPatchAppInstanceResource: PropTypes.func.isRequired,
@@ -132,13 +134,13 @@ class Response extends Component {
   }
 
   render() {
-    const { t, _id, data, student } = this.props;
+    const { t, _id, data, student, activity } = this.props;
 
     const { confirmDialogOpen } = this.state;
 
     return (
       <TableRow key={_id}>
-        <TableCell>{student.name}</TableCell>
+        <TableCell>{activity ? <CircularProgress /> : student.name}</TableCell>
         <TableCell>{data}</TableCell>
         <TableCell>{this.renderFeedbackCell()}</TableCell>
         <TableCell>
@@ -165,7 +167,7 @@ class Response extends Component {
   }
 }
 
-const mapStateToProps = ({ appInstanceResources }, ownProps) => {
+const mapStateToProps = ({ appInstanceResources, users }, ownProps) => {
   const {
     student: { id },
   } = ownProps;
@@ -176,6 +178,7 @@ const mapStateToProps = ({ appInstanceResources }, ownProps) => {
   );
   return {
     feedbackResource,
+    activity: users.activity.length,
   };
 };
 
