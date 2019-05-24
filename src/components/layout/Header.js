@@ -8,17 +8,25 @@ import { withStyles } from '@material-ui/core/styles';
 import CloudIcon from '@material-ui/icons/Cloud';
 import { IconButton } from '@material-ui/core';
 import TableIcon from '@material-ui/icons/TableChart';
+import RefreshIcon from '@material-ui/icons/Refresh';
 import { withTranslation } from 'react-i18next';
 import { ReactComponent as Logo } from '../../resources/logo.svg';
 import { DEFAULT_MODE, TEACHER_MODES } from '../../config/settings';
 import { DEFAULT_VIEW, DASHBOARD_VIEW } from '../../config/views';
 import './Header.css';
 import { addQueryParamsToUrl } from '../../utils/url';
+import { getAppInstanceResources, getUsers } from '../../actions';
 
 class Header extends Component {
   static propTypes = {
     t: PropTypes.func.isRequired,
-    classes: PropTypes.shape({}).isRequired,
+    dispatchGetAppInstanceResources: PropTypes.func.isRequired,
+    dispatchGetUsers: PropTypes.func.isRequired,
+    classes: PropTypes.shape({
+      root: PropTypes.string,
+      grow: PropTypes.string,
+      logo: PropTypes.string,
+    }).isRequired,
     mode: PropTypes.string,
     view: PropTypes.string,
   };
@@ -39,6 +47,12 @@ class Header extends Component {
   static defaultProps = {
     mode: DEFAULT_MODE,
     view: DEFAULT_VIEW,
+  };
+
+  handleRefresh = () => {
+    const { dispatchGetAppInstanceResources, dispatchGetUsers } = this.props;
+    dispatchGetAppInstanceResources();
+    dispatchGetUsers();
   };
 
   renderViewButtons() {
@@ -75,6 +89,9 @@ class Header extends Component {
               {t('Input')}
             </Typography>
             {this.renderViewButtons()}
+            <IconButton>
+              <RefreshIcon nativeColor="#fff" onClick={this.handleRefresh} />
+            </IconButton>
           </Toolbar>
         </AppBar>
       </header>
@@ -89,7 +106,15 @@ const mapStateToProps = ({ context }) => ({
   view: context.view,
 });
 
-const ConnectedComponent = connect(mapStateToProps)(Header);
+const mapDispatchToProps = {
+  dispatchGetAppInstanceResources: getAppInstanceResources,
+  dispatchGetUsers: getUsers,
+};
+
+const ConnectedComponent = connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Header);
 const TranslatedComponent = withTranslation()(ConnectedComponent);
 
 export default withStyles(Header.styles)(TranslatedComponent);
