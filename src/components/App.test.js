@@ -9,6 +9,8 @@ describe('<App />', () => {
       changeLanguage: jest.fn(),
     },
     t: jest.fn(),
+    headerVisible: true,
+    ready: false,
     dispatchGetContext: jest.fn(),
     dispatchGetAppInstance: jest.fn(),
     dispatchGetAppInstanceResources: jest.fn(),
