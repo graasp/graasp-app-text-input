@@ -73,6 +73,7 @@ const receiveMessage = dispatch => event => {
     const message = JSON.parse(data);
 
     const { type, payload } = message;
+
     switch (type) {
       case GET_APP_INSTANCE_RESOURCES_SUCCEEDED:
       case GET_APP_INSTANCE_SUCCEEDED:

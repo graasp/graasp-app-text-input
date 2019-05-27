@@ -57,23 +57,34 @@ class Header extends Component {
 
   renderViewButtons() {
     const { mode, view } = this.props;
+
     if (TEACHER_MODES.includes(mode)) {
+      const buttons = [
+        <IconButton onClick={this.handleRefresh} key="refresh">
+          <RefreshIcon nativeColor="#fff" />
+        </IconButton>,
+      ];
+
       if (view === DEFAULT_VIEW) {
-        return (
+        buttons.push(
           <IconButton
+            key="dashboard"
             href={`index.html${addQueryParamsToUrl({ view: DASHBOARD_VIEW })}`}
           >
             <CloudIcon nativeColor="#fff" />
           </IconButton>
         );
+      } else {
+        buttons.push(
+          <IconButton
+            key="table"
+            href={`index.html${addQueryParamsToUrl({ view: DEFAULT_VIEW })}`}
+          >
+            <TableIcon nativeColor="#fff" />
+          </IconButton>
+        );
       }
-      return (
-        <IconButton
-          href={`index.html${addQueryParamsToUrl({ view: DEFAULT_VIEW })}`}
-        >
-          <TableIcon nativeColor="#fff" />
-        </IconButton>
-      );
+      return buttons;
     }
     return null;
   }
@@ -89,9 +100,6 @@ class Header extends Component {
               {t('Input')}
             </Typography>
             {this.renderViewButtons()}
-            <IconButton>
-              <RefreshIcon nativeColor="#fff" onClick={this.handleRefresh} />
-            </IconButton>
           </Toolbar>
         </AppBar>
       </header>

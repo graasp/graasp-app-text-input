@@ -229,7 +229,7 @@ class StudentView extends Component {
             <TextField
               autoFocus
               inputProps={{
-                maxlength: MAX_INPUT_LENGTH,
+                maxLength: MAX_INPUT_LENGTH,
               }}
               key="inputTextField"
               id="inputTextField"

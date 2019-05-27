@@ -28,8 +28,11 @@ const getContext = () => dispatch => {
       subSpaceId = null,
       userId = null,
       sessionId = null,
-      offline = false,
+      offline = 'false',
     } = Qs.parse(window.location.search, { ignoreQueryPrefix: true });
+
+    const offlineBool = offline === 'true';
+
     const context = {
       mode,
       view,
@@ -40,11 +43,11 @@ const getContext = () => dispatch => {
       sessionId,
       spaceId,
       subSpaceId,
-      offline,
+      offline: offlineBool,
     };
 
     // if offline, we need to set up the listeners here
-    if (offline) {
+    if (offlineBool) {
       window.addEventListener('message', receiveMessage(dispatch));
     }
 

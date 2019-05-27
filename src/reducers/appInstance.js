@@ -37,8 +37,8 @@ export default (state = INITIAL_STATE, { payload, type }) => {
 
     case GET_APP_INSTANCE_SUCCEEDED:
     case PATCH_APP_INSTANCE_SUCCEEDED:
-      // back to defaults if settings are empty
-      if (!payload.settings || _.isEmpty(payload.settings)) {
+      // back to defaults if payload is null or settings are empty
+      if (!payload || !payload.settings || _.isEmpty(payload.settings)) {
         return {
           ...state,
           content: {

@@ -21,13 +21,23 @@ const flagPatchingAppInstance = flag(FLAG_PATCHING_APP_INSTANCE);
 const getAppInstance = async () => async (dispatch, getState) => {
   dispatch(flagGettingAppInstance(true));
   try {
-    const { appInstanceId, apiHost, offline } = getApiContext(getState);
+    const {
+      appInstanceId,
+      apiHost,
+      offline,
+      spaceId,
+      subSpaceId,
+    } = getApiContext(getState);
 
-    console.log(offline); // todo
     // if offline send message to parent requesting resources
     if (offline) {
       return postMessage({
         type: GET_APP_INSTANCE,
+        payload: {
+          id: appInstanceId,
+          spaceId,
+          subSpaceId,
+        },
       });
     }
 
@@ -63,7 +73,6 @@ const patchAppInstance = async ({ data } = {}) => async (
   try {
     const { appInstanceId, apiHost, offline } = getApiContext(getState);
 
-    console.log(offline); // todo
     // if offline send message to parent requesting resources
     if (offline) {
       return postMessage({
