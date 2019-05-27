@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.1.1](https://github.com/graasp/graasp-app-input/compare/v0.1.0...v0.1.1) (2019-05-27)
+
+### Bug Fixes
+
+- fix warnings shown in console ([c81f25b](https://github.com/graasp/graasp-app-input/commit/c81f25b)), closes [#18](https://github.com/graasp/graasp-app-input/issues/18)
+
 ## 0.1.0 (2019-05-24)
 
 ### Bug Fixes
