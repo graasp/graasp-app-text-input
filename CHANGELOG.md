@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.1.3](https://github.com/graasp/graasp-app-input/compare/v0.1.1...v0.1.3) (2019-08-08)
+
+### Bug Fixes
+
+- set min-height to 200px ([5aac995](https://github.com/graasp/graasp-app-input/commit/5aac995)), closes [#22](https://github.com/graasp/graasp-app-input/issues/22)
+- set minimum height to 200px when embedded ([e561c0a](https://github.com/graasp/graasp-app-input/commit/e561c0a)), closes [#21](https://github.com/graasp/graasp-app-input/issues/21)
+
 ### [0.1.2](https://github.com/graasp/graasp-app-input/compare/v0.1.1...v0.1.2) (2019-07-22)
 
 ### Bug Fixes
