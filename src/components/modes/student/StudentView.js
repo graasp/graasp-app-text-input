@@ -65,6 +65,7 @@ class StudentView extends Component {
     inputResourceId: PropTypes.string,
     ready: PropTypes.bool,
     offline: PropTypes.bool,
+    standalone: PropTypes.bool.isRequired,
     activity: PropTypes.bool,
     text: PropTypes.string,
   };
@@ -211,14 +212,14 @@ class StudentView extends Component {
   }
 
   render() {
-    const { t, classes, ready } = this.props;
+    const { t, classes, ready, standalone } = this.props;
     const { text } = this.state;
     let { feedback } = this.props;
     if (feedback && feedback !== '') {
       feedback = `${t('Feedback')}: ${feedback}`;
     }
 
-    if (!ready) {
+    if (!standalone && !ready) {
       return <Loader />;
     }
 
@@ -253,7 +254,7 @@ class StudentView extends Component {
 }
 
 const mapStateToProps = ({ context, appInstanceResources }) => {
-  const { userId, offline } = context;
+  const { userId, offline, standalone } = context;
   const inputResource = appInstanceResources.content.find(({ user, type }) => {
     return user === userId && type === INPUT;
   });
@@ -266,6 +267,7 @@ const mapStateToProps = ({ context, appInstanceResources }) => {
   return {
     userId,
     offline,
+    standalone,
     inputResourceId: inputResource && (inputResource.id || inputResource._id),
     activity: Boolean(appInstanceResources.activity.length),
     ready: appInstanceResources.ready,

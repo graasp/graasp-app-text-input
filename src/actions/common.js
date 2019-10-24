@@ -41,7 +41,17 @@ const getApiContext = getState => {
     userId,
     offline,
     subSpaceId,
+    sessionId,
+    dev,
+    standalone,
   } = context;
+
+  if (standalone) {
+    return {
+      dev,
+      standalone,
+    };
+  }
 
   // these bits of context are needed when running online
   if (!offline) {
@@ -55,7 +65,16 @@ const getApiContext = getState => {
       throw Error(MISSING_SPACE_ID_MESSAGE);
     }
   }
-  return { apiHost, appInstanceId, spaceId, userId, offline, subSpaceId };
+  return {
+    apiHost,
+    appInstanceId,
+    spaceId,
+    userId,
+    offline,
+    subSpaceId,
+    sessionId,
+    dev,
+  };
 };
 
 const postMessage = data => {
