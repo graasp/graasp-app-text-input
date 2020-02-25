@@ -11,10 +11,12 @@ import {
   getAppInstanceResources,
   patchAppInstanceResource,
   postAppInstanceResource,
+  postAction,
 } from '../../../actions';
 import { FEEDBACK, INPUT } from '../../../config/appInstanceResourceTypes';
 import Loader from '../../common/Loader';
 import { MAX_INPUT_LENGTH, MAX_ROWS } from '../../../config/settings';
+import { SAVED } from '../../../config/verbs';
 
 const styles = theme => ({
   main: {
@@ -53,6 +55,7 @@ class StudentView extends Component {
     dispatchPostAppInstanceResource: PropTypes.func.isRequired,
     dispatchPatchAppInstanceResource: PropTypes.func.isRequired,
     dispatchGetAppInstanceResources: PropTypes.func.isRequired,
+    dispatchPostAction: PropTypes.func.isRequired,
     classes: PropTypes.shape({
       main: PropTypes.string,
       container: PropTypes.string,
@@ -172,6 +175,7 @@ class StudentView extends Component {
     const {
       dispatchPatchAppInstanceResource,
       dispatchPostAppInstanceResource,
+      dispatchPostAction,
       inputResourceId,
       userId,
     } = this.props;
@@ -189,6 +193,13 @@ class StudentView extends Component {
         userId,
       });
     }
+    dispatchPostAction({
+      verb: SAVED,
+      data: {
+        data: text,
+        id: inputResourceId,
+      },
+    });
   };
 
   renderButton() {
@@ -280,6 +291,7 @@ const mapDispatchToProps = {
   dispatchGetAppInstanceResources: getAppInstanceResources,
   dispatchPostAppInstanceResource: postAppInstanceResource,
   dispatchPatchAppInstanceResource: patchAppInstanceResource,
+  dispatchPostAction: postAction,
 };
 
 const StyledComponent = withStyles(styles)(StudentView);
