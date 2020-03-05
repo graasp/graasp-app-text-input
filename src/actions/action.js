@@ -43,7 +43,7 @@ const postAction = async ({
           spaceId,
           subSpaceId,
           format: ACTION_FORMAT,
-          id: appInstanceId,
+          appInstanceId,
           userId,
           visibility,
         },
