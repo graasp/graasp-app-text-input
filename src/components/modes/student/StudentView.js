@@ -259,7 +259,7 @@ class StudentView extends Component {
         <Grid item xs={12} className={classes.main}>
           <form className={classes.container} noValidate autoComplete="off">
             <TextField
-              autoFocus
+              autoFocus={standalone}
               inputProps={{
                 maxLength: MAX_INPUT_LENGTH,
               }}
