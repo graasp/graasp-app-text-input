@@ -7,6 +7,7 @@ import Grid from '@material-ui/core/Grid';
 import TextField from '@material-ui/core/TextField';
 import { connect } from 'react-redux';
 import Button from '@material-ui/core/Button';
+import Tooltip from '@material-ui/core/Tooltip';
 import {
   getAppInstanceResources,
   patchAppInstanceResource,
@@ -202,22 +203,41 @@ class StudentView extends Component {
     });
   };
 
+  addTooltipToButton = (button, disabled) => {
+    return (
+      <Tooltip title="Input data is already saved">
+        <span>{React.cloneElement(button, { disabled })}</span>
+      </Tooltip>
+    );
+  };
+
   renderButton() {
-    const { t, offline, classes } = this.props;
+    const { t, offline, classes, text: propsText } = this.props;
+    const { text: stateText } = this.state;
+
+    // if text is different, we enable save button
+    const textIsDifferent = stateText === propsText;
 
     // button is only visible offline
     if (!offline) {
       return null;
     }
+
+    const saveButton = (
+      <Button
+        variant="contained"
+        color="primary"
+        onClick={this.handleClickSaveText}
+      >
+        {t('Save')}
+      </Button>
+    );
+
     return (
       <div align="right" className={classes.button}>
-        <Button
-          variant="contained"
-          color="primary"
-          onClick={this.handleClickSaveText}
-        >
-          {t('Save')}
-        </Button>
+        {textIsDifferent
+          ? this.addTooltipToButton(saveButton, textIsDifferent)
+          : saveButton}
       </div>
     );
   }
