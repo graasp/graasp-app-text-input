@@ -203,10 +203,10 @@ class StudentView extends Component {
     });
   };
 
-  addTooltipToButton = (button, disabled) => {
+  withTooltip = (elem, disabled) => {
     return (
-      <Tooltip title="Input data is already saved">
-        <span>{React.cloneElement(button, { disabled })}</span>
+      <Tooltip title="All changes saved.">
+        <span>{React.cloneElement(elem, { disabled })}</span>
       </Tooltip>
     );
   };
@@ -236,7 +236,7 @@ class StudentView extends Component {
     return (
       <div align="right" className={classes.button}>
         {textIsDifferent
-          ? this.addTooltipToButton(saveButton, textIsDifferent)
+          ? this.withTooltip(saveButton, textIsDifferent)
           : saveButton}
       </div>
     );
