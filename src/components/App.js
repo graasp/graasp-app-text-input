@@ -92,7 +92,7 @@ export class App extends Component {
       default:
         return (
           <Fragment>
-            {headerVisible ? <Header /> : null}
+            {headerVisible || standalone ? <Header /> : null}
             <StudentView />
           </Fragment>
         );
