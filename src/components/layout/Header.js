@@ -16,6 +16,7 @@ import { DEFAULT_VIEW, DASHBOARD_VIEW } from '../../config/views';
 import './Header.css';
 import { addQueryParamsToUrl } from '../../utils/url';
 import { getAppInstanceResources, getUsers } from '../../actions';
+import DownloadCsvButton from '../modes/teacher/DownloadCsvButton';
 
 class Header extends Component {
   static propTypes = {
@@ -63,6 +64,7 @@ class Header extends Component {
         <IconButton onClick={this.handleRefresh} key="refresh">
           <RefreshIcon nativeColor="#fff" />
         </IconButton>,
+        <DownloadCsvButton />,
       ];
 
       if (view === DEFAULT_VIEW) {
