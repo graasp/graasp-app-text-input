@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [0.3.0](https://github.com/graasp/graasp-app-input/compare/v0.2.0...v0.3.0) (2020-03-11)
+
+### Features
+
+- import students' data as csv, add prettier:write/check scripts ([77c9dc0](https://github.com/graasp/graasp-app-input/commit/77c9dc0)), closes [#29](https://github.com/graasp/graasp-app-input/issues/29)
+- send action traces when offline ([bc9738c](https://github.com/graasp/graasp-app-input/commit/bc9738c))
+
 ## [0.2.0](https://github.com/graasp/graasp-app-input/compare/v0.1.3...v0.2.0) (2019-10-26)
 
 ### Features
