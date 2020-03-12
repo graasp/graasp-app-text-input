@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import _ from 'lodash';
 import { CSVLink as CsvLink } from 'react-csv';
 import { IconButton } from '@material-ui/core';
+import { Parser } from 'json2csv';
 import { connect } from 'react-redux';
 import DownloadIcon from '@material-ui/icons/CloudDownload';
 import { withTranslation } from 'react-i18next';
@@ -13,21 +14,24 @@ const DownloadCsvButton = ({ appInstanceResources, users, t }) => {
     return null;
   }
 
-  const csvData = Object.entries(_.groupBy(appInstanceResources, 'user')).map(
-    ([user, elements]) => {
-      const userData = users.find(({ id }) => id === user);
-      const name = userData ? userData.name : t('Anonymous');
-      const { data: input } = elements.find(({ type }) => type === INPUT);
-      const entry = { name, input };
+  const formattedData = Object.entries(
+    _.groupBy(appInstanceResources, 'user')
+  ).map(([user, elements]) => {
+    const userData = users.find(({ id }) => id === user);
+    const name = userData ? userData.name : t('Anonymous');
+    const { data: input } = elements.find(({ type }) => type === INPUT);
+    const entry = { name, input };
 
-      // export feedback if any
-      const feedback = elements.find(({ type }) => type === FEEDBACK);
-      if (feedback) {
-        entry.feedback = feedback.data;
-      }
-      return entry;
+    // export feedback if any
+    const feedback = elements.find(({ type }) => type === FEEDBACK);
+    if (feedback) {
+      entry.feedback = feedback.data;
     }
-  );
+    return entry;
+  });
+
+  const json2csvParser = new Parser();
+  const csvData = json2csvParser.parse(formattedData);
 
   return (
     <CsvLink data={csvData} filename="data.csv">
