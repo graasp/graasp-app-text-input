@@ -61,7 +61,11 @@ class Header extends Component {
 
     if (TEACHER_MODES.includes(mode)) {
       const buttons = [
-        <IconButton onClick={this.handleRefresh} key="refresh">
+        <IconButton
+          data-cy="refresh"
+          onClick={this.handleRefresh}
+          key="refresh"
+        >
           <RefreshIcon nativeColor="#fff" />
         </IconButton>,
         <DownloadCsvButton />,
@@ -70,6 +74,7 @@ class Header extends Component {
       if (view === DEFAULT_VIEW) {
         buttons.push(
           <IconButton
+            data-cy="dashboardView"
             key="dashboard"
             href={`index.html${addQueryParamsToUrl({ view: DASHBOARD_VIEW })}`}
           >
@@ -79,6 +84,7 @@ class Header extends Component {
       } else {
         buttons.push(
           <IconButton
+            data-cy="defaultView"
             key="table"
             href={`index.html${addQueryParamsToUrl({ view: DEFAULT_VIEW })}`}
           >
@@ -97,8 +103,8 @@ class Header extends Component {
       <header>
         <AppBar position="static">
           <Toolbar>
-            <Logo className={classes.logo} />
-            <Typography variant="h6" color="inherit" className={classes.grow}>
+            <Logo data-cy="logo" className={classes.logo} />
+            <Typography data-cy="appTitle" variant="h6" color="inherit" className={classes.grow}>
               {t('Text Input')}
             </Typography>
             {this.renderViewButtons()}

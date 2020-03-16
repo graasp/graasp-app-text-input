@@ -87,6 +87,7 @@ class Settings extends Component {
 
     const switchControl = (
       <Switch
+        data-cy="headerVisibility"
         color="primary"
         checked={headerVisible}
         onChange={this.handleChangeHeaderVisibility}
@@ -110,6 +111,7 @@ class Settings extends Component {
     return (
       <div>
         <Modal
+          data-cy="settingsModal"
           aria-labelledby="simple-modal-title"
           aria-describedby="simple-modal-description"
           open={open}
