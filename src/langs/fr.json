@@ -1,7 +1,20 @@
 {
   "translations": {
-    "This is the student view. Switch to the teacher view by clicking on the URL below.": "Ceci est la vue des étudiants. Passez à la vue enseignant en cliquant sur l’URL ci-dessous.",
-    "This is the teacher view. Switch to the student view by clicking on the URL below.": "Ceci est la vue de l'enseignant. Passez à la vue des étudiants en cliquant sur l’URL ci-dessous.",
-    "Welcome to the Graasp App Starter Kit": "Bienvenue dans le kit de démarrage de l'application Graasp"
+    "Feedback": "Feedback",
+    "Currently we do not support giving feedback to anonymous users.": "Currently we do not support giving feedback to anonymous users.",
+    "By clicking 'Delete', you will be deleting the student's response. This action cannot be undone.": "By clicking 'Delete', you will be deleting the student's response. This action cannot be undone.",
+    "Text Input": "Text Input",
+    "Save": "Save",
+    "Type Here": "Type Here",
+    "Submit feedback that will be visible to the student.": "Submit feedback that will be visible to the student.",
+    "Delete Student Response": "Delete Student Response",
+    "Delete": "Delete",
+    "Cancel": "Cancel",
+    "No Responses": "No Responses",
+    "These are the responses submitted by the students.": "These are the responses submitted by the students.",
+    "Student": "Student",
+    "Input": "Input",
+    "Settings": "Paramètres",
+    "Show Header to Students": "Montrer l'en-tête aux étudiants."
   }
 }
