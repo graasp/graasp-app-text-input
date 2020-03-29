@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.3.4](https://github.com/graasp/graasp-app-text-input/compare/v0.3.3...v0.3.4) (2020-03-29)
+
+### Bug Fixes
+
+- fix bug with input type and csv export ([798e012](https://github.com/graasp/graasp-app-text-input/commit/798e012))
+- fix translation files ([5345f97](https://github.com/graasp/graasp-app-text-input/commit/5345f97))
+
 ### [0.3.3](https://github.com/graasp/graasp-app-text-input/compare/v0.3.2...v0.3.3) (2020-03-18)
 
 ### [0.3.2](https://github.com/graasp/graasp-app-input/compare/v0.3.1...v0.3.2) (2020-03-12)
