@@ -1,4 +1,5 @@
 import { TEACHER_MODE } from '../../src/config/settings';
+import { LOAD_DASHBOARD_PAUSE } from '../constants/constants';
 import {
   responsesTable,
   logo,
@@ -25,7 +26,7 @@ describe('<TeacherView />', () => {
   it('on dashboard view click, toolbar displays logo, title, refresh and default view button', () => {
     cy.get(dashboardButton).click();
 
-    cy.wait(2000);
+    cy.wait(LOAD_DASHBOARD_PAUSE);
 
     // visible elements
     cy.get(logo).should('be.visible');

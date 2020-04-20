@@ -4,6 +4,7 @@ import {
   settingsModal,
   headerVisibility,
 } from '../constants/selectors';
+import { OPEN_SETTINGS_PAUSE } from '../constants/constants';
 
 describe('<Settings />', () => {
   beforeEach(() => {
@@ -14,7 +15,7 @@ describe('<Settings />', () => {
     // open settings
     cy.get(settingsButton).click();
 
-    cy.wait(2000);
+    cy.wait(OPEN_SETTINGS_PAUSE);
 
     cy.get(settingsModal).should('be.visible');
     cy.get(headerVisibility)
@@ -34,7 +35,6 @@ describe('<Settings />', () => {
     cy.get('body').click('right');
 
     cy.onlineVisit();
-    cy.wait(2000);
 
     // header is disabled
     cy.get('header').should('not.exist');
@@ -45,7 +45,6 @@ describe('<Settings />', () => {
     cy.get(headerVisibility).click();
     cy.get('body').click('right');
     cy.onlineVisit();
-    cy.wait(2000);
 
     // header is disabled
     cy.get('header').should('be.visible');

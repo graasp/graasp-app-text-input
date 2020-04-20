@@ -1,5 +1,6 @@
 import { DEFAULT_MODE } from '../../src/config/settings';
 import { inputTextField } from '../constants/selectors';
+import { AUTO_SAVE_PAUSE, LOAD_PAGE_PAUSE } from '../constants/constants';
 
 // ***********************************************
 // This example commands.js shows you how to
@@ -21,6 +22,7 @@ Cypress.Commands.add('offlineVisit', (mode = DEFAULT_MODE) => {
       userId: '5b56e70ab253020033364416',
     },
   });
+  cy.wait(LOAD_PAGE_PAUSE);
 });
 Cypress.Commands.add('onlineVisit', (mode = DEFAULT_MODE) => {
   cy.visit('/', {
@@ -32,6 +34,7 @@ Cypress.Commands.add('onlineVisit', (mode = DEFAULT_MODE) => {
       dev: true,
     },
   });
+  cy.wait(LOAD_PAGE_PAUSE);
 });
 
 Cypress.Commands.add(
@@ -54,7 +57,7 @@ Cypress.Commands.add(
 
     // wait is necessary to let the data be sent to the api
     if (online) {
-      cy.wait(5000);
+      cy.wait(AUTO_SAVE_PAUSE);
     }
   }
 );

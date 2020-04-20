@@ -145,7 +145,7 @@ class Response extends Component {
         <TableCell>{this.renderFeedbackCell()}</TableCell>
         <TableCell>
           <IconButton
-            data-cv="deleteButton"
+            data-cy="deleteButton"
             color="primary"
             onClick={this.handleToggleConfirmDialog(true)}
           >
