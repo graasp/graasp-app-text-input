@@ -96,6 +96,7 @@ export class TeacherView extends Component {
         </Grid>
         <Settings />
         <Fab
+          data-cy="settingsButton"
           color="primary"
           aria-label={t('Settings')}
           className={classes.fab}

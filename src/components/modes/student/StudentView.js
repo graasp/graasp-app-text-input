@@ -225,6 +225,7 @@ class StudentView extends Component {
 
     const saveButton = (
       <Button
+        data-cy="save"
         variant="contained"
         color="primary"
         onClick={this.handleClickSaveText}
@@ -263,6 +264,7 @@ class StudentView extends Component {
               inputProps={{
                 maxLength: MAX_INPUT_LENGTH,
               }}
+              data-cy="input"
               key="inputTextField"
               id="inputTextField"
               label={t('Type Here')}

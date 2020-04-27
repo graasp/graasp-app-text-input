@@ -90,7 +90,7 @@ class Responses extends Component {
           {t('These are the responses submitted by the students.')}
         </Typography>
         <Paper className={classes.root}>
-          <Table className={classes.table}>
+          <Table data-cy="responses" className={classes.table}>
             <TableHead>
               <TableRow>
                 <TableCell>{t('Student')}</TableCell>
