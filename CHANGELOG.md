@@ -2,6 +2,20 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [0.4.0](https://github.com/graasp/graasp-app-text-input/compare/v0.3.4...v0.4.0) (2021-03-21)
+
+### Build System
+
+- fetch latest version before releasing ([979215a](https://github.com/graasp/graasp-app-text-input/commit/979215a))
+
+### Features
+
+- show graasp users that interact via page ([94b944b](https://github.com/graasp/graasp-app-text-input/commit/94b944b)), closes [#37](https://github.com/graasp/graasp-app-text-input/issues/37)
+
+### Tests
+
+- create tests with cypress ([c230f5b](https://github.com/graasp/graasp-app-text-input/commit/c230f5b))
+
 ### [0.3.4](https://github.com/graasp/graasp-app-text-input/compare/v0.3.3...v0.3.4) (2020-03-29)
 
 ### Bug Fixes
