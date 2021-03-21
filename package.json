@@ -57,7 +57,8 @@
     "test:ci": "run-s test:coverage report",
     "report": "cat ./coverage/lcov.info | env-cmd -f ./.env.test codacy-coverage",
     "eject": "react-scripts eject",
-    "release": "git add CHANGELOG.md && standard-version -a",
+    "release": "git fetch --tags && git add CHANGELOG.md && standard-version -a",
+    "release:first": "git fetch --tags && git add CHANGELOG.md && standard-version -a --first-release",
     "cypress:open": "cypress open",
     "cypress": "npm-run-all --parallel start cypress:open"
   },
