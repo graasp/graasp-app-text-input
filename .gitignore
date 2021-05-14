@@ -40,3 +40,12 @@ cypress/integration/examples
 
 # exclude local database
 db.json
+
+# yarn
+.yarn/*
+!.yarn/patches
+!.yarn/plugins
+!.yarn/releases
+!.yarn/sdks
+!.yarn/versions
+yarn-error.log

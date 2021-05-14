@@ -1,96 +1,38 @@
-import React, { Component, Fragment } from 'react';
+import React, { Fragment, useContext } from 'react';
 import PropTypes from 'prop-types';
-import { withStyles } from '@material-ui/core/styles';
-import Typography from '@material-ui/core/Typography';
-import Modal from '@material-ui/core/Modal';
 import Switch from '@material-ui/core/Switch';
-import { connect } from 'react-redux';
+import DialogTitle from '@material-ui/core/DialogTitle';
+import DialogContent from '@material-ui/core/DialogContent';
+import Dialog from '@material-ui/core/Dialog';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
-import { withTranslation } from 'react-i18next';
-import { closeSettings, patchAppInstance } from '../../../actions';
-import Loader from '../../common/Loader';
+import { useTranslation } from 'react-i18next';
+import { Context } from '../../context/ContextContext';
+import { MUTATION_KEYS, useMutation } from '../../../config/queryClient';
+import { headerVisibilityCypress } from '../../../config/selectors';
 
-function getModalStyle() {
-  const top = 50;
-  const left = 50;
-  return {
-    top: `${top}%`,
-    left: `${left}%`,
-    transform: `translate(-${top}%, -${left}%)`,
-  };
-}
+const Settings = ({ open, handleClose }) => {
+  const { t } = useTranslation();
+  const context = useContext(Context);
+  const { mutate: patchSettings } = useMutation(MUTATION_KEYS.PATCH_SETTINGS);
 
-const styles = theme => ({
-  paper: {
-    position: 'absolute',
-    width: theme.spacing.unit * 50,
-    backgroundColor: theme.palette.background.paper,
-    boxShadow: theme.shadows[5],
-    padding: theme.spacing.unit * 4,
-    outline: 'none',
-  },
-  button: {
-    margin: theme.spacing.unit,
-  },
-});
-
-class Settings extends Component {
-  static propTypes = {
-    classes: PropTypes.shape({}).isRequired,
-    open: PropTypes.bool.isRequired,
-    activity: PropTypes.bool.isRequired,
-    settings: PropTypes.shape({
-      headerVisible: PropTypes.bool.isRequired,
-      lang: PropTypes.string.isRequired,
-    }).isRequired,
-    t: PropTypes.func.isRequired,
-    dispatchCloseSettings: PropTypes.func.isRequired,
-    dispatchPatchAppInstance: PropTypes.func.isRequired,
-    i18n: PropTypes.shape({
-      defaultNS: PropTypes.string,
-    }).isRequired,
+  const saveSettings = (settingsToChange) => {
+    patchSettings(settingsToChange);
   };
 
-  saveSettings = settingsToChange => {
-    const { settings, dispatchPatchAppInstance } = this.props;
-    const newSettings = {
-      ...settings,
-      ...settingsToChange,
-    };
-    dispatchPatchAppInstance({
-      data: newSettings,
-    });
-  };
-
-  handleChangeHeaderVisibility = () => {
-    const {
-      settings: { headerVisible },
-    } = this.props;
+  const handleChangeHeaderVisibility = () => {
     const settingsToChange = {
-      headerVisible: !headerVisible,
+      headerVisible: !context?.get('settings')?.headerVisible,
     };
-    this.saveSettings(settingsToChange);
+    saveSettings(settingsToChange);
   };
 
-  handleClose = () => {
-    const { dispatchCloseSettings } = this.props;
-    dispatchCloseSettings();
-  };
-
-  renderModalContent() {
-    const { t, settings, activity } = this.props;
-    const { headerVisible } = settings;
-
-    if (activity) {
-      return <Loader />;
-    }
-
+  const renderModalContent = () => {
     const switchControl = (
       <Switch
-        data-cy="headerVisibility"
+        data-cy={headerVisibilityCypress}
         color="primary"
-        checked={headerVisible}
-        onChange={this.handleChangeHeaderVisibility}
+        checked={context?.get('settings')?.headerVisible}
+        onChange={handleChangeHeaderVisibility}
         value="headerVisibility"
       />
     );
@@ -103,52 +45,28 @@ class Settings extends Component {
         />
       </Fragment>
     );
-  }
-
-  render() {
-    const { open, classes, t } = this.props;
-
-    return (
-      <div>
-        <Modal
-          data-cy="settingsModal"
-          aria-labelledby="simple-modal-title"
-          aria-describedby="simple-modal-description"
-          open={open}
-          onClose={this.handleClose}
-        >
-          <div style={getModalStyle()} className={classes.paper}>
-            <Typography variant="h5" id="modal-title">
-              {t('Settings')}
-            </Typography>
-            {this.renderModalContent()}
-          </div>
-        </Modal>
-      </div>
-    );
-  }
-}
-
-const mapStateToProps = ({ layout, appInstance }) => {
-  return {
-    open: layout.settings.open,
-    settings: {
-      // by default this is true
-      headerVisible: appInstance.content.settings.headerVisible,
-    },
-    activity: appInstance.activity.length,
   };
+
+  return (
+    <Dialog
+      onClose={handleClose}
+      aria-labelledby="simple-dialog-title"
+      open={open}
+    >
+      <DialogTitle id="simple-dialog-title">{t('Settings')}</DialogTitle>
+      <DialogContent>{renderModalContent()}</DialogContent>
+    </Dialog>
+  );
 };
 
-const mapDispatchToProps = {
-  dispatchCloseSettings: closeSettings,
-  dispatchPatchAppInstance: patchAppInstance,
+Settings.propTypes = {
+  open: PropTypes.bool,
+  handleClose: PropTypes.func,
 };
 
-const ConnectedComponent = connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(Settings);
-const TranslatedComponent = withTranslation()(ConnectedComponent);
+Settings.defaultProps = {
+  open: false,
+  handleClose: () => {},
+};
 
-export default withStyles(styles)(TranslatedComponent);
+export default Settings;

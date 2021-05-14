@@ -6,8 +6,15 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import PropTypes from 'prop-types';
+import { makeStyles } from '@material-ui/core/styles';
 
-const ConfirmDialog = props => {
+const useStyles = makeStyles((theme) => ({
+  deleteButton: {
+    color: theme.palette.error.main,
+  },
+}));
+
+const ConfirmDialog = (props) => {
   const {
     open,
     handleClose,
@@ -16,7 +23,9 @@ const ConfirmDialog = props => {
     text,
     confirmText,
     cancelText,
+    confirmButtonCypress,
   } = props;
+  const classes = useStyles();
   return (
     <div>
       <Dialog
@@ -35,7 +44,11 @@ const ConfirmDialog = props => {
           <Button onClick={handleClose} color="primary" autoFocus>
             {cancelText}
           </Button>
-          <Button onClick={handleConfirm} color="secondary">
+          <Button
+            data-cy={confirmButtonCypress}
+            onClick={handleConfirm}
+            className={classes.deleteButton}
+          >
             {confirmText}
           </Button>
         </DialogActions>

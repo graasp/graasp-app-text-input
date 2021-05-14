@@ -1,89 +1,57 @@
 import _ from 'lodash';
-import React, { Component, Fragment } from 'react';
+import React, { useEffect, useState } from 'react';
 import TableRow from '@material-ui/core/TableRow';
 import TableCell from '@material-ui/core/TableCell';
 import IconButton from '@material-ui/core/IconButton';
 import DeleteIcon from '@material-ui/icons/Delete';
 import EditIcon from '@material-ui/icons/Edit';
-import { connect } from 'react-redux';
-import { withTranslation } from 'react-i18next';
+import { useTranslation } from 'react-i18next';
 import PropTypes from 'prop-types';
-import CircularProgress from '@material-ui/core/CircularProgress';
 import ConfirmDialog from '../../common/ConfirmDialog';
-import {
-  deleteAppInstanceResource,
-  patchAppInstanceResource,
-  postAppInstanceResource,
-} from '../../../actions';
-import { FEEDBACK } from '../../../config/appInstanceResourceTypes';
 import FormDialog from '../../common/FormDialog';
 import { showErrorToast } from '../../../utils/toasts';
+import { ACTION_TYPES } from '../../../config/actionTypes';
+import { MUTATION_KEYS, useMutation } from '../../../config/queryClient';
+import {
+  deleteButtonCypress,
+  deleteConfirmButtonCypress,
+  editFeedbackButtonCypress,
+  feedbackTextCypress,
+} from '../../../config/selectors';
 
-class Response extends Component {
-  state = {
-    confirmDialogOpen: false,
-    feedbackDialogOpen: false,
-  };
+const Response = ({ id, data, student, feedbackResource }) => {
+  const { t } = useTranslation();
+  const [feedbackText, setFeedbackText] = useState('');
+  const [confirmDialogOpen, setConfirmDialogOpen] = useState(false);
+  const [feedbackDialogOpen, setFeedbackDialogOpen] = useState(false);
+  const { mutate: postAppData } = useMutation(MUTATION_KEYS.POST_APP_DATA);
+  const { mutate: patchAppData } = useMutation(MUTATION_KEYS.PATCH_APP_DATA);
+  const { mutate: deleteAppData } = useMutation(MUTATION_KEYS.DELETE_APP_DATA);
 
-  static propTypes = {
-    t: PropTypes.func.isRequired,
-    activity: PropTypes.bool.isRequired,
-    dispatchDeleteAppInstanceResource: PropTypes.func.isRequired,
-    dispatchPostAppInstanceResource: PropTypes.func.isRequired,
-    dispatchPatchAppInstanceResource: PropTypes.func.isRequired,
-    _id: PropTypes.string.isRequired,
-    data: PropTypes.string,
-    student: PropTypes.shape({
-      id: PropTypes.string.isRequired,
-      name: PropTypes.string.isRequired,
-    }).isRequired,
-    feedbackResource: PropTypes.shape({
-      _id: PropTypes.string.isRequired,
-      data: PropTypes.string,
-    }),
-  };
-
-  static defaultProps = {
-    data: '',
-    feedbackResource: {},
-  };
-
-  handleToggleConfirmDialog = open => () => {
-    this.setState({
-      confirmDialogOpen: open,
-    });
-  };
-
-  handleToggleFeedbackDialog = open => () => {
-    this.setState({
-      feedbackDialogOpen: open,
-    });
-  };
-
-  handleConfirmDelete = () => {
-    const {
-      _id,
-      dispatchDeleteAppInstanceResource,
-      feedbackResource,
-    } = this.props;
-    dispatchDeleteAppInstanceResource(_id);
-    if (!_.isEmpty(feedbackResource)) {
-      dispatchDeleteAppInstanceResource(feedbackResource._id);
+  useEffect(() => {
+    if (feedbackResource) {
+      setFeedbackText(feedbackResource?.data?.text);
     }
-    this.handleToggleConfirmDialog(false)();
+  }, [feedbackResource]);
+
+  const handleToggleConfirmDialog = () => {
+    setConfirmDialogOpen(!confirmDialogOpen);
   };
 
-  handleSubmitFeedback = feedback => {
-    const {
-      student,
-      feedbackResource,
-      dispatchPostAppInstanceResource,
-      dispatchPatchAppInstanceResource,
-    } = this.props;
+  const handleToggleFeedbackDialog = () => {
+    setFeedbackDialogOpen(!feedbackDialogOpen);
+  };
 
-    const { id } = student;
+  const handleConfirmDelete = () => {
+    deleteAppData({ id });
+    if (!_.isEmpty(feedbackResource)) {
+      deleteAppData({ id: feedbackResource.id });
+    }
+    handleToggleConfirmDialog();
+  };
 
-    if (!id) {
+  const handleSubmitFeedback = (text) => {
+    if (!student?.id) {
       showErrorToast(
         'Currently we do not support giving feedback to anonymous users.'
       );
@@ -91,111 +59,90 @@ class Response extends Component {
 
     // if no feedback resource yet, create it, otherwise, update it
     if (_.isEmpty(feedbackResource)) {
-      dispatchPostAppInstanceResource({
-        data: feedback,
-        userId: id,
-        type: FEEDBACK,
+      postAppData({
+        data: { text, memberId: student.id },
+        type: ACTION_TYPES.FEEDBACK,
       });
     } else {
-      dispatchPatchAppInstanceResource({
-        id: feedbackResource._id,
-        data: feedback,
+      patchAppData({
+        id: feedbackResource.id,
+        data: { text, memberId: student.id },
       });
     }
-    this.handleToggleFeedbackDialog(false)();
+    handleToggleFeedbackDialog();
   };
 
-  renderFeedbackCell() {
-    const {
-      feedbackResource: { data = '' },
-      t,
-    } = this.props;
-    const { feedbackDialogOpen } = this.state;
-
+  const renderFeedbackCell = () => {
     return (
-      <Fragment>
-        {data}
+      <span data-cy={feedbackTextCypress}>
+        {feedbackText}
         <IconButton
+          data-cy={editFeedbackButtonCypress}
           color="primary"
-          onClick={this.handleToggleFeedbackDialog(true)}
+          onClick={handleToggleFeedbackDialog}
         >
           <EditIcon />
         </IconButton>
         <FormDialog
-          handleClose={this.handleToggleFeedbackDialog(false)}
+          handleClose={handleToggleFeedbackDialog}
           title={t('Feedback')}
           text={t('Submit feedback that will be visible to the student.')}
           open={feedbackDialogOpen}
-          initialInput={data}
-          handleSubmit={this.handleSubmitFeedback}
+          initialInput={feedbackText}
+          handleSubmit={handleSubmitFeedback}
         />
-      </Fragment>
+      </span>
     );
-  }
-
-  render() {
-    const { t, _id, data, student, activity } = this.props;
-
-    const { confirmDialogOpen } = this.state;
-
-    return (
-      <TableRow key={_id}>
-        <TableCell>{activity ? <CircularProgress /> : student.name}</TableCell>
-        <TableCell>{data}</TableCell>
-        <TableCell>{this.renderFeedbackCell()}</TableCell>
-        <TableCell>
-          <IconButton
-            data-cy="deleteButton"
-            color="primary"
-            onClick={this.handleToggleConfirmDialog(true)}
-          >
-            <DeleteIcon />
-          </IconButton>
-          <ConfirmDialog
-            open={confirmDialogOpen}
-            title={t('Delete Student Response')}
-            text={t(
-              "By clicking 'Delete', you will be deleting the student's response. This action cannot be undone."
-            )}
-            handleClose={this.handleToggleConfirmDialog(false)}
-            handleConfirm={this.handleConfirmDelete}
-            confirmText={t('Delete')}
-            cancelText={t('Cancel')}
-          />
-        </TableCell>
-      </TableRow>
-    );
-  }
-}
-
-const mapStateToProps = ({ appInstanceResources, users }, ownProps) => {
-  const {
-    student: { id },
-  } = ownProps;
-  const feedbackResource = appInstanceResources.content.find(
-    ({ user, type }) => {
-      return user === id && type === FEEDBACK;
-    }
-  );
-  return {
-    feedbackResource,
-    activity: users.activity.length,
   };
+
+  return (
+    <TableRow key={id}>
+      <TableCell>{student.name}</TableCell>
+      <TableCell>{data}</TableCell>
+      <TableCell>{renderFeedbackCell()}</TableCell>
+      <TableCell>
+        <IconButton
+          data-cy={deleteButtonCypress}
+          color="primary"
+          onClick={handleToggleConfirmDialog}
+        >
+          <DeleteIcon />
+        </IconButton>
+        <ConfirmDialog
+          open={confirmDialogOpen}
+          title={t('Delete Student Response')}
+          text={t(
+            'By clicking "Delete", you will be deleting the student\'s response. This action cannot be undone.'
+          )}
+          handleClose={handleToggleConfirmDialog}
+          handleConfirm={handleConfirmDelete}
+          confirmText={t('Delete')}
+          cancelText={t('Cancel')}
+          confirmButtonCypress={deleteConfirmButtonCypress}
+        />
+      </TableCell>
+    </TableRow>
+  );
 };
 
-// allow this component to dispatch a post
-// request to create an app instance resource
-const mapDispatchToProps = {
-  dispatchPostAppInstanceResource: postAppInstanceResource,
-  dispatchPatchAppInstanceResource: patchAppInstanceResource,
-  dispatchDeleteAppInstanceResource: deleteAppInstanceResource,
+Response.propTypes = {
+  data: PropTypes.string,
+  student: PropTypes.shape({
+    id: PropTypes.string.isRequired,
+    name: PropTypes.string.isRequired,
+  }).isRequired,
+  feedbackResource: PropTypes.shape({
+    data: PropTypes.shape({
+      text: PropTypes.string.isRequired,
+      memberId: PropTypes.string.isRequired,
+    }).isRequired,
+  }),
+  id: PropTypes.string.isRequired,
 };
 
-const ConnectedComponent = connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(Response);
+Response.defaultProps = {
+  data: '',
+  feedbackResource: {},
+};
 
-const TranslatedComponent = withTranslation()(ConnectedComponent);
-
-export default TranslatedComponent;
+export default Response;

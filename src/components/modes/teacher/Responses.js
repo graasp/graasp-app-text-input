@@ -1,61 +1,47 @@
-import React, { Component } from 'react';
+import React from 'react';
 import Typography from '@material-ui/core/Typography';
 import Paper from '@material-ui/core/Paper';
 import Table from '@material-ui/core/Table';
 import TableHead from '@material-ui/core/TableHead';
+import { List } from 'immutable';
 import TableRow from '@material-ui/core/TableRow';
 import TableCell from '@material-ui/core/TableCell';
 import TableBody from '@material-ui/core/TableBody';
-import { withTranslation } from 'react-i18next';
-import { withStyles } from '@material-ui/core/styles';
+import { useTranslation } from 'react-i18next';
+import { makeStyles } from '@material-ui/core/styles';
 import PropTypes from 'prop-types';
 import Response from './Response';
+import { RESPONSES_COLUMNS } from '../../../config/settings';
+import {
+  responsesTableCypress,
+  tableNoResponsesCypress,
+} from '../../../config/selectors';
+import { APP_DATA_TYPES } from '../../../config/appDataTypes';
 
-class Responses extends Component {
-  static styles = theme => ({
-    root: {
-      width: '100%',
-      marginTop: theme.spacing.unit * 3,
-      overflowX: 'auto',
-    },
-    table: {
-      minWidth: 700,
-    },
-  });
+const useStyles = makeStyles((theme) => ({
+  root: {
+    width: '100%',
+    marginTop: theme.spacing(3),
+    overflowX: 'auto',
+  },
+  table: {
+    minWidth: 700,
+  },
+}));
 
-  static propTypes = {
-    t: PropTypes.func.isRequired,
-    appInstanceResources: PropTypes.arrayOf(
-      PropTypes.shape({
-        _id: PropTypes.string,
-        data: PropTypes.string,
-        type: PropTypes.string,
-      })
-    ),
-    students: PropTypes.arrayOf(
-      PropTypes.shape({
-        id: PropTypes.string,
-        name: PropTypes.string,
-      })
-    ),
-    classes: PropTypes.shape({
-      root: PropTypes.string,
-      table: PropTypes.string,
-    }).isRequired,
+const Responses = ({ students, appData }) => {
+  const classes = useStyles();
+  const { t } = useTranslation();
+
+  const anonymousUser = {
+    name: t('Anonymous'),
   };
 
-  static defaultProps = {
-    appInstanceResources: [],
-    students: [],
-  };
-
-  renderAppInstanceResources() {
-    const { t, students, appInstanceResources } = this.props;
-
+  const renderAppInstanceResources = () => {
     // if there are no resources, show an empty table
-    if (!appInstanceResources.length) {
+    if (appData.isEmpty()) {
       return (
-        <TableRow>
+        <TableRow data-cy={tableNoResponsesCypress}>
           <TableCell align="center" colSpan={4}>
             {t('No Responses')}
           </TableCell>
@@ -63,50 +49,64 @@ class Responses extends Component {
       );
     }
 
-    const anonymousUser = {
-      name: t('Anonymous'),
-    };
-
+    const responses = appData.filter(
+      ({ type }) => type === APP_DATA_TYPES.INPUT
+    );
+    const feedbacks = appData.filter(
+      ({ type }) => type === APP_DATA_TYPES.FEEDBACK
+    );
     // map each app instance resource to a row in the table
-    return appInstanceResources.map(({ _id, user, data }) => {
-      const studentObject =
-        students.find(student => student.id === user) || anonymousUser;
+    return responses.map(({ id, memberId, data }) => {
+      const member = students.find((m) => m.id === memberId) ?? anonymousUser;
+      const feedbackResource = feedbacks.find(
+        ({ data: { memberId: mId } }) => mId === member.id
+      );
       return (
-        <Response _id={_id} key={_id} student={studentObject} data={data} />
+        <Response
+          id={id}
+          key={id}
+          student={member}
+          data={data?.text}
+          feedbackResource={feedbackResource}
+        />
       );
     });
-  }
+  };
 
-  render() {
-    const {
-      // this property allows us to do styling and is injected by withStyles
-      classes,
-      // this property allows us to do translations and is injected by i18next
-      t,
-    } = this.props;
-    return (
-      <div>
-        <Typography variant="h6" color="inherit">
-          {t('These are the responses submitted by the students.')}
-        </Typography>
-        <Paper className={classes.root}>
-          <Table data-cy="responses" className={classes.table}>
-            <TableHead>
-              <TableRow>
-                <TableCell>{t('Student')}</TableCell>
-                <TableCell>{t('Input')}</TableCell>
-                <TableCell>{t('Feedback')}</TableCell>
-                <TableCell>Actions</TableCell>
-              </TableRow>
-            </TableHead>
-            <TableBody>{this.renderAppInstanceResources()}</TableBody>
-          </Table>
-        </Paper>
-      </div>
-    );
-  }
-}
+  return (
+    <div>
+      <Typography variant="h6" color="inherit">
+        {t('These are the responses submitted by the students.')}
+      </Typography>
+      <Paper className={classes.root}>
+        <Table data-cy={responsesTableCypress} className={classes.table}>
+          <TableHead>
+            <TableRow>
+              {RESPONSES_COLUMNS.map((column) => (
+                <TableCell key={column}>{t(column)}</TableCell>
+              ))}
+            </TableRow>
+          </TableHead>
+          <TableBody>{renderAppInstanceResources()}</TableBody>
+        </Table>
+      </Paper>
+    </div>
+  );
+};
 
-const StyledComponent = withStyles(Responses.styles)(Responses);
+Responses.propTypes = {
+  appData: PropTypes.instanceOf(List),
+  students: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.string.isRequired,
+      name: PropTypes.string.isRequired,
+    })
+  ),
+};
 
-export default withTranslation()(StyledComponent);
+Responses.defaultProps = {
+  appData: List(),
+  students: [],
+};
+
+export default Responses;

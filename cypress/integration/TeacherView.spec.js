@@ -1,61 +1,162 @@
-import { TEACHER_MODE } from '../../src/config/settings';
-import { LOAD_DASHBOARD_PAUSE } from '../constants/constants';
+import { CONTEXTS } from '../../src/config/contexts';
 import {
-  responsesTable,
-  logo,
-  appTitle,
-  dashboardButton,
-  refreshButton,
-  defaultViewButton,
-  fields,
-} from '../constants/selectors';
+  appTitleCypress,
+  dataCyWrapper,
+  deleteButtonCypress,
+  deleteConfirmButtonCypress,
+  editFeedbackButtonCypress,
+  feedbackInputCypress,
+  feedbackTextCypress,
+  logoCypress,
+  refreshButtonCypress,
+  responsesTableCypress,
+  submitButtonCypress,
+  tableNoResponsesCypress,
+  wordCloudId,
+  settingsButtonCypress,
+  headerVisibilityCypress,
+} from '../../src/config/selectors';
+import {
+  PERMISSION_LEVELS,
+  RESPONSES_COLUMNS,
+} from '../../src/config/settings';
+import { setUpParentWindow } from '../fixtures/context';
+import { MOCK_APP_DATA, MOCK_FEEDBACK } from '../fixtures/appData';
 
 describe('<TeacherView />', () => {
-  beforeEach(() => {
-    cy.onlineVisit(TEACHER_MODE);
-  });
+  describe('Dashboard', () => {
+    it('Display no data', () => {
+      cy.setUpApi();
+      cy.visit('/');
+      setUpParentWindow({
+        context: { permission: 'admin', context: CONTEXTS.ANALYZER },
+      });
 
-  it('toolbar displays logo, title, refresh and dashboard button', () => {
-    // visible elements
-    cy.get(logo).should('be.visible');
-    cy.get(appTitle).should('be.visible');
-    cy.get(dashboardButton).should('be.visible');
-    cy.get(refreshButton).should('be.visible');
-  });
+      // visible elements
+      cy.get(dataCyWrapper(logoCypress)).should('be.visible');
+      cy.get(dataCyWrapper(appTitleCypress)).should('be.visible');
+      cy.get(dataCyWrapper(refreshButtonCypress)).should('be.visible');
 
-  it('on dashboard view click, toolbar displays logo, title, refresh and default view button', () => {
-    cy.get(dashboardButton).click();
+      cy.get(`#${wordCloudId}`).should('not.exist');
+    });
 
-    cy.wait(LOAD_DASHBOARD_PAUSE);
+    it('Display data', () => {
+      cy.setUpApi({
+        appData: [MOCK_APP_DATA, MOCK_FEEDBACK],
+      });
+      cy.visit('/');
+      setUpParentWindow({
+        context: {
+          permission: PERMISSION_LEVELS.ADMIN,
+          context: CONTEXTS.ANALYZER,
+        },
+      });
 
-    // visible elements
-    cy.get(logo).should('be.visible');
-    cy.get(appTitle).should('be.visible');
-    cy.get(refreshButton).should('be.visible');
-    cy.get(defaultViewButton).should('be.visible');
-  });
+      // visible elements
+      cy.get(dataCyWrapper(logoCypress)).should('be.visible');
+      cy.get(dataCyWrapper(appTitleCypress)).should('be.visible');
+      cy.get(dataCyWrapper(refreshButtonCypress)).should('be.visible');
 
-  it(`responses table contains ${fields.length} fields`, () => {
-    cy.get(responsesTable).should('be.visible');
-    fields.forEach(field => {
-      cy.get(responsesTable).contains(field);
+      cy.get(`#${wordCloudId} text`).should('contain', 'text');
     });
   });
+  describe('Responses', () => {
+    describe('Default data', () => {
+      beforeEach(() => {
+        cy.setUpApi({ appData: [MOCK_APP_DATA, MOCK_FEEDBACK] });
+        cy.visit('/');
+        setUpParentWindow({ context: { permission: PERMISSION_LEVELS.ADMIN } });
+      });
 
-  it("responses table contains added student's response", () => {
-    // write student input
-    // use random string in case of unclear input
-    const responseText = Math.random()
-      .toString(36)
-      .substring(7);
-    cy.enterStudentResponse(responseText);
+      it('Default layout', () => {
+        cy.get(dataCyWrapper(logoCypress)).should('be.visible');
+        cy.get(dataCyWrapper(appTitleCypress)).should('be.visible');
+        cy.get(dataCyWrapper(refreshButtonCypress)).should('be.visible');
 
-    // return to teacher view and check responses
-    cy.onlineVisit(TEACHER_MODE);
+        cy.get(dataCyWrapper(responsesTableCypress)).should('be.visible');
+        RESPONSES_COLUMNS.forEach((field) => {
+          cy.get(dataCyWrapper(responsesTableCypress)).contains(field);
+        });
 
-    cy.get(`${responsesTable} tbody tr`).contains(responseText);
+        cy.get(`${dataCyWrapper(responsesTableCypress)} tbody tr`).contains(
+          MOCK_APP_DATA.data.text
+        );
 
-    // clear student input
-    cy.clearStudentResponse();
+        cy.get(dataCyWrapper(feedbackTextCypress)).should(
+          'contain',
+          MOCK_FEEDBACK.data.text
+        );
+
+        // delete feedback
+        cy.get(dataCyWrapper(deleteButtonCypress)).click();
+        cy.get(dataCyWrapper(deleteConfirmButtonCypress)).click();
+        cy.get(dataCyWrapper(tableNoResponsesCypress)).should('exist');
+      });
+
+      it('Edit Settings', () => {
+        cy.get(dataCyWrapper(settingsButtonCypress)).click();
+        cy.get(dataCyWrapper(headerVisibilityCypress)).click();
+      });
+    });
+    describe('App data without feedback', () => {
+      beforeEach(() => {
+        cy.setUpApi({ appData: [MOCK_APP_DATA] });
+        cy.visit('/');
+        setUpParentWindow({ context: { permission: 'admin' } });
+      });
+
+      it('Add feedback', () => {
+        cy.get(dataCyWrapper(logoCypress)).should('be.visible');
+        cy.get(dataCyWrapper(appTitleCypress)).should('be.visible');
+        cy.get(dataCyWrapper(refreshButtonCypress)).should('be.visible');
+
+        cy.get(dataCyWrapper(responsesTableCypress)).should('be.visible');
+        RESPONSES_COLUMNS.forEach((field) => {
+          cy.get(dataCyWrapper(responsesTableCypress)).contains(field);
+        });
+
+        cy.get(`${dataCyWrapper(responsesTableCypress)} tbody tr`).contains(
+          MOCK_APP_DATA.data.text
+        );
+        cy.get(dataCyWrapper(feedbackTextCypress)).should(
+          'not.contain',
+          MOCK_FEEDBACK.data.text
+        );
+
+        // add feedback
+        cy.get(dataCyWrapper(editFeedbackButtonCypress)).click();
+        cy.get(dataCyWrapper(feedbackInputCypress)).type(
+          MOCK_FEEDBACK.data.text
+        );
+        cy.get(dataCyWrapper(submitButtonCypress)).click();
+
+        cy.get(dataCyWrapper(feedbackTextCypress)).should(
+          'contain',
+          MOCK_FEEDBACK.data.text
+        );
+      });
+    });
+    describe('Empty data', () => {
+      beforeEach(() => {
+        cy.setUpApi();
+        cy.visit('/');
+        setUpParentWindow({ context: { permission: 'admin' } });
+      });
+
+      it('Empty layout', () => {
+        cy.get(dataCyWrapper(logoCypress)).should('be.visible');
+        cy.get(dataCyWrapper(appTitleCypress)).should('be.visible');
+        cy.get(dataCyWrapper(refreshButtonCypress)).should('be.visible');
+
+        cy.get(dataCyWrapper(responsesTableCypress)).should('be.visible');
+        RESPONSES_COLUMNS.forEach((field) => {
+          cy.get(dataCyWrapper(responsesTableCypress)).contains(field);
+        });
+
+        cy.get(`${dataCyWrapper(tableNoResponsesCypress)}`).should(
+          'be.visible'
+        );
+      });
+    });
   });
 });

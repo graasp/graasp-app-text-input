@@ -1,29 +1,24 @@
+import React, { useState, useEffect, useContext } from 'react';
 import _ from 'lodash';
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
-import { withTranslation } from 'react-i18next';
-import { withStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import TextField from '@material-ui/core/TextField';
-import { connect } from 'react-redux';
-import Button from '@material-ui/core/Button';
-import Tooltip from '@material-ui/core/Tooltip';
-import {
-  getAppInstanceResources,
-  patchAppInstanceResource,
-  postAppInstanceResource,
-  postAction,
-} from '../../../actions';
-import { FEEDBACK, INPUT } from '../../../config/appInstanceResourceTypes';
+import { useTranslation } from 'react-i18next';
+import { makeStyles } from '@material-ui/core/styles';
 import Loader from '../../common/Loader';
 import { MAX_INPUT_LENGTH, MAX_ROWS } from '../../../config/settings';
-import { SAVED } from '../../../config/verbs';
+import { useMutation, MUTATION_KEYS } from '../../../config/queryClient';
+import { Context } from '../../context/ContextContext';
+import { useAppData } from '../../context/appData';
+import SaveButton from './SaveButton';
+import { inputCypress, inputTextFieldId } from '../../../config/selectors';
+import { ACTION_TYPES } from '../../../config/actionTypes';
+import { APP_DATA_TYPES } from '../../../config/appDataTypes';
 
-const styles = theme => ({
+const useStyles = makeStyles((theme) => ({
   main: {
     textAlign: 'center',
     flex: 1,
-    padding: theme.spacing.unit,
+    padding: theme.spacing(1),
   },
   container: {
     display: 'flex',
@@ -31,296 +26,141 @@ const styles = theme => ({
     overflowX: 'hidden',
   },
   message: {
-    padding: theme.spacing.unit,
+    padding: theme.spacing(1),
     backgroundColor: theme.status.danger.background[500],
     color: theme.status.danger.color,
-    marginBottom: theme.spacing.unit * 2,
+    marginBottom: theme.spacing(2),
   },
   textField: {
-    marginLeft: theme.spacing.unit,
-    marginRight: theme.spacing.unit,
+    marginLeft: theme.spacing(1),
+    marginRight: theme.spacing(1),
   },
-  button: {
-    marginRight: theme.spacing.unit,
-  },
-});
+}));
 
-class StudentView extends Component {
-  state = {
-    text: '',
-    createdInputResource: false,
-  };
-
-  static propTypes = {
-    t: PropTypes.func.isRequired,
-    dispatchPostAppInstanceResource: PropTypes.func.isRequired,
-    dispatchPatchAppInstanceResource: PropTypes.func.isRequired,
-    dispatchGetAppInstanceResources: PropTypes.func.isRequired,
-    dispatchPostAction: PropTypes.func.isRequired,
-    classes: PropTypes.shape({
-      main: PropTypes.string,
-      container: PropTypes.string,
-      message: PropTypes.string,
-      button: PropTypes.string,
-      textField: PropTypes.string,
-    }).isRequired,
-    feedback: PropTypes.string,
-    userId: PropTypes.string,
-    inputResourceId: PropTypes.string,
-    ready: PropTypes.bool,
-    offline: PropTypes.bool,
-    standalone: PropTypes.bool.isRequired,
-    activity: PropTypes.bool,
-    text: PropTypes.string,
-  };
-
-  static defaultProps = {
-    feedback: '',
-    userId: null,
-    inputResourceId: null,
-    activity: false,
-    ready: false,
-    offline: false,
-    text: null,
-  };
-
-  saveToApi = _.debounce(({ data }) => {
-    const { dispatchPatchAppInstanceResource, inputResourceId } = this.props;
-    if (inputResourceId) {
-      dispatchPatchAppInstanceResource({ data, id: inputResourceId });
-    }
-  }, 1000);
-
-  constructor(props) {
-    super(props);
-    const { userId } = props;
-    // get the resources for this user
-    props.dispatchGetAppInstanceResources({ userId });
-  }
-
-  componentDidMount() {
-    const { text, offline } = this.props;
-
-    // on mount creation of app instance resource only online
-    if (!offline) {
-      this.createInputAppInstanceResource();
-    }
-    if (text) {
-      this.setState({ text });
-    }
-  }
-
-  componentDidUpdate(
-    {
-      inputResourceId: prevInputAppInstanceResourceId,
-      userId: prevUserId,
-      text: prevPropText,
-    },
-    { text: prevStateText }
-  ) {
-    const { inputResourceId, text, userId, offline } = this.props;
-
-    // on update creation of app instance resource only online
-    if (!offline) {
-      if (
-        inputResourceId !== prevInputAppInstanceResourceId ||
-        userId !== prevUserId ||
-        !inputResourceId
-      ) {
-        this.createInputAppInstanceResource();
-      }
-    }
-
-    // set state here safely by ensuring that it does not cause an infinite loop
-    if (prevPropText !== text && prevStateText !== text) {
-      // eslint-disable-next-line
-      this.setState({ text });
-    }
-  }
-
-  createInputAppInstanceResource = () => {
-    const {
-      inputResourceId,
-      dispatchPostAppInstanceResource,
-      userId,
-      ready,
-      activity,
-    } = this.props;
-    const { createdInputResource } = this.state;
-
-    // only create this resource once
-    if (!createdInputResource) {
-      // if there is no user id we cannot create the resource, so abort,
-      // otherwise create the resource to save the text if it does not exist
-      if (userId && ready && !inputResourceId && !activity) {
-        dispatchPostAppInstanceResource({ userId, data: '', type: INPUT });
-        this.setState({ createdInputResource: true });
-      }
-    }
-  };
-
-  handleChangeText = ({ target }) => {
-    const { value } = target;
-    const { userId, offline } = this.props;
-    this.setState({
-      text: value,
+const saveToApi = _.debounce(({ inputResource, patchAppData, data }) => {
+  if (inputResource) {
+    patchAppData({
+      data: { text: data },
+      id: inputResource.id,
     });
-    // only save automatically if online and there is actually a userId
-    if (!offline && userId) {
-      this.saveToApi({ data: value });
+  }
+}, 1000);
+
+const StudentView = () => {
+  const classes = useStyles();
+  const { t } = useTranslation();
+  const [text, setText] = useState('');
+  const [inputResource, setInputResource] = useState(null);
+  const [feedbackResource, setFeedbackResource] = useState(null);
+  const { mutate: postAppData } = useMutation(MUTATION_KEYS.POST_APP_DATA);
+  const { mutate: patchAppData } = useMutation(MUTATION_KEYS.PATCH_APP_DATA);
+  const { mutate: postAction } = useMutation('MUTATION_KEYS.POST_APP_DATA');
+
+  const context = useContext(Context);
+  const {
+    data: appData,
+    isLoading: isAppDataLoading,
+    isSuccess: isAppDataSuccess,
+  } = useAppData();
+
+  useEffect(() => {
+    if (isAppDataSuccess && !appData.isEmpty()) {
+      //  suppose take first
+      setInputResource(
+        appData.find(({ type }) => type === APP_DATA_TYPES.INPUT)
+      );
+      setFeedbackResource(
+        appData.find(({ type }) => type === APP_DATA_TYPES.FEEDBACK)
+      );
+    }
+
+    // create this resource once data is loaded and is empty
+    else if (isAppDataSuccess && appData.isEmpty()) {
+      postAppData({ data: { text: '' }, type: APP_DATA_TYPES.INPUT });
+    }
+  }, [appData, isAppDataSuccess, postAppData]);
+
+  useEffect(() => {
+    if (inputResource) {
+      setText(inputResource.data.text);
+    }
+  }, [inputResource]);
+
+  if (!context?.get('standalone') && isAppDataLoading) {
+    return <Loader />;
+  }
+
+  const handleChangeText = ({ target }) => {
+    const { value } = target;
+    setText(value);
+    // only save automatically if online and there is actually a memberId
+    if (!context?.get('offline') && context?.get('memberId')) {
+      saveToApi({ inputResource, patchAppData, data: value });
     }
   };
 
-  handleClickSaveText = () => {
-    const { text } = this.state;
-    const {
-      dispatchPatchAppInstanceResource,
-      dispatchPostAppInstanceResource,
-      dispatchPostAction,
-      inputResourceId,
-      userId,
-    } = this.props;
-
+  const handleClickSaveText = () => {
     // if there is a resource id already, update, otherwise create
-    if (inputResourceId) {
-      dispatchPatchAppInstanceResource({
-        data: text,
-        id: inputResourceId,
+    if (inputResource?.id) {
+      patchAppData({
+        data: { text },
+        id: inputResource.id,
+      });
+      postAction({
+        verb: ACTION_TYPES.SAVED,
+        data: {
+          data: text,
+          id: inputResource.id,
+        },
       });
     } else {
-      dispatchPostAppInstanceResource({
-        data: text,
-        type: INPUT,
-        userId,
+      postAppData({
+        data: { text },
+        type: APP_DATA_TYPES.INPUT,
       });
     }
-    dispatchPostAction({
-      verb: SAVED,
-      data: {
-        data: text,
-        id: inputResourceId,
-      },
-    });
   };
 
-  withTooltip = (elem, disabled) => {
-    return (
-      <Tooltip title="All changes saved.">
-        <span>{React.cloneElement(elem, { disabled })}</span>
-      </Tooltip>
-    );
+  const buildFeedbackText = () => {
+    if (feedbackResource) {
+      return `${t('Feedback')}: ${feedbackResource.data?.text}`;
+    }
+    return null;
   };
 
-  renderButton() {
-    const { t, offline, classes, text: propsText } = this.props;
-    const { text: stateText } = this.state;
+  const textIsDifferent = text === inputResource?.data?.text;
 
-    // if text is different, we enable save button
-    const textIsDifferent = stateText === propsText;
-
-    // button is only visible offline
-    if (!offline) {
-      return null;
-    }
-
-    const saveButton = (
-      <Button
-        data-cy="save"
-        variant="contained"
-        color="primary"
-        onClick={this.handleClickSaveText}
-      >
-        {t('Save')}
-      </Button>
-    );
-
-    return (
-      <div align="right" className={classes.button}>
-        {textIsDifferent
-          ? this.withTooltip(saveButton, textIsDifferent)
-          : saveButton}
-      </div>
-    );
-  }
-
-  render() {
-    const { t, classes, ready, standalone } = this.props;
-    const { text } = this.state;
-    let { feedback } = this.props;
-    if (feedback && feedback !== '') {
-      feedback = `${t('Feedback')}: ${feedback}`;
-    }
-
-    if (!standalone && !ready) {
-      return <Loader />;
-    }
-
-    return (
-      <Grid container spacing={0}>
-        <Grid item xs={12} className={classes.main}>
-          <form className={classes.container} noValidate autoComplete="off">
-            <TextField
-              autoFocus={standalone}
-              inputProps={{
-                maxLength: MAX_INPUT_LENGTH,
-              }}
-              data-cy="input"
-              key="inputTextField"
-              id="inputTextField"
-              label={t('Type Here')}
-              multiline
-              rowsMax={MAX_ROWS}
-              value={text}
-              onChange={this.handleChangeText}
-              className={classes.textField}
-              margin="normal"
-              helperText={feedback}
-              variant="outlined"
-              fullWidth
-            />
-          </form>
-          {this.renderButton()}
-        </Grid>
+  return (
+    <Grid container spacing={0}>
+      <Grid item xs={12} className={classes.main}>
+        <form className={classes.container} noValidate autoComplete="off">
+          <TextField
+            autoFocus={context?.get('standalone')}
+            inputProps={{
+              maxLength: MAX_INPUT_LENGTH,
+            }}
+            data-cy={inputCypress}
+            id={inputTextFieldId}
+            label={t('Type Here')}
+            multiline
+            maxRows={MAX_ROWS}
+            value={text}
+            onChange={handleChangeText}
+            className={classes.textField}
+            margin="normal"
+            helperText={buildFeedbackText()}
+            variant="outlined"
+            fullWidth
+          />
+        </form>
+        <SaveButton
+          disabled={textIsDifferent}
+          offline={context?.get('offline')}
+          onClick={handleClickSaveText}
+        />
       </Grid>
-    );
-  }
-}
-
-const mapStateToProps = ({ context, appInstanceResources }) => {
-  const { userId, offline, standalone } = context;
-  const inputResource = appInstanceResources.content.find(({ user, type }) => {
-    return user === userId && type === INPUT;
-  });
-  const feedbackResource = appInstanceResources.content.find(
-    ({ user, type }) => {
-      return user === userId && type === FEEDBACK;
-    }
+    </Grid>
   );
-
-  return {
-    userId,
-    offline,
-    standalone,
-    inputResourceId: inputResource && (inputResource.id || inputResource._id),
-    activity: Boolean(appInstanceResources.activity.length),
-    ready: appInstanceResources.ready,
-    text: inputResource && inputResource.data,
-    feedback: feedbackResource && feedbackResource.data,
-  };
 };
 
-const mapDispatchToProps = {
-  dispatchGetAppInstanceResources: getAppInstanceResources,
-  dispatchPostAppInstanceResource: postAppInstanceResource,
-  dispatchPatchAppInstanceResource: patchAppInstanceResource,
-  dispatchPostAction: postAction,
-};
-
-const StyledComponent = withStyles(styles)(StudentView);
-
-const ConnectedComponent = connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(StyledComponent);
-
-export default withTranslation()(ConnectedComponent);
+export default StudentView;
