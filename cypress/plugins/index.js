@@ -24,6 +24,6 @@ module.exports = (on, config) => {
       API_HOST: process.env.REACT_APP_API_HOST,
     },
   };
-  // require('@cypress/code-coverage/task')(on, newConfig);
+  require('@cypress/code-coverage/task')(on, newConfig);
   return newConfig;
 };
