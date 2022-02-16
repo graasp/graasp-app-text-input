@@ -36,8 +36,8 @@
   "scripts": {
     "start": "yarn start:local",
     "start:local": "env-cmd -f ./.env.local react-scripts start",
-    "start:test": "env-cmd -f ./.env.test react-scripts start",
-    "start:ci": "react-scripts  -r @cypress/instrument-cra start",
+    "start:test": "env-cmd -f ./.env.test react-scripts -r @cypress/instrument-cra start",
+    "start:ci": "react-scripts -r @cypress/instrument-cra start",
     "build": "run-s build:react build:bundle",
     "build:react": "react-scripts build",
     "build:bundle": "webpack --config webpack.config.js --mode=production",
@@ -54,7 +54,8 @@
     "release": "git fetch --tags && git add CHANGELOG.md && standard-version -a",
     "release:first": "git fetch --tags && git add CHANGELOG.md && standard-version -a --first-release",
     "cypress:open": "env-cmd -f ./.env.test cypress open",
-    "cypress": "npm-run-all --parallel start cypress:open"
+    "cypress": "concurrently \"yarn start:test\" \"wait-on http://localhost:3333 && yarn cypress:run\"",
+    "cypress:run": "env-cmd -f ./.env.test cypress run --headless --browser chrome --spec \"cypress/**/*.spec.js\""
   },
   "devDependencies": {
     "@babel/eslint-parser": "7.17.0",

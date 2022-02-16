@@ -36,8 +36,9 @@ const Header = () => {
   const context = useContext(Context);
 
   const handleRefresh = () => {
-    queryClient.invalidateQueries(HOOK_KEYS.buildAppDataKey());
-    queryClient.invalidateQueries(HOOK_KEYS.buildAppContextKey());
+    const itemId = context.get('itemId');
+    queryClient.invalidateQueries(HOOK_KEYS.buildAppDataKey(itemId));
+    queryClient.invalidateQueries(HOOK_KEYS.buildAppContextKey(itemId));
   };
 
   const renderViewButtons = () => {
