@@ -37,6 +37,8 @@ cypress/integration/examples
 # exclude coverage
 /coverage
 .nyc_output
+cypress/videos
+cypress/screenshots
 
 # exclude local database
 db.json
