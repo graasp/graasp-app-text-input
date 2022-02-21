@@ -20,17 +20,15 @@ import {
   PERMISSION_LEVELS,
   RESPONSES_COLUMNS,
 } from '../../src/config/settings';
-import { setUpParentWindow } from '../fixtures/context';
 import { MOCK_APP_DATA, MOCK_FEEDBACK } from '../fixtures/appData';
 
 describe('<TeacherView />', () => {
   describe('Dashboard', () => {
     it('Display no data', () => {
-      cy.setUpApi();
-      cy.visit('/');
-      setUpParentWindow({
-        context: { permission: 'admin', context: CONTEXTS.ANALYZER },
+      cy.setUpApi({
+        appContext: { permission: 'admin', context: CONTEXTS.ANALYZER },
       });
+      cy.visit('/');
 
       // visible elements
       cy.get(dataCyWrapper(logoCypress)).should('be.visible');
@@ -42,15 +40,13 @@ describe('<TeacherView />', () => {
 
     it('Display data', () => {
       cy.setUpApi({
-        appData: [MOCK_APP_DATA, MOCK_FEEDBACK],
-      });
-      cy.visit('/');
-      setUpParentWindow({
-        context: {
+        database: { appData: [MOCK_APP_DATA, MOCK_FEEDBACK] },
+        appContext: {
           permission: PERMISSION_LEVELS.ADMIN,
           context: CONTEXTS.ANALYZER,
         },
       });
+      cy.visit('/');
 
       // visible elements
       cy.get(dataCyWrapper(logoCypress)).should('be.visible');
@@ -63,9 +59,11 @@ describe('<TeacherView />', () => {
   describe('Responses', () => {
     describe('Default data', () => {
       beforeEach(() => {
-        cy.setUpApi({ appData: [MOCK_APP_DATA, MOCK_FEEDBACK] });
+        cy.setUpApi({
+          database: { appData: [MOCK_APP_DATA, MOCK_FEEDBACK] },
+          appContext: { permission: PERMISSION_LEVELS.ADMIN },
+        });
         cy.visit('/');
-        setUpParentWindow({ context: { permission: PERMISSION_LEVELS.ADMIN } });
       });
 
       it('Default layout', () => {
@@ -100,9 +98,11 @@ describe('<TeacherView />', () => {
     });
     describe('App data without feedback', () => {
       beforeEach(() => {
-        cy.setUpApi({ appData: [MOCK_APP_DATA] });
+        cy.setUpApi({
+          database: { appData: [MOCK_APP_DATA] },
+          appContext: { permission: 'admin' },
+        });
         cy.visit('/');
-        setUpParentWindow({ context: { permission: 'admin' } });
       });
 
       it('Add feedback', () => {
@@ -138,9 +138,8 @@ describe('<TeacherView />', () => {
     });
     describe('Empty data', () => {
       beforeEach(() => {
-        cy.setUpApi();
+        cy.setUpApi({ appContext: { permission: 'admin' } });
         cy.visit('/');
-        setUpParentWindow({ context: { permission: 'admin' } });
       });
 
       it('Empty layout', () => {

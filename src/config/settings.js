@@ -1,10 +1,9 @@
 import { CONTEXTS } from './contexts';
+import { REACT_APP_API_HOST, REACT_APP_MOCK_API } from './env';
 
 export const MAX_INPUT_LENGTH = 5000;
 export const MAX_ROWS = 10;
 export const DEFAULT_LANG = 'en';
-
-export const DEFAULT_API_HOST = process.env.REACT_APP_API_HOST;
 
 // todo: use from graasp constants
 export const PERMISSION_LEVELS = {
@@ -23,5 +22,7 @@ export const DEFAULT_LOCAL_CONTEXT = {
   permission: PERMISSION_LEVELS.READ,
   lang: DEFAULT_LANG,
   context: CONTEXTS.PLAYER,
-  apiHost: DEFAULT_API_HOST,
+  apiHost: REACT_APP_API_HOST,
 };
+
+export const MOCK_API = REACT_APP_MOCK_API === 'true';

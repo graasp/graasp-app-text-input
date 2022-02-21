@@ -1,21 +1,17 @@
 import React from 'react';
 import { render } from 'react-dom';
 import Root from './components/Root';
-import configureServer from './config/api';
+import { mockServer, buildMockLocalContext } from '@graasp/apps-query-client';
+import buildDatabase from './data/db';
+import { MOCK_API } from './config/settings';
 import './index.css';
 
-// setup mocked api
-if (window.Cypress) {
-  configureServer({
-    database: window.database,
-  });
+// setup mocked api for cypress or standalone app
+if (MOCK_API) {
+  const appContext = buildMockLocalContext(window.appContext);
+  const database = window.Cypress ? window.database : buildDatabase(appContext);
+  mockServer({ database, appContext });
 }
-// else if (
-//   process.env.NODE_ENV === 'development' &&
-//   process.env.REACT_APP_MOCK_API === 'true'
-// ) {
-//   configureServer();
-// }
 
 const root = document.getElementById('root');
 

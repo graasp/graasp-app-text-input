@@ -3,9 +3,8 @@ import {
   inputTextFieldSelector,
   saveButtonCypress,
 } from '../../src/config/selectors';
-import { AUTO_SAVE_PAUSE } from '../constants/constants';
+import { AUTO_SAVE_PAUSE, LOAD_PAGE_PAUSE } from '../constants/constants';
 import { MOCK_APP_DATA } from '../fixtures/appData';
-import { setUpParentWindow } from '../fixtures/context';
 
 const text = 'Some input text.';
 
@@ -13,9 +12,9 @@ describe('<StudentView />', () => {
   describe('Empty database', () => {
     describe('offline = true', () => {
       beforeEach(() => {
-        cy.setUpApi();
+        cy.setUpApi({ appContext: { offline: true } });
         cy.visit('/');
-        setUpParentWindow({ context: { offline: true } });
+        cy.wait(LOAD_PAGE_PAUSE);
       });
 
       // save with button when offline
@@ -40,7 +39,7 @@ describe('<StudentView />', () => {
       beforeEach(() => {
         cy.setUpApi();
         cy.visit('/');
-        setUpParentWindow();
+        cy.wait(LOAD_PAGE_PAUSE);
       });
 
       it('saves typed data', () => {
@@ -66,9 +65,8 @@ describe('<StudentView />', () => {
 
   describe('Default database', () => {
     beforeEach(() => {
-      cy.setUpApi({ appData: [MOCK_APP_DATA] });
+      cy.setUpApi({ database: { appData: [MOCK_APP_DATA] } });
       cy.visit('/');
-      setUpParentWindow();
     });
 
     it('Display pre-saved data', () => {

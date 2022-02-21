@@ -7,9 +7,7 @@ import { showErrorToast } from '../../utils/toasts';
 const TokenContext = createContext();
 
 const TokenProvider = ({ children }) => {
-  const { data, isLoading, isError } = hooks.useAuthToken({
-    origin: window.location.origin,
-  });
+  const { data, isLoading, isError } = hooks.useAuthToken();
 
   if (isLoading) {
     return <Loader />;
