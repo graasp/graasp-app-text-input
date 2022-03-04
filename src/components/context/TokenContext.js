@@ -1,4 +1,5 @@
 import React, { createContext } from 'react';
+import qs from 'qs';
 import PropTypes from 'prop-types';
 import Loader from '../common/Loader';
 import { hooks } from '../../config/queryClient';
@@ -7,7 +8,10 @@ import { showErrorToast } from '../../utils/toasts';
 const TokenContext = createContext();
 
 const TokenProvider = ({ children }) => {
-  const { data, isLoading, isError } = hooks.useAuthToken();
+  const { itemId } = qs.parse(window.location.search, {
+    ignoreQueryPrefix: true,
+  });
+  const { data, isLoading, isError } = hooks.useAuthToken(itemId);
 
   if (isLoading) {
     return <Loader />;

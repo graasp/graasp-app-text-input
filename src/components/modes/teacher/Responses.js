@@ -38,8 +38,10 @@ const Responses = ({ students, appData }) => {
   };
 
   const renderAppInstanceResources = () => {
+    const nonEmptyData = appData.filter(({ data }) => Boolean(data?.text));
+
     // if there are no resources, show an empty table
-    if (appData.isEmpty()) {
+    if (nonEmptyData.isEmpty()) {
       return (
         <TableRow data-cy={tableNoResponsesCypress}>
           <TableCell align="center" colSpan={4}>
@@ -49,10 +51,10 @@ const Responses = ({ students, appData }) => {
       );
     }
 
-    const responses = appData.filter(
+    const responses = nonEmptyData.filter(
       ({ type }) => type === APP_DATA_TYPES.INPUT
     );
-    const feedbacks = appData.filter(
+    const feedbacks = nonEmptyData.filter(
       ({ type }) => type === APP_DATA_TYPES.FEEDBACK
     );
     // map each app instance resource to a row in the table

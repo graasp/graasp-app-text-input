@@ -16,7 +16,7 @@ export const DEFAULT_PERMISSION = PERMISSION_LEVELS.READ;
 export const DEFAULT_VISIBILITY = 'private';
 export const PUBLIC_VISIBILITY = 'public';
 
-export const RESPONSES_COLUMNS = ['Student', 'Feedback', 'Input', 'Actions'];
+export const RESPONSES_COLUMNS = ['Student', 'Input', 'Feedback', 'Actions'];
 
 export const DEFAULT_LOCAL_CONTEXT = {
   permission: PERMISSION_LEVELS.READ,
