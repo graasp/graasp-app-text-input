@@ -8,7 +8,7 @@ import Loader from '../../common/Loader';
 import { MAX_INPUT_LENGTH, MAX_ROWS } from '../../../config/settings';
 import { useMutation, MUTATION_KEYS } from '../../../config/queryClient';
 import { Context } from '../../context/ContextContext';
-import { useAppData } from '../../context/appData';
+import { useAppData } from '../../context/hooks';
 import SaveButton from './SaveButton';
 import { inputCypress, inputTextFieldId } from '../../../config/selectors';
 import { ACTION_TYPES } from '../../../config/actionTypes';

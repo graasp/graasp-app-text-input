@@ -1,4 +1,4 @@
-import React, { Fragment, useContext } from 'react';
+import React, { Fragment, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import Switch from '@material-ui/core/Switch';
 import DialogTitle from '@material-ui/core/DialogTitle';
@@ -6,34 +6,58 @@ import DialogContent from '@material-ui/core/DialogContent';
 import Dialog from '@material-ui/core/Dialog';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import { useTranslation } from 'react-i18next';
-import { Context } from '../../context/ContextContext';
+import Loader from '../../common/Loader';
 import { MUTATION_KEYS, useMutation } from '../../../config/queryClient';
 import { headerVisibilityCypress } from '../../../config/selectors';
+import { useAppSettings } from '../../context/hooks';
+import { SETTINGS } from '../../../config/settings';
 
 const Settings = ({ open, handleClose }) => {
   const { t } = useTranslation();
-  const context = useContext(Context);
-  const { mutate: patchSettings } = useMutation(MUTATION_KEYS.PATCH_SETTINGS);
+  const { data: settings, isLoading } = useAppSettings();
+  const [headerVisibility, setHeaderVisibility] = useState(null);
+  const { mutate: postAppSetting } = useMutation(
+    MUTATION_KEYS.POST_APP_SETTING
+  );
+  const { mutate: patchAppSetting } = useMutation(
+    MUTATION_KEYS.PATCH_APP_SETTING
+  );
 
-  const saveSettings = (settingsToChange) => {
-    patchSettings(settingsToChange);
-  };
+  useEffect(() => {
+    if (settings && !settings.isEmpty()) {
+      setHeaderVisibility(
+        settings.find(({ name }) => name === SETTINGS.HEADER_VISIBILITY)
+      );
+    }
+  }, [settings]);
 
   const handleChangeHeaderVisibility = () => {
     const settingsToChange = {
-      headerVisible: !context?.get('settings')?.headerVisible,
+      [SETTINGS.HEADER_VISIBILITY]:
+        !headerVisibility?.data?.[SETTINGS.HEADER_VISIBILITY],
     };
-    saveSettings(settingsToChange);
+    if (headerVisibility) {
+      patchAppSetting({ id: headerVisibility.id, data: settingsToChange });
+    } else {
+      postAppSetting({
+        name: SETTINGS.HEADER_VISIBILITY,
+        data: settingsToChange,
+      });
+    }
   };
 
   const renderModalContent = () => {
+    if (isLoading) {
+      return <Loader />;
+    }
+
     const switchControl = (
       <Switch
         data-cy={headerVisibilityCypress}
         color="primary"
-        checked={context?.get('settings')?.headerVisible}
+        checked={headerVisibility?.data?.[SETTINGS.HEADER_VISIBILITY]}
         onChange={handleChangeHeaderVisibility}
-        value="headerVisibility"
+        value={SETTINGS.HEADER_VISIBILITY}
       />
     );
 

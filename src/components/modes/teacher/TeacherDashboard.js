@@ -6,7 +6,7 @@ import Stopword from 'stopword';
 import Loader from '../../common/Loader';
 import WordCloud from 'react-wordcloud';
 import { makeStyles } from '@material-ui/core/styles';
-import { useAppData } from '../../context/appData';
+import { useAppData } from '../../context/hooks';
 import { useTranslation } from 'react-i18next';
 import { APP_DATA_TYPES } from '../../../config/appDataTypes';
 import { wordCloudId } from '../../../config/selectors';

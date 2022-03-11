@@ -7,7 +7,7 @@ import SettingsIcon from '@material-ui/icons/Settings';
 import Loader from '../../common/Loader';
 import Responses from './Responses';
 import Settings from './Settings';
-import { useAppContext, useAppData } from '../../context/appData';
+import { useAppContext, useAppData } from '../../context/hooks';
 import { settingsButtonCypress } from '../../../config/selectors';
 
 const useStyles = makeStyles((theme) => ({

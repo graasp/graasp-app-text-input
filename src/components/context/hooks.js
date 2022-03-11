@@ -10,6 +10,13 @@ export const useAppData = () => {
   return query;
 };
 
+export const useAppSettings = () => {
+  const context = useContext(Context);
+  const token = useContext(TokenContext);
+  const query = hooks.useAppSettings({ token, itemId: context?.get('itemId') });
+  return query;
+};
+
 export const useAppContext = () => {
   const context = useContext(Context);
   const token = useContext(TokenContext);

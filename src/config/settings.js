@@ -26,3 +26,7 @@ export const DEFAULT_LOCAL_CONTEXT = {
 };
 
 export const MOCK_API = REACT_APP_MOCK_API === 'true';
+
+export const SETTINGS = {
+  HEADER_VISIBILITY: 'headerVisibility',
+};
