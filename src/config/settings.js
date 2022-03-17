@@ -1,25 +1,32 @@
-import { LOCAL_API_HOST } from './api';
+import { CONTEXTS } from './contexts';
+import { REACT_APP_API_HOST, REACT_APP_MOCK_API } from './env';
 
 export const MAX_INPUT_LENGTH = 5000;
 export const MAX_ROWS = 10;
 export const DEFAULT_LANG = 'en';
-export const DEFAULT_MODE = 'student';
-export const TEACHER_MODE = 'teacher';
 
-// avoid breaking the app in production when embedded in different contexts
-let defaultApiHost;
-try {
-  defaultApiHost =
-    window.parent.location.hostname === 'localhost' ? LOCAL_API_HOST : null;
-} catch (e) {
-  console.error(e);
-  defaultApiHost = null;
-}
-
-export const DEFAULT_API_HOST = defaultApiHost;
-
-// we haven't decided what to call the teacher mode
-export const TEACHER_MODES = [TEACHER_MODE, 'producer', 'educator', 'admin'];
+// todo: use from graasp constants
+export const PERMISSION_LEVELS = {
+  WRITE: 'write',
+  READ: 'read',
+  ADMIN: 'admin',
+};
+export const DEFAULT_PERMISSION = PERMISSION_LEVELS.READ;
 
 export const DEFAULT_VISIBILITY = 'private';
 export const PUBLIC_VISIBILITY = 'public';
+
+export const RESPONSES_COLUMNS = ['Student', 'Input', 'Feedback', 'Actions'];
+
+export const DEFAULT_LOCAL_CONTEXT = {
+  permission: PERMISSION_LEVELS.READ,
+  lang: DEFAULT_LANG,
+  context: CONTEXTS.PLAYER,
+  apiHost: REACT_APP_API_HOST,
+};
+
+export const MOCK_API = REACT_APP_MOCK_API === 'true';
+
+export const SETTINGS = {
+  HEADER_VISIBILITY: 'headerVisibility',
+};

@@ -1,20 +1,22 @@
 {
   "translations": {
-    "Feedback": "Feedback",
-    "Currently we do not support giving feedback to anonymous users.": "Currently we do not support giving feedback to anonymous users.",
-    "By clicking 'Delete', you will be deleting the student's response. This action cannot be undone.": "By clicking 'Delete', you will be deleting the student's response. This action cannot be undone.",
-    "Text Input": "Text Input",
-    "Save": "Save",
-    "Type Here": "Type Here",
-    "Submit feedback that will be visible to the student.": "Submit feedback that will be visible to the student.",
-    "Delete Student Response": "Delete Student Response",
-    "Delete": "Delete",
-    "Cancel": "Cancel",
-    "No Responses": "No Responses",
-    "These are the responses submitted by the students.": "These are the responses submitted by the students.",
-    "Student": "Student",
-    "Input": "Input",
+    "Feedback": "Commentaire",
+    "Currently we do not support giving feedback to anonymous users.": "Actuellement il n'est pas possible d'écrire un commentaire pour les utilisateurs anonymes.",
+    "By clicking \"Delete\", you will be deleting the student's response. This action cannot be undone.": "En cliquant sur 'Supprimer', vous allez supprimer la réponse de l'étudiant. Cette action est définitive.",
+    "Text Input": "Boîte de Texte",
+    "Save": "Sauvegarder",
+    "Type Here": "Ecrire ici",
+    "Submit feedback that will be visible to the student.": "L'étudiant pourra voir le commentaire envoyé.",
+    "Delete Student Response": "Supprimer la réponse de l'étudiant",
+    "Delete": "Supprimer",
+    "Cancel": "Annuler",
+    "No Responses": "Aucune Réponse",
+    "These are the responses submitted by the students.": "Les réponses des étudiants sont affichées ci-dessous.",
+    "Student": "Etudiant",
+    "Input": "Réponse",
     "Settings": "Paramètres",
-    "Show Header to Students": "Montrer l'en-tête aux étudiants."
+    "Show Header to Students": "Montrer l'en-tête aux étudiants.",
+    "Anonymous": "Anonyme",
+    "Actions": "Actions"
   }
 }

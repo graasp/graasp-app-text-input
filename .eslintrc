@@ -1,12 +1,10 @@
 {
   "extends": [
-    "airbnb",
-    "prettier"
+    "prettier",
+    "eslint:recommended",
+    "react-app"
   ],
   "plugins": [
-    "import",
-    "jsx-a11y",
-    "react"
   ],
   "env": {
     "browser": true,
@@ -18,7 +16,7 @@
     "cy": true,
     "Cypress": true
   },
-  "parser": "babel-eslint",
+  "parser": "@babel/eslint-parser",
   "rules": {
     "no-underscore-dangle": [
       "error",
@@ -36,13 +34,6 @@
         "specialLink": ["to", "hrefLeft", "hrefRight"],
         "aspects": ["noHref", "invalidHref", "preferButton"]
       }
-    ],
-    "react/jsx-filename-extension": [
-      1,
-      {
-        "extensions": [".js", ".jsx"]
-      }
-    ],
-    "import/no-named-as-default": 0
+    ]
   }
 }

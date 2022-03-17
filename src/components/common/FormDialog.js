@@ -7,6 +7,10 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import PropTypes from 'prop-types';
+import {
+  feedbackInputCypress,
+  submitButtonCypress,
+} from '../../config/selectors';
 
 class FormDialog extends Component {
   state = {
@@ -47,12 +51,11 @@ class FormDialog extends Component {
 
     // only update state if it is sure to not trigger a infinite render loop
     if (prevInitialInput !== initialInput && prevInput !== initialInput) {
-      // eslint-disable-next-line react/no-did-update-set-state
       this.setState({ input: initialInput });
     }
   }
 
-  handleChangeTextField = event => {
+  handleChangeTextField = (event) => {
     this.setState({
       input: event.target.value,
     });
@@ -82,11 +85,10 @@ class FormDialog extends Component {
           <DialogContent>
             <DialogContentText>{text}</DialogContentText>
             <TextField
-              key="inputTextField"
-              id="inputTextField"
+              data-cy={feedbackInputCypress}
               multiline
               value={input}
-              rowsMax="5"
+              maxRows="5"
               onChange={this.handleChangeTextField}
               margin="dense"
               fullWidth
@@ -96,7 +98,11 @@ class FormDialog extends Component {
             <Button onClick={handleClose} color="secondary">
               {cancelText}
             </Button>
-            <Button onClick={() => handleSubmit(input)} color="primary">
+            <Button
+              data-cy={submitButtonCypress}
+              onClick={() => handleSubmit(input)}
+              color="primary"
+            >
               {submitText}
             </Button>
           </DialogActions>
