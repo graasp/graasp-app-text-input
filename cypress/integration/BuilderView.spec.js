@@ -22,46 +22,16 @@ import {
 } from '../../src/config/settings';
 import { MOCK_APP_DATA, MOCK_FEEDBACK } from '../fixtures/appData';
 
-describe('<TeacherView />', () => {
-  describe('Dashboard', () => {
-    it('Display no data', () => {
-      cy.setUpApi({
-        appContext: { permission: 'admin', context: CONTEXTS.ANALYZER },
-      });
-      cy.visit('/');
-
-      // visible elements
-      cy.get(dataCyWrapper(logoCypress)).should('be.visible');
-      cy.get(dataCyWrapper(appTitleCypress)).should('be.visible');
-      cy.get(dataCyWrapper(refreshButtonCypress)).should('be.visible');
-
-      cy.get(`#${wordCloudId}`).should('not.exist');
-    });
-
-    it('Display data', () => {
-      cy.setUpApi({
-        database: { appData: [MOCK_APP_DATA, MOCK_FEEDBACK] },
-        appContext: {
-          permission: PERMISSION_LEVELS.ADMIN,
-          context: CONTEXTS.ANALYZER,
-        },
-      });
-      cy.visit('/');
-
-      // visible elements
-      cy.get(dataCyWrapper(logoCypress)).should('be.visible');
-      cy.get(dataCyWrapper(appTitleCypress)).should('be.visible');
-      cy.get(dataCyWrapper(refreshButtonCypress)).should('be.visible');
-
-      cy.get(`#${wordCloudId} text`).should('contain', 'text');
-    });
-  });
+describe('<BuilderView />', () => {
   describe('Responses', () => {
     describe('Default data', () => {
       beforeEach(() => {
         cy.setUpApi({
           database: { appData: [MOCK_APP_DATA, MOCK_FEEDBACK] },
-          appContext: { permission: PERMISSION_LEVELS.ADMIN },
+          appContext: {
+            permission: PERMISSION_LEVELS.ADMIN,
+            context: CONTEXTS.BUILDER,
+          },
         });
         cy.visit('/');
       });
@@ -100,7 +70,10 @@ describe('<TeacherView />', () => {
       beforeEach(() => {
         cy.setUpApi({
           database: { appData: [MOCK_APP_DATA] },
-          appContext: { permission: 'admin' },
+          appContext: {
+            permission: PERMISSION_LEVELS.ADMIN,
+            context: CONTEXTS.BUILDER,
+          },
         });
         cy.visit('/');
       });
@@ -138,7 +111,12 @@ describe('<TeacherView />', () => {
     });
     describe('Empty data', () => {
       beforeEach(() => {
-        cy.setUpApi({ appContext: { permission: 'admin' } });
+        cy.setUpApi({
+          appContext: {
+            permission: PERMISSION_LEVELS.ADMIN,
+            context: CONTEXTS.BUILDER,
+          },
+        });
         cy.visit('/');
       });
 

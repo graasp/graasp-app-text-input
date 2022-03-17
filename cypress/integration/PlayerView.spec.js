@@ -8,7 +8,7 @@ import { MOCK_APP_DATA } from '../fixtures/appData';
 
 const text = 'Some input text.';
 
-describe('<StudentView />', () => {
+describe('<PlayerView />', () => {
   describe('Empty database', () => {
     describe('offline = true', () => {
       beforeEach(() => {

@@ -20,7 +20,12 @@ export const App = () => {
           </>
         );
       case CONTEXTS.ANALYZER:
-        return <AnalyzerView />;
+        return (
+          <>
+            <Header />
+            <AnalyzerView />
+          </>
+        );
 
       case CONTEXTS.PLAYER:
       default:
