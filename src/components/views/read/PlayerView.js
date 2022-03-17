@@ -46,7 +46,7 @@ const saveToApi = _.debounce(({ inputResource, patchAppData, data }) => {
   }
 }, 1000);
 
-const StudentView = () => {
+const PlayerView = () => {
   const classes = useStyles();
   const { t } = useTranslation();
   const [text, setText] = useState('');
@@ -163,4 +163,4 @@ const StudentView = () => {
   );
 };
 
-export default StudentView;
+export default PlayerView;

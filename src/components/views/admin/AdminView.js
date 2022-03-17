@@ -30,7 +30,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export const TeacherView = () => {
+export const AdminView = () => {
   const classes = useStyles();
   const { t } = useTranslation();
   const { data: context, isLoading } = useAppContext();
@@ -71,4 +71,4 @@ export const TeacherView = () => {
   );
 };
 
-export default TeacherView;
+export default AdminView;
