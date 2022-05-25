@@ -9,12 +9,12 @@ import { useTranslation } from 'react-i18next';
 import Loader from '../../common/Loader';
 import { MUTATION_KEYS, useMutation } from '../../../config/queryClient';
 import { headerVisibilityCypress } from '../../../config/selectors';
-import { useAppSettings } from '../../context/hooks';
+import { hooks } from '../../../config/queryClient';
 import { SETTINGS } from '../../../config/settings';
 
 const Settings = ({ open, handleClose }) => {
   const { t } = useTranslation();
-  const { data: settings, isLoading } = useAppSettings();
+  const { data: settings, isLoading } = hooks.useAppSettings();
   const [headerVisibility, setHeaderVisibility] = useState(null);
   const { mutate: postAppSetting } = useMutation(
     MUTATION_KEYS.POST_APP_SETTING

@@ -12,18 +12,22 @@ import orange from '@material-ui/core/colors/orange';
 import 'react-toastify/dist/ReactToastify.css';
 import i18nConfig from '../config/i18n';
 import App from './App';
+import Loader from './common/Loader';
 import {
   REACT_APP_GRAASP_APP_ID,
   REACT_APP_GRAASP_DEVELOPER_ID,
   REACT_APP_VERSION,
   REACT_APP_GOOGLE_ANALYTICS_ID,
 } from '../config/env';
-import { ContextProvider } from './context/ContextContext';
+import { ContextProvider } from '@graasp/apps-query-client';
 import {
   queryClient,
   QueryClientProvider,
   ReactQueryDevtools,
 } from '../config/queryClient';
+
+import { hooks } from '../config/queryClient';
+import { showErrorToast } from '../utils/toasts';
 
 // todo: to change
 if (REACT_APP_GOOGLE_ANALYTICS_ID) {
@@ -72,7 +76,13 @@ const Root = () => {
       <MuiThemeProvider theme={theme}>
         <I18nextProvider i18n={i18nConfig}>
           <QueryClientProvider client={queryClient}>
-            <ContextProvider>
+            <ContextProvider
+              LoadingComponent={<Loader />}
+              useGetLocalContext={hooks.useGetLocalContext}
+              onError={() => {
+                showErrorToast('An error occured while fetching the context.');
+              }}
+            >
               <App />
             </ContextProvider>
             {process.env.NODE_ENV === 'development' && <ReactQueryDevtools />}

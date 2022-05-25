@@ -60,6 +60,7 @@ const Response = ({ id, data, student, feedbackResource }) => {
     // if no feedback resource yet, create it, otherwise, update it
     if (_.isEmpty(feedbackResource)) {
       postAppData({
+        memberId: student.id,
         data: { text, memberId: student.id },
         type: ACTION_TYPES.FEEDBACK,
       });

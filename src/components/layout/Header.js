@@ -9,7 +9,7 @@ import { useTranslation } from 'react-i18next';
 import { ReactComponent as Logo } from '../../resources/logo.svg';
 import { queryClient, HOOK_KEYS } from '../../config/queryClient';
 import DownloadCsvButton from '../views/admin/DownloadCsvButton';
-import { Context } from '../context/ContextContext';
+import { Context } from '@graasp/apps-query-client';
 import { PERMISSION_LEVELS } from '../../config/settings';
 import {
   appTitleCypress,

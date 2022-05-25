@@ -7,8 +7,8 @@ import { makeStyles } from '@material-ui/core/styles';
 import Loader from '../../common/Loader';
 import { MAX_INPUT_LENGTH, MAX_ROWS } from '../../../config/settings';
 import { useMutation, MUTATION_KEYS } from '../../../config/queryClient';
-import { Context } from '../../context/ContextContext';
-import { useAppData } from '../../context/hooks';
+import { Context } from '@graasp/apps-query-client';
+import { hooks } from '../../../config/queryClient';
 import SaveButton from './SaveButton';
 import { inputCypress, inputTextFieldId } from '../../../config/selectors';
 import { ACTION_TYPES } from '../../../config/actionTypes';
@@ -54,14 +54,14 @@ const PlayerView = () => {
   const [feedbackResource, setFeedbackResource] = useState(null);
   const { mutate: postAppData } = useMutation(MUTATION_KEYS.POST_APP_DATA);
   const { mutate: patchAppData } = useMutation(MUTATION_KEYS.PATCH_APP_DATA);
-  const { mutate: postAction } = useMutation('MUTATION_KEYS.POST_APP_DATA');
+  const { mutate: postAction } = useMutation(MUTATION_KEYS.POST_APP_ACTION);
 
   const context = useContext(Context);
   const {
     data: appData,
     isLoading: isAppDataLoading,
     isSuccess: isAppDataSuccess,
-  } = useAppData();
+  } = hooks.useAppData();
 
   useEffect(() => {
     if (isAppDataSuccess && !appData.isEmpty()) {
@@ -107,7 +107,7 @@ const PlayerView = () => {
         id: inputResource.id,
       });
       postAction({
-        verb: ACTION_TYPES.SAVED,
+        type: ACTION_TYPES.SAVED,
         data: {
           data: text,
           id: inputResource.id,

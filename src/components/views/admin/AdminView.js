@@ -7,7 +7,7 @@ import SettingsIcon from '@material-ui/icons/Settings';
 import Loader from '../../common/Loader';
 import Responses from './Responses';
 import Settings from './Settings';
-import { useAppContext, useAppData } from '../../context/hooks';
+import { hooks } from '../../../config/queryClient';
 import { settingsButtonCypress } from '../../../config/selectors';
 
 const useStyles = makeStyles((theme) => ({
@@ -33,8 +33,8 @@ const useStyles = makeStyles((theme) => ({
 export const AdminView = () => {
   const classes = useStyles();
   const { t } = useTranslation();
-  const { data: context, isLoading } = useAppContext();
-  const { data: appData, isLoading: isAppDataLoading } = useAppData();
+  const { data: context, isLoading } = hooks.useAppContext();
+  const { data: appData, isLoading: isAppDataLoading } = hooks.useAppData();
   const [isOpenSettings, setIsOpenSettings] = useState(false);
 
   if (isLoading || isAppDataLoading) {

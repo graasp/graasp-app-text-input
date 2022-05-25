@@ -9,7 +9,7 @@
   "homepage": ".",
   "license": "MIT",
   "dependencies": {
-    "@graasp/apps-query-client": "github:graasp/graasp-apps-query-client.git#18/appSettings",
+    "@graasp/apps-query-client": "github:graasp/graasp-apps-query-client.git#16/readme",
     "@material-ui/core": "4.12.3",
     "@material-ui/icons": "4.11.2",
     "@testing-library/jest-dom": "5.16.2",
@@ -21,7 +21,7 @@
     "lodash": "4.17.21",
     "miragejs": "0.1.43",
     "prop-types": "15.8.1",
-    "qs": "6.10.1",
+    "qs": "6.10.3",
     "react": "17.0.2",
     "react-csv": "2.0.1",
     "react-dom": "17.0.2",

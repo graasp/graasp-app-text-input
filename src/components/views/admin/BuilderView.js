@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 import AdminView from './AdminView';
-import { Context } from '../../context/ContextContext';
+import { Context } from '@graasp/apps-query-client';
 import { PERMISSION_LEVELS } from '../../../config/settings';
 import PlayerView from '../read/PlayerView';
 
