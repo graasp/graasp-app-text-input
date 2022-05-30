@@ -19,7 +19,7 @@ import {
   REACT_APP_VERSION,
   REACT_APP_GOOGLE_ANALYTICS_ID,
 } from '../config/env';
-import { ContextProvider } from '@graasp/apps-query-client';
+import { withContext, withToken } from '@graasp/apps-query-client';
 import {
   queryClient,
   QueryClientProvider,
@@ -71,20 +71,28 @@ const theme = createTheme({
 const Root = () => {
   const classes = useStyles();
 
+  const AppWithContext = withToken(App, {
+    LoadingComponent: <Loader />,
+    useAuthToken: hooks.useAuthToken,
+    onError: () => {
+      showErrorToast('An error occured while requesting the token.');
+    },
+  });
+
+  const AppWithContextAndToken = withContext(AppWithContext, {
+    LoadingComponent: <Loader />,
+    useGetLocalContext: hooks.useGetLocalContext,
+    onError: () => {
+      showErrorToast('An error occured while fetching the context.');
+    },
+  });
+
   return (
     <div className={classes.root}>
       <MuiThemeProvider theme={theme}>
         <I18nextProvider i18n={i18nConfig}>
           <QueryClientProvider client={queryClient}>
-            <ContextProvider
-              LoadingComponent={<Loader />}
-              useGetLocalContext={hooks.useGetLocalContext}
-              onError={() => {
-                showErrorToast('An error occured while fetching the context.');
-              }}
-            >
-              <App />
-            </ContextProvider>
+            <AppWithContextAndToken />
             {process.env.NODE_ENV === 'development' && <ReactQueryDevtools />}
           </QueryClientProvider>
           <ToastContainer />
