@@ -1,30 +1,17 @@
 import React from 'react';
 import { render } from 'react-dom';
 import Root from './components/Root';
-import {
-  mockServer,
-  buildMockLocalContext,
-  buildDatabase,
-} from '@graasp/apps-query-client';
+import { mockApi } from '@graasp/apps-query-client';
 import { MOCK_API } from './config/settings';
 import './index.css';
 
 // setup mocked api for cypress or standalone app
 if (MOCK_API) {
-  const appContext = buildMockLocalContext({
-    ...window.appContext,
-    permission: 'admin',
+  const appContext = { ...window.appContext, permission: 'admin' };
+  mockApi({
+    appContext,
+    database: window.Cypress ? window.database : undefined,
   });
-  // automatically append item id as a query string
-  const searchParams = new URLSearchParams(window.location.search);
-  if (!searchParams.get('itemId')) {
-    searchParams.set('itemId', appContext.itemId);
-    window.location.search = searchParams.toString();
-  }
-  const database = window.Cypress
-    ? window.database
-    : buildDatabase({ appData: [] });
-  mockServer({ database, appContext });
 }
 
 const root = document.getElementById('root');

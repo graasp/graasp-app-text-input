@@ -7,7 +7,7 @@ import { IconButton } from '@material-ui/core';
 import RefreshIcon from '@material-ui/icons/Refresh';
 import { useTranslation } from 'react-i18next';
 import { ReactComponent as Logo } from '../../resources/logo.svg';
-import { queryClient, HOOK_KEYS } from '../../config/queryClient';
+import { queryClient, QUERY_KEYS } from '../../config/queryClient';
 import DownloadCsvButton from '../views/admin/DownloadCsvButton';
 import { Context } from '@graasp/apps-query-client';
 import { PERMISSION_LEVELS } from '../../config/settings';
@@ -37,8 +37,8 @@ const Header = () => {
 
   const handleRefresh = () => {
     const itemId = context.get('itemId');
-    queryClient.invalidateQueries(HOOK_KEYS.buildAppDataKey(itemId));
-    queryClient.invalidateQueries(HOOK_KEYS.buildAppContextKey(itemId));
+    queryClient.invalidateQueries(QUERY_KEYS.buildAppDataKey(itemId));
+    queryClient.invalidateQueries(QUERY_KEYS.buildAppContextKey(itemId));
   };
 
   const renderViewButtons = () => {

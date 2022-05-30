@@ -14,7 +14,7 @@ const {
   ReactQueryDevtools,
   API_ROUTES,
   MUTATION_KEYS,
-  HOOK_KEYS,
+  QUERY_KEYS,
 } = configureQueryClient({
   notifier: (data) => {
     console.log('notifier: ', data);
@@ -37,5 +37,5 @@ export {
   ReactQueryDevtools,
   API_ROUTES,
   MUTATION_KEYS,
-  HOOK_KEYS,
+  QUERY_KEYS,
 };
