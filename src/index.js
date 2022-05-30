@@ -7,9 +7,8 @@ import './index.css';
 
 // setup mocked api for cypress or standalone app
 if (MOCK_API) {
-  const appContext = { ...window.appContext, permission: 'admin' };
   mockApi({
-    appContext,
+    appContext: window.Cypress ? window.appContext : undefined,
     database: window.Cypress ? window.database : undefined,
   });
 }
