@@ -12,7 +12,6 @@ import {
   responsesTableCypress,
   submitButtonCypress,
   tableNoResponsesCypress,
-  wordCloudId,
   settingsButtonCypress,
   headerVisibilityCypress,
 } from '../../src/config/selectors';

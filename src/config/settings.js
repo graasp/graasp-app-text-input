@@ -1,5 +1,5 @@
 import { CONTEXTS } from './contexts';
-import { REACT_APP_API_HOST, REACT_APP_MOCK_API } from './env';
+import { REACT_APP_API_HOST, REACT_APP_ENABLE_MOCK_API } from './env';
 
 export const MAX_INPUT_LENGTH = 5000;
 export const MAX_ROWS = 10;
@@ -25,7 +25,7 @@ export const DEFAULT_LOCAL_CONTEXT = {
   apiHost: REACT_APP_API_HOST,
 };
 
-export const MOCK_API = REACT_APP_MOCK_API === 'true';
+export const ENABLE_MOCK_API = REACT_APP_ENABLE_MOCK_API === 'true';
 
 export const SETTINGS = {
   HEADER_VISIBILITY: 'headerVisibility',

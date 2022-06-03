@@ -6,7 +6,7 @@ import Stopword from 'stopword';
 import Loader from '../../common/Loader';
 import WordCloud from 'react-wordcloud';
 import { makeStyles } from '@material-ui/core/styles';
-import { useAppData } from '../../context/hooks';
+import { hooks } from '../../../config/queryClient';
 import { useTranslation } from 'react-i18next';
 import { APP_DATA_TYPES } from '../../../config/appDataTypes';
 import { wordCloudId } from '../../../config/selectors';
@@ -40,7 +40,7 @@ const useStyles = makeStyles({
 const TeacherDashboard = () => {
   const classes = useStyles;
   const { t } = useTranslation();
-  const { data: appData, isLoading } = useAppData();
+  const { data: appData, isLoading } = hooks.useAppData();
 
   if (isLoading) {
     return <Loader />;

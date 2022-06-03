@@ -5,12 +5,13 @@ import DownloadIcon from '@material-ui/icons/CloudDownload';
 import { useTranslation } from 'react-i18next';
 import { Parser } from 'json2csv';
 import { ACTION_TYPES } from '../../../config/actionTypes';
-import { useAppContext, useAppData } from '../../context/hooks';
+import { hooks } from '../../../config/queryClient';
 
 const DownloadCsvButton = () => {
   const { t } = useTranslation();
-  const { data: appData, isLoading: isAppDataLoading } = useAppData();
-  const { data: context, isLoading: isAppContextLoading } = useAppContext();
+  const { data: appData, isLoading: isAppDataLoading } = hooks.useAppData();
+  const { data: context, isLoading: isAppContextLoading } =
+    hooks.useAppContext();
 
   // if there are no users or no app instance resources do not show button
   if (
