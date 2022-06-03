@@ -2,11 +2,11 @@ import React from 'react';
 import { render } from 'react-dom';
 import Root from './components/Root';
 import { mockApi } from '@graasp/apps-query-client';
-import { MOCK_API } from './config/settings';
+import { ENABLE_MOCK_API } from './config/settings';
 import './index.css';
 
 // setup mocked api for cypress or standalone app
-if (MOCK_API) {
+if (ENABLE_MOCK_API) {
   mockApi({
     appContext: window.Cypress ? window.appContext : undefined,
     database: window.Cypress ? window.database : undefined,
