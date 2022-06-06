@@ -36,7 +36,6 @@ describe('<BuilderView />', () => {
       });
 
       it('Default layout', () => {
-        cy.wait(2000);
         cy.get(dataCyWrapper(logoCypress)).should('be.visible');
         cy.get(dataCyWrapper(appTitleCypress)).should('be.visible');
         cy.get(dataCyWrapper(refreshButtonCypress)).should('be.visible');
