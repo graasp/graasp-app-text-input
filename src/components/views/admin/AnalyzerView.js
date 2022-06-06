@@ -2,7 +2,7 @@ import React from 'react';
 import _ from 'lodash';
 import Typography from '@material-ui/core/Typography';
 import { List } from 'immutable';
-import Stopword from 'stopword';
+import { removeStopwords } from 'stopword';
 import Loader from '../../common/Loader';
 import WordCloud from 'react-wordcloud';
 import { makeStyles } from '@material-ui/core/styles';
@@ -18,7 +18,7 @@ const formatWords = (appData) => {
     .flatten();
 
   // strip stopwords and create count map
-  const strippedWordArray = Stopword.removeStopwords(wordArray.toJS());
+  const strippedWordArray = removeStopwords(wordArray.toJS());
   const wordMap = _.countBy(strippedWordArray);
 
   // prepare map in format required by word cloud
