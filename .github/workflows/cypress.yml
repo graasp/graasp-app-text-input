@@ -34,6 +34,7 @@ jobs:
           browser: chrome
           headless: true
           quiet: true
+          config-file: cypress.config.js
 
       # after the test run completes
       # store videos and any screenshots
