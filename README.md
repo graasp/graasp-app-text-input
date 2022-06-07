@@ -1,12 +1,12 @@
-<p style="text-align: center">
+<p align="center">
   <a href="https://graasp.eu/">
     <img alt="Graasp" src="https://avatars3.githubusercontent.com/u/43075056" width="300">
   </a>
 </p>
 
-<h1 style="text-align: center">Graasp App: Text Input</h1>
+<h1 align="center">Graasp App: Text Input</h1>
 
-<p style="text-align: center">
+<p align="center">
   <a href="https://conventionalcommits.org">
     <img
       alt="Conventional Commits"
@@ -15,7 +15,7 @@
   </a>
 </p>
 
-<p style="text-align: center">
+<p align="center">
   <img
     alt="Screenshot"
     src="https://raw.githubusercontent.com/graasp/graasp-app-text-input/master/docs/assets/screenshot.png"
