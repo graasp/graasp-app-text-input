@@ -1,37 +1,36 @@
 import React, { useState } from 'react';
-import { makeStyles } from '@material-ui/core/styles';
-import Grid from '@material-ui/core/Grid';
+import Grid from '@mui/material/Grid';
 import { useTranslation } from 'react-i18next';
-import Fab from '@material-ui/core/Fab';
-import SettingsIcon from '@material-ui/icons/Settings';
+import Fab from '@mui/material/Fab';
+import { styled } from '@mui/material';
+import SettingsIcon from '@mui/icons-material/Settings';
 import Loader from '../../common/Loader';
 import Responses from './Responses';
 import Settings from './Settings';
 import { hooks } from '../../../config/queryClient';
 import { settingsButtonCypress } from '../../../config/selectors';
 
-const useStyles = makeStyles((theme) => ({
-  root: {
-    width: '100%',
-    marginTop: theme.spacing(3),
-    backgroundColor: '#fff',
-  },
-  main: {
-    textAlign: 'center',
-    margin: theme.spacing(1),
-    padding: theme.spacing(1),
-    overflowX: 'hidden',
-  },
-  fab: {
-    margin: theme.spacing(1),
-    position: 'fixed',
-    bottom: theme.spacing(2),
-    right: theme.spacing(2),
-  },
+const Container = styled(Grid)(({ theme }) => ({
+  width: '100%',
+  marginTop: theme.spacing(3),
+  backgroundColor: '#fff',
+}));
+
+const MainContainer = styled(Grid)(({ theme }) => ({
+  textAlign: 'center',
+  margin: theme.spacing(1),
+  padding: theme.spacing(1),
+  overflowX: 'hidden',
+}));
+
+const StyledFab = styled(Fab)(({ theme }) => ({
+  margin: theme.spacing(1),
+  position: 'fixed',
+  bottom: theme.spacing(2),
+  right: theme.spacing(2),
 }));
 
 export const AdminView = () => {
-  const classes = useStyles();
   const { t } = useTranslation();
   const { data: context, isLoading } = hooks.useAppContext();
   const { data: appData, isLoading: isAppDataLoading } = hooks.useAppData();
@@ -52,21 +51,20 @@ export const AdminView = () => {
 
   return (
     <>
-      <Grid container spacing={0} className={classes.root}>
-        <Grid item xs={12} className={classes.main}>
+      <Container container spacing={0}>
+        <MainContainer item xs={12}>
           <Responses students={members} appData={appData} />
-        </Grid>
-      </Grid>
+        </MainContainer>
+      </Container>
       <Settings open={isOpenSettings} handleClose={handleClose} />
-      <Fab
+      <StyledFab
         data-cy={settingsButtonCypress}
         color="primary"
         aria-label={t('Settings')}
-        className={classes.fab}
         onClick={onClick}
       >
         <SettingsIcon />
-      </Fab>
+      </StyledFab>
     </>
   );
 };

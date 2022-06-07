@@ -1,9 +1,9 @@
 import React, { useState, useEffect, useContext } from 'react';
 import _ from 'lodash';
-import Grid from '@material-ui/core/Grid';
-import TextField from '@material-ui/core/TextField';
+import Grid from '@mui/material/Grid';
+import TextField from '@mui/material/TextField';
 import { useTranslation } from 'react-i18next';
-import { makeStyles } from '@material-ui/core/styles';
+import { styled } from '@mui/material';
 import Loader from '../../common/Loader';
 import { MAX_INPUT_LENGTH, MAX_ROWS } from '../../../config/settings';
 import { useMutation, MUTATION_KEYS } from '../../../config/queryClient';
@@ -14,27 +14,21 @@ import { inputCypress, inputTextFieldId } from '../../../config/selectors';
 import { ACTION_TYPES } from '../../../config/actionTypes';
 import { APP_DATA_TYPES } from '../../../config/appDataTypes';
 
-const useStyles = makeStyles((theme) => ({
-  main: {
-    textAlign: 'center',
-    flex: 1,
-    padding: theme.spacing(1),
-  },
-  container: {
-    display: 'flex',
-    flexWrap: 'wrap',
-    overflowX: 'hidden',
-  },
-  message: {
-    padding: theme.spacing(1),
-    backgroundColor: theme.status.danger.background[500],
-    color: theme.status.danger.color,
-    marginBottom: theme.spacing(2),
-  },
-  textField: {
-    marginLeft: theme.spacing(1),
-    marginRight: theme.spacing(1),
-  },
+const FormContainer = styled('form')({
+  display: 'flex',
+  flexWrap: 'wrap',
+  overflowX: 'hidden',
+});
+
+const StyledTextField = styled(TextField)(({ theme }) => ({
+  marginLeft: theme.spacing(1),
+  marginRight: theme.spacing(1),
+}));
+
+const MainContainer = styled(Grid)(({ theme }) => ({
+  textAlign: 'center',
+  flex: 1,
+  padding: theme.spacing(1),
 }));
 
 const saveToApi = _.debounce(({ inputResource, patchAppData, data }) => {
@@ -47,7 +41,6 @@ const saveToApi = _.debounce(({ inputResource, patchAppData, data }) => {
 }, 1000);
 
 const PlayerView = () => {
-  const classes = useStyles();
   const { t } = useTranslation();
   const [text, setText] = useState('');
   const [inputResource, setInputResource] = useState(null);
@@ -132,9 +125,9 @@ const PlayerView = () => {
 
   return (
     <Grid container spacing={0}>
-      <Grid item xs={12} className={classes.main}>
-        <form className={classes.container} noValidate autoComplete="off">
-          <TextField
+      <MainContainer item xs={12}>
+        <FormContainer noValidate autoComplete="off">
+          <StyledTextField
             autoFocus={context?.get('standalone')}
             inputProps={{
               maxLength: MAX_INPUT_LENGTH,
@@ -146,19 +139,18 @@ const PlayerView = () => {
             maxRows={MAX_ROWS}
             value={text}
             onChange={handleChangeText}
-            className={classes.textField}
             margin="normal"
             helperText={buildFeedbackText()}
             variant="outlined"
             fullWidth
           />
-        </form>
+        </FormContainer>
         <SaveButton
           disabled={textIsDifferent}
           offline={context?.get('offline')}
           onClick={handleClickSaveText}
         />
-      </Grid>
+      </MainContainer>
     </Grid>
   );
 };

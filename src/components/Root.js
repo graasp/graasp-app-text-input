@@ -1,14 +1,12 @@
 import React from 'react';
 import ReactGa from 'react-ga';
 import { I18nextProvider } from 'react-i18next';
-import {
-  MuiThemeProvider,
-  createTheme,
-  makeStyles,
-} from '@material-ui/core/styles';
+import { ThemeProvider, createTheme } from '@mui/material/styles';
+import { styled } from '@mui/material';
 import { ToastContainer } from 'react-toastify';
-import grey from '@material-ui/core/colors/grey';
-import orange from '@material-ui/core/colors/orange';
+import grey from '@mui/material/colors/grey';
+import orange from '@mui/material/colors/orange';
+import { withContext, withToken } from '@graasp/apps-query-client';
 import 'react-toastify/dist/ReactToastify.css';
 import i18nConfig from '../config/i18n';
 import App from './App';
@@ -19,7 +17,6 @@ import {
   REACT_APP_VERSION,
   REACT_APP_GOOGLE_ANALYTICS_ID,
 } from '../config/env';
-import { withContext, withToken } from '@graasp/apps-query-client';
 import {
   queryClient,
   QueryClientProvider,
@@ -39,11 +36,9 @@ if (REACT_APP_GOOGLE_ANALYTICS_ID) {
   );
 }
 
-const useStyles = makeStyles({
-  root: {
-    flexGrow: 1,
-    height: '100%',
-  },
+const Wrapper = styled('div')({
+  flexGrow: 1,
+  height: '100%',
 });
 
 const theme = createTheme({
@@ -69,8 +64,6 @@ const theme = createTheme({
 });
 
 const Root = () => {
-  const classes = useStyles();
-
   const AppWithContext = withToken(App, {
     LoadingComponent: <Loader />,
     useAuthToken: hooks.useAuthToken,
@@ -88,8 +81,8 @@ const Root = () => {
   });
 
   return (
-    <div className={classes.root}>
-      <MuiThemeProvider theme={theme}>
+    <Wrapper>
+      <ThemeProvider theme={theme}>
         <I18nextProvider i18n={i18nConfig}>
           <QueryClientProvider client={queryClient}>
             <AppWithContextAndToken />
@@ -97,8 +90,8 @@ const Root = () => {
           </QueryClientProvider>
           <ToastContainer />
         </I18nextProvider>
-      </MuiThemeProvider>
-    </div>
+      </ThemeProvider>
+    </Wrapper>
   );
 };
 

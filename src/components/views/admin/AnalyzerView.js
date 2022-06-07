@@ -1,11 +1,11 @@
 import React from 'react';
 import _ from 'lodash';
-import Typography from '@material-ui/core/Typography';
+import Typography from '@mui/material/Typography';
+import { styled } from '@mui/material';
 import { List } from 'immutable';
 import { removeStopwords } from 'stopword';
 import Loader from '../../common/Loader';
 import WordCloud from 'react-wordcloud';
-import { makeStyles } from '@material-ui/core/styles';
 import { hooks } from '../../../config/queryClient';
 import { useTranslation } from 'react-i18next';
 import { APP_DATA_TYPES } from '../../../config/appDataTypes';
@@ -29,16 +29,13 @@ const formatWords = (appData) => {
   return words;
 };
 
-const useStyles = makeStyles({
-  container: {
-    // 64px is the height of the header
-    height: 'calc(100% - 64px)',
-    width: '100%',
-  },
+const Container = styled('div')({
+  // 64px is the height of the header
+  height: 'calc(100% - 64px)',
+  width: '100%',
 });
 
 const TeacherDashboard = () => {
-  const classes = useStyles;
   const { t } = useTranslation();
   const { data: appData, isLoading } = hooks.useAppData();
 
@@ -57,9 +54,9 @@ const TeacherDashboard = () => {
   const words = formatWords(appData);
 
   return (
-    <div id={wordCloudId} className={classes.container}>
+    <Container id={wordCloudId}>
       <WordCloud words={words} />
-    </div>
+    </Container>
   );
 };
 

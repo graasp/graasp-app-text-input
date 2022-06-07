@@ -9,9 +9,10 @@
   "homepage": ".",
   "license": "MIT",
   "dependencies": {
+    "@emotion/styled": "11.8.1",
     "@graasp/apps-query-client": "github:graasp/graasp-apps-query-client.git",
-    "@material-ui/core": "4.12.4",
-    "@material-ui/icons": "4.11.3",
+    "@mui/icons-material": "5.8.2",
+    "@mui/material": "5.8.2",
     "@testing-library/jest-dom": "5.16.4",
     "@testing-library/react": "13.3.0",
     "http-status-codes": "2.2.0",
@@ -56,7 +57,7 @@
     "release:first": "git fetch --tags && git add CHANGELOG.md && standard-version -a --first-release",
     "cypress:open": "env-cmd -f ./.env.test cypress open",
     "cypress": "concurrently \"yarn start:test\" \"wait-on http://localhost:3333 && yarn cypress:run\"",
-    "cypress:run": "env-cmd -f ./.env.test cypress run --headless --browser chrome --spec \"cypress/**/*.spec.js\""
+    "cypress:run": "env-cmd -f ./.env.test cypress run --headless --browser chrome --spec \"cypress/**/*.cy.js\""
   },
   "devDependencies": {
     "@babel/eslint-parser": "7.18.2",
@@ -94,6 +95,10 @@
     "not op_mini all"
   ],
   "nyc": {
+    "all": true,
+    "include": [
+      "src/**/*.{js,ts,jsx,tsx}"
+    ],
     "exclude": [
       "src/serviceWorker.js"
     ]

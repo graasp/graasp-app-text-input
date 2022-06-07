@@ -1,18 +1,17 @@
 import React from 'react';
-import Button from '@material-ui/core/Button';
-import { makeStyles } from '@material-ui/core/styles';
-import Tooltip from '@material-ui/core/Tooltip';
+import Button from '@mui/material/Button';
+import Tooltip from '@mui/material/Tooltip';
+import { styled } from '@mui/material';
 import { useTranslation } from 'react-i18next';
 import { saveButtonCypress } from '../../../config/selectors';
 
-const useStyles = makeStyles((theme) => ({
-  button: {
-    marginRight: theme.spacing(1),
-  },
+const Container = styled('div')(({ theme }) => ({
+  textAlign: 'right',
+  marginRight: theme.spacing(1),
 }));
+
 function SaveButton({ offline, disabled, onClick }) {
   const { t } = useTranslation();
-  const classes = useStyles();
 
   // button is only visible offline
   if (!offline) {
@@ -40,9 +39,7 @@ function SaveButton({ offline, disabled, onClick }) {
   );
 
   return (
-    <div align="right" className={classes.button}>
-      {disabled ? withTooltip(saveButton) : saveButton}
-    </div>
+    <Container>{disabled ? withTooltip(saveButton) : saveButton}</Container>
   );
 }
 

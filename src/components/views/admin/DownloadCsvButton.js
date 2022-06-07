@@ -1,7 +1,7 @@
 import React from 'react';
 import { CSVLink as CsvLink } from 'react-csv';
-import { IconButton } from '@material-ui/core';
-import DownloadIcon from '@material-ui/icons/CloudDownload';
+import { IconButton } from '@mui/material';
+import DownloadIcon from '@mui/icons-material/CloudDownload';
 import { useTranslation } from 'react-i18next';
 import { Parser } from 'json2csv';
 import { ACTION_TYPES } from '../../../config/actionTypes';
