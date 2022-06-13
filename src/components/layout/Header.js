@@ -1,10 +1,9 @@
 import React, { useContext } from 'react';
-import AppBar from '@material-ui/core/AppBar';
-import Typography from '@material-ui/core/Typography';
-import Toolbar from '@material-ui/core/Toolbar';
-import { makeStyles } from '@material-ui/core/styles';
-import { IconButton } from '@material-ui/core';
-import RefreshIcon from '@material-ui/icons/Refresh';
+import AppBar from '@mui/material/AppBar';
+import Typography from '@mui/material/Typography';
+import Toolbar from '@mui/material/Toolbar';
+import { IconButton, styled } from '@mui/material';
+import RefreshIcon from '@mui/icons-material/Refresh';
 import { useTranslation } from 'react-i18next';
 import { ReactComponent as Logo } from '../../resources/logo.svg';
 import { queryClient, QUERY_KEYS } from '../../config/queryClient';
@@ -17,21 +16,12 @@ import {
   refreshButtonCypress,
 } from '../../config/selectors';
 
-const useStyles = makeStyles((theme) => ({
-  root: {
-    flexGrow: 1,
-  },
-  grow: {
-    flexGrow: 1,
-  },
-  logo: {
-    height: '48px',
-    marginRight: theme.spacing(2),
-  },
+const StyledLogo = styled(Logo)(({ theme }) => ({
+  height: '48px',
+  marginRight: theme.spacing(2),
 }));
 
 const Header = () => {
-  const classes = useStyles();
   const { t } = useTranslation();
   const context = useContext(Context);
 
@@ -65,12 +55,12 @@ const Header = () => {
     <header>
       <AppBar position="static">
         <Toolbar>
-          <Logo data-cy={logoCypress} className={classes.logo} />
+          <StyledLogo data-cy={logoCypress} />
           <Typography
             data-cy={appTitleCypress}
             variant="h6"
             color="inherit"
-            className={classes.grow}
+            sx={{ flexGrow: 1 }}
           >
             {t('Text Input')}
           </Typography>

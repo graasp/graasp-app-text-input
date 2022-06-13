@@ -1,5 +1,5 @@
 import React from 'react';
-import { render } from 'react-dom';
+import { createRoot } from 'react-dom/client';
 import Root from './components/Root';
 import { mockApi } from '@graasp/apps-query-client';
 import { ENABLE_MOCK_API } from './config/settings';
@@ -13,10 +13,10 @@ if (ENABLE_MOCK_API) {
   });
 }
 
-const root = document.getElementById('root');
+const root = createRoot(document.getElementById('root'));
 
 const renderApp = (RootComponent) => {
-  render(<RootComponent />, root);
+  root.render(<RootComponent />);
 };
 
 // render app to the dom

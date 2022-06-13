@@ -11,7 +11,6 @@ jobs:
         uses: actions/setup-node@v2
         with:
           node-version: '14'
-          cache: 'yarn'
 
       - name: install yarn
         # avoid checksum errors with github packages
@@ -23,7 +22,7 @@ jobs:
           REACT_APP_API_HOST: http://localhost:3636
           REACT_APP_GRAASP_DOMAIN: localhost
           REACT_APP_GRAASP_APP_ID: id-1234567890
-          REACT_APP_ENABLE_MOCK_API: true
+          REACT_APP_MOCK_API: true
           NODE_ENV: test
         with:
           install: false
@@ -34,6 +33,7 @@ jobs:
           browser: chrome
           headless: true
           quiet: true
+          config-file: cypress.config.js
 
       # after the test run completes
       # store videos and any screenshots
