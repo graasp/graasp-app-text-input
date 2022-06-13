@@ -39,14 +39,9 @@ Inside the project directory, run `yarn` to install the project dependencies.
 You will also need to create a file called `.env.local` with the following contents.
 
 ```sh
-REACT_APP_GRAASP_DEVELOPER_ID=
-REACT_APP_GRAASP_APP_ID=
-REACT_APP_GRAASP_DOMAIN=localhost
-REACT_APP_HOST=
-REACT_APP_VERSION=
-REACT_APP_BASE=
-# to use the MOCK API
-REACT_APP_MOCK_API=true
+REACT_APP_GRAASP_APP_ID=<app-id>
+REACT_APP_ENABLE_MOCK_API=true
+REACT_APP_API_HOST=<api-host>
 ```
 
 If you are going to deploy the application to our development server, you will need to create
@@ -55,17 +50,10 @@ with those that you received from our developers. Please make sure you do not co
 values between `<>` with anyone, as they are confidential.
 
 ```sh
-REACT_APP_GRAASP_DEVELOPER_ID=<REACT_APP_GRAASP_DEVELOPER_ID>
-REACT_APP_GRAASP_APP_ID=<REACT_APP_GRAASP_APP_ID>
-REACT_APP_GRAASP_DOMAIN=graasp.eu
-REACT_APP_HOST=apps.dev.graasp.eu
-REACT_APP_VERSION=latest
-REACT_APP_BASE=//$REACT_APP_HOST/$REACT_APP_GRAASP_DEVELOPER_ID/$REACT_APP_GRAASP_APP_ID/$REACT_APP_VERSION/
-NODE_ENV=production
-BUCKET=graasp-apps-dev
-AWS_DEFAULT_REGION=us-east-1
-AWS_ACCESS_KEY_ID=<AWS_ACCESS_KEY_ID>
-AWS_SECRET_ACCESS_KEY=<AWS_SECRET_ACCESS_KEY>
+REACT_APP_GRAASP_DOMAIN=<domain>
+REACT_APP_GRAASP_APP_ID=<app-id>
+REACT_APP_MOCK_API=false
+REACT_APP_API_HOST=<api-host>
 ```
 
 If you are going to deploy the application to our production server, you will need to create
@@ -74,17 +62,10 @@ with those that you received from our developers. Please make sure you do not co
 values between `<>` with anyone, as they are confidential.
 
 ```sh
-REACT_APP_GRAASP_DEVELOPER_ID=<REACT_APP_GRAASP_DEVELOPER_ID>
-REACT_APP_GRAASP_APP_ID=<REACT_APP_GRAASP_APP_ID>
-REACT_APP_GRAASP_DOMAIN=graasp.eu
-REACT_APP_HOST=apps.graasp.eu
-REACT_APP_VERSION=latest
-REACT_APP_BASE=//$REACT_APP_HOST/$REACT_APP_GRAASP_DEVELOPER_ID/$REACT_APP_GRAASP_APP_ID/$REACT_APP_VERSION/
-NODE_ENV=production
-BUCKET=graasp-apps-prod
-AWS_DEFAULT_REGION=us-east-1
-AWS_ACCESS_KEY_ID=<AWS_ACCESS_KEY_ID>
-AWS_SECRET_ACCESS_KEY=<AWS_SECRET_ACCESS_KEY>
+REACT_APP_GRAASP_DOMAIN=<domain>
+REACT_APP_GRAASP_APP_ID=<app-id>
+REACT_APP_MOCK_API=false
+REACT_APP_API_HOST=<api-host>
 ```
 
 **⚠️Warning ⚠️**: Make sure to set `REACT_APP_MOCK_API=false` when you build for use in the real-world (prod or dev).
@@ -94,7 +75,7 @@ AWS_SECRET_ACCESS_KEY=<AWS_SECRET_ACCESS_KEY>
 Navigate to the cloned or forked project directory using the command line, type `yarn start`.
 The app will automatically run on `localhost:3000`. Any changes you make should be automatically rendered in the browser.
 
-To develop without running our backend and frontend you have to put `REACT_APP_MOCK_API=true` in the `.env` file used when running your project (we assume `.env.local` here). This enables the **mock API** which simulated a backend and provides your app with a context.
+To develop without running our backend and frontend you have to put `REACT_APP_MOCK_API=true` in the `.env` file used when running your project (we assume `.env.local` here). This **mocks the API** which simulates a backend and provides your app with a context.
 
 #### Set your app's context
 
