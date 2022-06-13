@@ -40,7 +40,7 @@ You will also need to create a file called `.env.local` with the following conte
 
 ```sh
 REACT_APP_GRAASP_APP_ID=<app-id>
-REACT_APP_ENABLE_MOCK_API=true
+REACT_APP_MOCK_API=true
 REACT_APP_API_HOST=<api-host>
 ```
 
