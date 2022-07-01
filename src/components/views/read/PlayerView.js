@@ -57,25 +57,25 @@ const PlayerView = () => {
   } = hooks.useAppData();
 
   useEffect(() => {
-    if (isAppDataSuccess && !appData.isEmpty()) {
+    if (isAppDataSuccess) {
       const memberId = context?.get('memberId');
-      setInputResource(
-        appData.find(
-          ({ type, creator }) =>
-            type === APP_DATA_TYPES.INPUT && creator === memberId
-        )
+      const data = appData.find(
+        ({ type, creator }) =>
+          type === APP_DATA_TYPES.INPUT && creator === memberId
       );
-      setFeedbackResource(
-        appData.find(
-          ({ type, memberId: thisMId }) =>
-            type === APP_DATA_TYPES.FEEDBACK && memberId === thisMId
-        )
-      );
-    }
-
-    // create this resource once data is loaded and is empty
-    else if (isAppDataSuccess && !inputResource) {
-      postAppData({ data: { text: '' }, type: APP_DATA_TYPES.INPUT });
+      if (data) {
+        setInputResource(data);
+        setFeedbackResource(
+          appData.find(
+            ({ type, memberId: thisMId }) =>
+              type === APP_DATA_TYPES.FEEDBACK && memberId === thisMId
+          )
+        );
+      }
+      // create resource if no input exists
+      else {
+        postAppData({ data: { text: '' }, type: APP_DATA_TYPES.INPUT });
+      }
     }
   }, [context, appData, isAppDataSuccess, postAppData]);
 
