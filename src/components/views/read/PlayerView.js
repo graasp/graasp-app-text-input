@@ -4,10 +4,10 @@ import Grid from '@mui/material/Grid';
 import TextField from '@mui/material/TextField';
 import { useTranslation } from 'react-i18next';
 import { styled } from '@mui/material';
+import { Context } from '@graasp/apps-query-client';
 import Loader from '../../common/Loader';
 import { MAX_INPUT_LENGTH, MAX_ROWS } from '../../../config/settings';
 import { useMutation, MUTATION_KEYS } from '../../../config/queryClient';
-import { Context } from '@graasp/apps-query-client';
 import { hooks } from '../../../config/queryClient';
 import SaveButton from './SaveButton';
 import { inputCypress, inputTextFieldId } from '../../../config/selectors';
@@ -57,21 +57,27 @@ const PlayerView = () => {
   } = hooks.useAppData();
 
   useEffect(() => {
-    if (isAppDataSuccess && !appData.isEmpty()) {
-      //  suppose take first
-      setInputResource(
-        appData.find(({ type }) => type === APP_DATA_TYPES.INPUT)
+    if (isAppDataSuccess) {
+      const memberId = context?.get('memberId');
+      const data = appData.find(
+        ({ type, creator }) =>
+          type === APP_DATA_TYPES.INPUT && creator === memberId
       );
-      setFeedbackResource(
-        appData.find(({ type }) => type === APP_DATA_TYPES.FEEDBACK)
-      );
+      if (data) {
+        setInputResource(data);
+        setFeedbackResource(
+          appData.find(
+            ({ type, memberId: thisMId }) =>
+              type === APP_DATA_TYPES.FEEDBACK && memberId === thisMId
+          )
+        );
+      }
+      // create resource if no input exists
+      else {
+        postAppData({ data: { text: '' }, type: APP_DATA_TYPES.INPUT });
+      }
     }
-
-    // create this resource once data is loaded and is empty
-    else if (isAppDataSuccess && appData.isEmpty()) {
-      postAppData({ data: { text: '' }, type: APP_DATA_TYPES.INPUT });
-    }
-  }, [appData, isAppDataSuccess, postAppData]);
+  }, [context, appData, isAppDataSuccess, postAppData]);
 
   useEffect(() => {
     if (inputResource) {
