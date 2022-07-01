@@ -74,7 +74,7 @@ const PlayerView = () => {
     }
 
     // create this resource once data is loaded and is empty
-    else if (isAppDataSuccess && appData.isEmpty()) {
+    else if (isAppDataSuccess && !inputResource) {
       postAppData({ data: { text: '' }, type: APP_DATA_TYPES.INPUT });
     }
   }, [context, appData, isAppDataSuccess, postAppData]);
