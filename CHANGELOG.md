@@ -2,6 +2,27 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.4.1](https://github.com/graasp/graasp-app-text-input/compare/v0.4.0...v0.4.1) (2022-07-18)
+
+
+### Features
+
+* adapt to new graasp api ([baf95d3](https://github.com/graasp/graasp-app-text-input/commit/baf95d39a8ebba9afafa9dc9f44567284bc395e9))
+* add caller workflow to graasp-deploy ([c72caaf](https://github.com/graasp/graasp-app-text-input/commit/c72caaf0a4ad31d366e51e2146cf1bc3849aabd2))
+* add cdelivery and cdeployment workflows ([7da59ae](https://github.com/graasp/graasp-app-text-input/commit/7da59ae483b9f088df4423773ba3eccada8226eb))
+* include required scripts to use standard-version ([a840c3f](https://github.com/graasp/graasp-app-text-input/commit/a840c3f3cf67866e12b400a6b801343cc0547d6f))
+* update staging versions in graasp deploy ([2e6ccfb](https://github.com/graasp/graasp-app-text-input/commit/2e6ccfb60e40465a309941773a2a9c6f1af800a9))
+
+
+### Bug Fixes
+
+* minor fixes ([1f52e9e](https://github.com/graasp/graasp-app-text-input/commit/1f52e9e150ab95f2292e28ce553d3517cabc9ccc))
+* remove enableWebsocket ([2893f57](https://github.com/graasp/graasp-app-text-input/commit/2893f57638445346927473dbd9f69eb553c2c66f))
+* save feedback for memberId, update corresponding to apps-query-c… ([#49](https://github.com/graasp/graasp-app-text-input/issues/49)) ([00464cc](https://github.com/graasp/graasp-app-text-input/commit/00464cc3c648b82083e1d35aee716c4765664d03))
+* show own data in player view ([#55](https://github.com/graasp/graasp-app-text-input/issues/55)) ([aef706a](https://github.com/graasp/graasp-app-text-input/commit/aef706ab22c82d2c3566a53621c598558abde6ec))
+* update sha ref and solve minor issues ([11260d8](https://github.com/graasp/graasp-app-text-input/commit/11260d8bf4821da40674aa5fa7ea8b648ad0ddd2))
+* update workflow sha ref ([89c5577](https://github.com/graasp/graasp-app-text-input/commit/89c557754229189448adb3931e59bca1e9dfc434))
+
 ## [0.4.0](https://github.com/graasp/graasp-app-text-input/compare/v0.3.4...v0.4.0) (2021-03-21)
 
 ### Build System
