@@ -1,5 +1,4 @@
 import React, { useState, useEffect, useContext, useRef } from 'react';
-import _ from 'lodash';
 import Grid from '@mui/material/Grid';
 import TextField from '@mui/material/TextField';
 import { useTranslation } from 'react-i18next';
