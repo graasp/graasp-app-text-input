@@ -76,20 +76,20 @@ const PlayerView = () => {
     }
   }, [inputResource]);
 
-  if (!context?.get('standalone') && isAppDataLoading) {
-    return <Loader />;
-  }
-
   const adaptHeight = () => {
     // set timeout to leave time for the height to be set
     setTimeout(() => {
       // adapt height when :
       // - not in standalone (so when in an iframe)
       // - is in studentView
+      console.log('before resizing');
       if (!context?.get('standalone')) {
         // get height from the root element and add a small margin
-        const actualHeight = rootRef?.current?.scrollHeight + 60;
+        const clientRect = rootRef?.current?.getBoundingClientRect();
+        console.log(clientRect);
         if (window.frameElement) {
+          const actualHeight = clientRect.height;
+          console.log('resizing elem', window.frameElement);
           window.frameElement.style['min-height'] = `${actualHeight}px`;
           window.frameElement.style.overflowY = 'hidden';
           window.frameElement.scrolling = 'no';
@@ -98,6 +98,18 @@ const PlayerView = () => {
       }
     }, ADAPT_HEIGHT_TIMEOUT);
   };
+
+  useEffect(
+    () => {
+      adaptHeight();
+    },
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    []
+  );
+
+  if (!context?.get('standalone') && isAppDataLoading) {
+    return <Loader />;
+  }
 
   const handleChangeText = ({ target }) => {
     const { value } = target;
