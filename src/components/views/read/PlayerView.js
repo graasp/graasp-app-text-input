@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState, useEffect, useContext, useRef } from 'react';
 import _ from 'lodash';
 import Grid from '@mui/material/Grid';
 import TextField from '@mui/material/TextField';
@@ -6,7 +6,11 @@ import { useTranslation } from 'react-i18next';
 import { styled } from '@mui/material';
 import { Context } from '@graasp/apps-query-client';
 import Loader from '../../common/Loader';
-import { MAX_INPUT_LENGTH, MAX_ROWS } from '../../../config/settings';
+import {
+  ADAPT_HEIGHT_TIMEOUT,
+  MAX_INPUT_LENGTH,
+  MAX_ROWS,
+} from '../../../config/settings';
 import { useMutation, MUTATION_KEYS } from '../../../config/queryClient';
 import { hooks } from '../../../config/queryClient';
 import SaveButton from './SaveButton';
@@ -45,6 +49,7 @@ const PlayerView = () => {
   const [text, setText] = useState('');
   const [inputResource, setInputResource] = useState(null);
   const [feedbackResource, setFeedbackResource] = useState(null);
+  const rootRef = useRef();
   const { mutate: postAppData } = useMutation(MUTATION_KEYS.POST_APP_DATA);
   const { mutate: patchAppData } = useMutation(MUTATION_KEYS.PATCH_APP_DATA);
   const { mutate: postAction } = useMutation(MUTATION_KEYS.POST_APP_ACTION);
@@ -89,9 +94,29 @@ const PlayerView = () => {
     return <Loader />;
   }
 
+  const adaptHeight = () => {
+    // set timeout to leave time for the height to be set
+    setTimeout(() => {
+      // adapt height when :
+      // - not in standalone (so when in an iframe)
+      // - is in studentView
+      if (!context?.get('standalone')) {
+        // get height from the root element and add a small margin
+        const actualHeight = rootRef?.current?.scrollHeight + 60;
+        if (window.frameElement) {
+          window.frameElement.style['min-height'] = `${actualHeight}px`;
+          window.frameElement.style.overflowY = 'hidden';
+          window.frameElement.scrolling = 'no';
+          window.frameElement.style.height = `${actualHeight}px`;
+        }
+      }
+    }, ADAPT_HEIGHT_TIMEOUT);
+  };
+
   const handleChangeText = ({ target }) => {
     const { value } = target;
     setText(value);
+    adaptHeight();
     // // only save automatically if online and there is actually a memberId
     // if (!context?.get('offline') && context?.get('memberId')) {
     //   saveToApi({ inputResource, patchAppData, data: value });
@@ -130,7 +155,7 @@ const PlayerView = () => {
   const textIsDifferent = text === inputResource?.data?.text;
 
   return (
-    <Grid container spacing={0}>
+    <Grid container spacing={0} ref={rootRef}>
       <MainContainer item xs={12}>
         <FormContainer noValidate autoComplete="off">
           <StyledTextField
