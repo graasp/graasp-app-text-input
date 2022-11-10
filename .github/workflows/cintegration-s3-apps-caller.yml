@@ -1,4 +1,4 @@
-name: Deploy text input app to development environment
+name: Deploy to development environment
 
 # Controls when the action will run.
 on:
