@@ -13,11 +13,6 @@ const Container = styled('div')(({ theme }) => ({
 function SaveButton({ disabled, onClick }) {
   const { t } = useTranslation();
 
-  // // button is only visible offline
-  // if (!offline) {
-  //   return null;
-  // }
-
   const withTooltip = (elem) => {
     return (
       <Tooltip title={t('All changes saved.')}>

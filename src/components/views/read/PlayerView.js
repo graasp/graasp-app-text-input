@@ -35,15 +35,6 @@ const MainContainer = styled(Grid)(({ theme }) => ({
   padding: theme.spacing(1),
 }));
 
-const saveToApi = _.debounce(({ inputResource, patchAppData, data }) => {
-  if (inputResource) {
-    patchAppData({
-      data: { text: data },
-      id: inputResource.id,
-    });
-  }
-}, 1000);
-
 const PlayerView = () => {
   const { t } = useTranslation();
   const [text, setText] = useState('');
@@ -77,10 +68,6 @@ const PlayerView = () => {
           )
         );
       }
-      // // create resource if no input exists
-      // else {
-      //   postAppData({ data: { text: '' }, type: APP_DATA_TYPES.INPUT });
-      // }
     }
   }, [context, appData, isAppDataSuccess, postAppData]);
 
@@ -117,10 +104,6 @@ const PlayerView = () => {
     const { value } = target;
     setText(value);
     adaptHeight();
-    // // only save automatically if online and there is actually a memberId
-    // if (!context?.get('offline') && context?.get('memberId')) {
-    //   saveToApi({ inputResource, patchAppData, data: value });
-    // }
   };
 
   const handleClickSaveText = () => {
