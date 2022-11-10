@@ -72,10 +72,10 @@ const PlayerView = () => {
           )
         );
       }
-      // create resource if no input exists
-      else {
-        postAppData({ data: { text: '' }, type: APP_DATA_TYPES.INPUT });
-      }
+      // // create resource if no input exists
+      // else {
+      //   postAppData({ data: { text: '' }, type: APP_DATA_TYPES.INPUT });
+      // }
     }
   }, [context, appData, isAppDataSuccess, postAppData]);
 
@@ -92,10 +92,10 @@ const PlayerView = () => {
   const handleChangeText = ({ target }) => {
     const { value } = target;
     setText(value);
-    // only save automatically if online and there is actually a memberId
-    if (!context?.get('offline') && context?.get('memberId')) {
-      saveToApi({ inputResource, patchAppData, data: value });
-    }
+    // // only save automatically if online and there is actually a memberId
+    // if (!context?.get('offline') && context?.get('memberId')) {
+    //   saveToApi({ inputResource, patchAppData, data: value });
+    // }
   };
 
   const handleClickSaveText = () => {
@@ -151,11 +151,7 @@ const PlayerView = () => {
             fullWidth
           />
         </FormContainer>
-        <SaveButton
-          disabled={textIsDifferent}
-          offline={context?.get('offline')}
-          onClick={handleClickSaveText}
-        />
+        <SaveButton disabled={textIsDifferent} onClick={handleClickSaveText} />
       </MainContainer>
     </Grid>
   );
