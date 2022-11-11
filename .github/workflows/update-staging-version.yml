@@ -15,10 +15,10 @@ on:
         # Input does not have to be provided for the workflow to run
         type: choice
         options:
-        - first
-        - patch
-        - minor
-        - major
+          - first
+          - patch
+          - minor
+          - major
         default: patch
         required: true
 
@@ -30,6 +30,7 @@ jobs:
     # Replace 'main' with the hash of a commit, so it points to an specific version of the reusable workflow that is used
     # Reference reusable workflow file. Using the commit SHA is the safest for stability and security
     uses: graasp/graasp-deploy/.github/workflows/update-staging-version.yml@v1
+    with:
       release-type: ${{ inputs.release-type }}
     secrets:
       token: ${{ secrets.REPO_ACCESS_TOKEN }}
