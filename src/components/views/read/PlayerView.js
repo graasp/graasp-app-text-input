@@ -37,6 +37,7 @@ const MainContainer = styled(Grid)(({ theme }) => ({
 const PlayerView = () => {
   const { t } = useTranslation();
   const [text, setText] = useState('');
+  const [height, setHeight] = useState(0);
   const [inputResource, setInputResource] = useState(null);
   const [feedbackResource, setFeedbackResource] = useState(null);
   const rootRef = useRef();
@@ -79,21 +80,17 @@ const PlayerView = () => {
   const adaptHeight = () => {
     // set timeout to leave time for the height to be set
     setTimeout(() => {
-      // adapt height when :
-      // - not in standalone (so when in an iframe)
-      // - is in studentView
-      console.log('before resizing');
+      // adapt height when not in standalone (so when in an iframe)
       if (!context?.get('standalone')) {
         // get height from the root element and add a small margin
         const clientRect = rootRef?.current?.getBoundingClientRect();
-        console.log(clientRect);
-        if (window.frameElement) {
-          const actualHeight = clientRect.height;
-          console.log('resizing elem', window.frameElement);
-          window.frameElement.style['min-height'] = `${actualHeight}px`;
+        const newHeight = clientRect.height;
+        if (window.frameElement && height !== newHeight) {
+          setHeight(newHeight);
+          window.frameElement.style['min-height'] = `${newHeight}px`;
           window.frameElement.style.overflowY = 'hidden';
           window.frameElement.scrolling = 'no';
-          window.frameElement.style.height = `${actualHeight}px`;
+          window.frameElement.style.height = `${newHeight}px`;
         }
       }
     }, ADAPT_HEIGHT_TIMEOUT);
