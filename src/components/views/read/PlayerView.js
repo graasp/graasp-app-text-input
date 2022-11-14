@@ -84,13 +84,15 @@ const PlayerView = () => {
       if (!context?.get('standalone')) {
         // get height from the root element and add a small margin
         const clientRect = rootRef?.current?.getBoundingClientRect();
-        const newHeight = clientRect.height;
-        if (window.frameElement && height !== newHeight) {
-          setHeight(newHeight);
-          window.frameElement.style['min-height'] = `${newHeight}px`;
-          window.frameElement.style.overflowY = 'hidden';
-          window.frameElement.scrolling = 'no';
-          window.frameElement.style.height = `${newHeight}px`;
+        if (window.frameElement && clientRect) {
+          const newHeight = clientRect.height;
+          if (height !== newHeight) {
+            setHeight(newHeight);
+            window.frameElement.style['min-height'] = `${newHeight}px`;
+            window.frameElement.style.overflowY = 'hidden';
+            window.frameElement.scrolling = 'no';
+            window.frameElement.style.height = `${newHeight}px`;
+          }
         }
       }
     }, ADAPT_HEIGHT_TIMEOUT);
