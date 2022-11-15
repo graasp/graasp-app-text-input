@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### 0.4.3 (2022-11-15)
+
+
+### Features
+
+* remove autosave ([#61](https://github.com/graasp/graasp-app-text-input/issues/61)) ([c0e887d](https://github.com/graasp/graasp-app-text-input/commit/c0e887d818c86c5a6923700779c9d40c135ca33a))
+
 ### 0.4.2 (2022-11-14)
 
 ### [0.4.1](https://github.com/graasp/graasp-app-text-input/compare/v0.4.0...v0.4.1) (2022-07-18)
