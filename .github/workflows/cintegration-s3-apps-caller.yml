@@ -1,4 +1,4 @@
-name: Deploy text input app to development environment
+name: Deploy to development environment
 
 # Controls when the action will run.
 on:
@@ -15,7 +15,7 @@ on:
 jobs:
   graasp-deploy-s3-apps-workflow:
     name: Graasp app text input
-    uses: graasp/graasp-deploy/.github/workflows/cintegration-s3-apps.yml@7b5dd84304458c3c5ab03cbbde059670f77b1687
+    uses: graasp/graasp-deploy/.github/workflows/cintegration-s3-apps.yml@v1
     with:
       build-folder: 'build'
       version: 'latest'
@@ -26,4 +26,4 @@ jobs:
       aws-s3-bucket-name: ${{ secrets.AWS_S3_BUCKET_NAME_APPS_DEV }}
       cloudfront-distribution-id: ${{ secrets.CLOUDFRONT_DISTRIBUTION_APPS_DEV }}
       app-id: ${{ secrets.APP_ID }}
-      graasp-domain: ${{ secrets.DEV_GRAASP_DOMAIN }}
+      graasp-domain: ${{ secrets.REACT_APP_DOMAIN_DEV }}

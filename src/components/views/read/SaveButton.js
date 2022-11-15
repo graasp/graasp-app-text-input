@@ -10,13 +10,8 @@ const Container = styled('div')(({ theme }) => ({
   marginRight: theme.spacing(1),
 }));
 
-function SaveButton({ offline, disabled, onClick }) {
+function SaveButton({ disabled, onClick }) {
   const { t } = useTranslation();
-
-  // button is only visible offline
-  if (!offline) {
-    return null;
-  }
 
   const withTooltip = (elem) => {
     return (
