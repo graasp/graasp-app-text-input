@@ -4,6 +4,7 @@ import { REACT_APP_API_HOST, REACT_APP_MOCK_API } from './env';
 export const MAX_INPUT_LENGTH = 5000;
 export const MAX_ROWS = 10;
 export const DEFAULT_LANG = 'en';
+export const ADAPT_HEIGHT_TIMEOUT = 50;
 
 // todo: use from graasp constants
 export const PERMISSION_LEVELS = {
