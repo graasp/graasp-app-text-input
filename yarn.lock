@@ -2166,9 +2166,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@graasp/apps-query-client@github:graasp/graasp-apps-query-client.git#61-auto-resize":
-  version: 0.3.0
-  resolution: "@graasp/apps-query-client@https://github.com/graasp/graasp-apps-query-client.git#commit=74f827ed1e822a08140cdf140d6b800390295287"
+"@graasp/apps-query-client@github:graasp/graasp-apps-query-client.git#v0":
+  version: 0.4.0
+  resolution: "@graasp/apps-query-client@https://github.com/graasp/graasp-apps-query-client.git#commit=317499ec48d1bf10d81f31cab197dd816499ade2"
   dependencies:
     "@graasp/sdk": "github:graasp/graasp-sdk"
     axios: 0.27.2
@@ -2182,7 +2182,7 @@ __metadata:
     uuid: 8.3.2
   peerDependencies:
     react: ^17.0.0 || ^18.0.0
-  checksum: bc4afdab0b0e42fe84fa84fa42696d65e06c92ca157edf9157e0e011b17858ff23836b837c26336b2a15727020740e2e9d18cd95000991bd05a5c4cb6863e2bd
+  checksum: ba8c03219747afca237d29af2c1f38460ed05ef6eb4f280035325ccb73ed0a0cac0c04977a6669c631b99f4b54d7beb53d7718c4eddc47b80c3039e68cee2b78
   languageName: node
   linkType: hard
 
@@ -8761,7 +8761,7 @@ __metadata:
     "@cypress/code-coverage": 3.10.0
     "@cypress/instrument-cra": 1.4.0
     "@emotion/styled": 11.8.1
-    "@graasp/apps-query-client": "github:graasp/graasp-apps-query-client.git#61-auto-resize"
+    "@graasp/apps-query-client": "github:graasp/graasp-apps-query-client.git#v0"
     "@mui/icons-material": 5.8.2
     "@mui/material": 5.8.2
     "@testing-library/jest-dom": 5.16.4
