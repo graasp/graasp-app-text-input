@@ -38,7 +38,6 @@ if (REACT_APP_GOOGLE_ANALYTICS_ID) {
 
 const Wrapper = styled('div')({
   flexGrow: 1,
-  height: '100%',
 });
 
 const theme = createTheme({
