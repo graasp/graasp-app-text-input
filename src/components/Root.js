@@ -1,27 +1,27 @@
+import { withContext, withToken } from '@graasp/apps-query-client';
+import { styled } from '@mui/material';
+import grey from '@mui/material/colors/grey';
+import orange from '@mui/material/colors/orange';
+import { createTheme, ThemeProvider } from '@mui/material/styles';
 import React from 'react';
 import ReactGa from 'react-ga';
 import { I18nextProvider } from 'react-i18next';
-import { ThemeProvider, createTheme } from '@mui/material/styles';
-import { styled } from '@mui/material';
 import { ToastContainer } from 'react-toastify';
-import grey from '@mui/material/colors/grey';
-import orange from '@mui/material/colors/orange';
-import { withContext, withToken } from '@graasp/apps-query-client';
 import 'react-toastify/dist/ReactToastify.css';
-import i18nConfig from '../config/i18n';
-import App from './App';
-import Loader from './common/Loader';
 import {
+  REACT_APP_GOOGLE_ANALYTICS_ID,
   REACT_APP_GRAASP_APP_ID,
   REACT_APP_GRAASP_DEVELOPER_ID,
   REACT_APP_VERSION,
-  REACT_APP_GOOGLE_ANALYTICS_ID,
 } from '../config/env';
+import i18nConfig from '../config/i18n';
 import {
   queryClient,
   QueryClientProvider,
   ReactQueryDevtools,
 } from '../config/queryClient';
+import App from './App';
+import Loader from './common/Loader';
 
 import { hooks } from '../config/queryClient';
 import { showErrorToast } from '../utils/toasts';
@@ -38,7 +38,6 @@ if (REACT_APP_GOOGLE_ANALYTICS_ID) {
 
 const Wrapper = styled('div')({
   flexGrow: 1,
-  height: '100%',
 });
 
 const theme = createTheme({
@@ -75,6 +74,7 @@ const Root = () => {
   const AppWithContextAndToken = withContext(AppWithContext, {
     LoadingComponent: <Loader />,
     useGetLocalContext: hooks.useGetLocalContext,
+    useAutoResize: hooks.useAutoResize,
     onError: () => {
       showErrorToast('An error occured while fetching the context.');
     },

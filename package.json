@@ -11,7 +11,7 @@
   "license": "MIT",
   "dependencies": {
     "@emotion/styled": "11.8.1",
-    "@graasp/apps-query-client": "github:graasp/graasp-apps-query-client.git",
+    "@graasp/apps-query-client": "github:graasp/graasp-apps-query-client.git#v0",
     "@mui/icons-material": "5.8.2",
     "@mui/material": "5.8.2",
     "@testing-library/jest-dom": "5.16.4",

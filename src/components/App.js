@@ -1,15 +1,15 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import Header from './layout/Header';
 import { DEFAULT_LANG } from '../config/settings';
 import i18n from '../config/i18n';
-import { Context } from '@graasp/apps-query-client';
+import { useLocalContext } from '@graasp/apps-query-client';
 import AnalyzerView from './views/admin/AnalyzerView';
 import { CONTEXTS } from '../config/contexts';
 import BuilderView from './views/admin/BuilderView';
 import PlayerView from './views/read/PlayerView';
 
 export const App = () => {
-  const context = useContext(Context);
+  const context = useLocalContext();
 
   useEffect(() => {
     // handle a change of language
