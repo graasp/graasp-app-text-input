@@ -1,15 +1,11 @@
-import React, { useState, useEffect, useContext, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
 import Grid from '@mui/material/Grid';
 import TextField from '@mui/material/TextField';
 import { useTranslation } from 'react-i18next';
 import { styled } from '@mui/material';
-import { Context } from '@graasp/apps-query-client';
+import { useLocalContext } from '@graasp/apps-query-client';
 import Loader from '../../common/Loader';
-import {
-  ADAPT_HEIGHT_TIMEOUT,
-  MAX_INPUT_LENGTH,
-  MAX_ROWS,
-} from '../../../config/settings';
+import { MAX_INPUT_LENGTH, MAX_ROWS } from '../../../config/settings';
 import { useMutation, MUTATION_KEYS } from '../../../config/queryClient';
 import { hooks } from '../../../config/queryClient';
 import SaveButton from './SaveButton';
@@ -37,15 +33,13 @@ const MainContainer = styled(Grid)(({ theme }) => ({
 const PlayerView = () => {
   const { t } = useTranslation();
   const [text, setText] = useState('');
-  const [height, setHeight] = useState(0);
   const [inputResource, setInputResource] = useState(null);
   const [feedbackResource, setFeedbackResource] = useState(null);
-  const rootRef = useRef();
   const { mutate: postAppData } = useMutation(MUTATION_KEYS.POST_APP_DATA);
   const { mutate: patchAppData } = useMutation(MUTATION_KEYS.PATCH_APP_DATA);
   const { mutate: postAction } = useMutation(MUTATION_KEYS.POST_APP_ACTION);
 
-  const context = useContext(Context);
+  const context = useLocalContext();
   const {
     data: appData,
     isLoading: isAppDataLoading,
@@ -77,35 +71,6 @@ const PlayerView = () => {
     }
   }, [inputResource]);
 
-  const adaptHeight = () => {
-    // set timeout to leave time for the height to be set
-    setTimeout(() => {
-      // adapt height when not in standalone (so when in an iframe)
-      if (!context?.get('standalone')) {
-        // get height from the root element and add a small margin
-        const clientRect = rootRef?.current?.getBoundingClientRect();
-        if (window.frameElement && clientRect) {
-          const newHeight = clientRect.height;
-          if (height !== newHeight) {
-            setHeight(newHeight);
-            window.frameElement.style['min-height'] = `${newHeight}px`;
-            window.frameElement.style.overflowY = 'hidden';
-            window.frameElement.scrolling = 'no';
-            window.frameElement.style.height = `${newHeight}px`;
-          }
-        }
-      }
-    }, ADAPT_HEIGHT_TIMEOUT);
-  };
-
-  useEffect(
-    () => {
-      adaptHeight();
-    },
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    []
-  );
-
   if (!context?.get('standalone') && isAppDataLoading) {
     return <Loader />;
   }
@@ -113,7 +78,6 @@ const PlayerView = () => {
   const handleChangeText = ({ target }) => {
     const { value } = target;
     setText(value);
-    adaptHeight();
   };
 
   const handleClickSaveText = () => {
@@ -148,7 +112,7 @@ const PlayerView = () => {
   const textIsDifferent = text === inputResource?.data?.text;
 
   return (
-    <Grid container spacing={0} ref={rootRef}>
+    <Grid container spacing={0}>
       <MainContainer item xs={12}>
         <FormContainer noValidate autoComplete="off">
           <StyledTextField
