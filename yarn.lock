@@ -2168,7 +2168,7 @@ __metadata:
 
 "@graasp/apps-query-client@github:graasp/graasp-apps-query-client.git#61-auto-resize":
   version: 0.3.0
-  resolution: "@graasp/apps-query-client@https://github.com/graasp/graasp-apps-query-client.git#commit=dc372ee36bcfce71ebd1bfa238d65f81115b7cd0"
+  resolution: "@graasp/apps-query-client@https://github.com/graasp/graasp-apps-query-client.git#commit=74f827ed1e822a08140cdf140d6b800390295287"
   dependencies:
     "@graasp/sdk": "github:graasp/graasp-sdk"
     axios: 0.27.2
@@ -2182,7 +2182,7 @@ __metadata:
     uuid: 8.3.2
   peerDependencies:
     react: ^17.0.0 || ^18.0.0
-  checksum: 9dde129d0b9b5bd20e8c208e0197cc24f0e32cc62743eb5c328ee32ac4a9b6be0758ddf13d14a0f8433743c8bef601233ae4066f8eb22572809c7540d6a32cfe
+  checksum: bc4afdab0b0e42fe84fa84fa42696d65e06c92ca157edf9157e0e011b17858ff23836b837c26336b2a15727020740e2e9d18cd95000991bd05a5c4cb6863e2bd
   languageName: node
   linkType: hard
 
