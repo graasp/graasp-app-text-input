@@ -103,7 +103,7 @@ const PlayerView = () => {
       adaptHeight();
     },
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    []
+    [inputResource]
   );
 
   if (!context?.get('standalone') && isAppDataLoading) {
