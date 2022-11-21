@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## 0.5.0 (2022-11-18)
+
+
+### Features
+
+* add auto-resize ([#63](https://github.com/graasp/graasp-app-text-input/issues/63)) ([053bab8](https://github.com/graasp/graasp-app-text-input/commit/053bab8d60a04626b2d87966ca3dce6ab6f9b6d6))
+
 ### 0.4.3 (2022-11-15)
 
 
