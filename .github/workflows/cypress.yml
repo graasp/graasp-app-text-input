@@ -1,56 +1,21 @@
-name: cypress tests
-on: [push]
+name: Cypress Tests
+
+# Control when the action will run
+on: push
+
+# This workflow is made up of one job that calls the reusable workflow in graasp-deploy
 jobs:
-  cypress-run:
-    runs-on: ubuntu-latest
-    steps:
-      - name: checkout
-        uses: actions/checkout@v3
-
-      - name: set up node
-        uses: actions/setup-node@v3
-        with:
-          node-version: '16'
-
-      - name: install yarn
-        # avoid checksum errors with github packages
-        run: YARN_CHECKSUM_BEHAVIOR=update yarn
-
-      - name: cypress run
-        uses: cypress-io/github-action@v4
-        env:
-          REACT_APP_API_HOST: http://localhost:3636
-          REACT_APP_GRAASP_DOMAIN: localhost
-          REACT_APP_GRAASP_APP_ID: id-1234567890
-          REACT_APP_MOCK_API: true
-          NODE_ENV: test
-        with:
-          install: false
-          config: baseUrl=http://localhost:3000
-          start: yarn start:ci
-          wait-on: 'http://localhost:3000'
-          wait-on-timeout: 180
-          browser: chrome
-          quiet: true
-          config-file: cypress.config.js
-
-      # after the test run completes
-      # store videos and any screenshots
-      # NOTE: screenshots will be generated only if E2E test failed
-      # thus we store screenshots only on failures
-      # Alternative: create and commit an empty cypress/screenshots folder
-      # to always have something to upload
-      - uses: actions/upload-artifact@v3
-        if: failure()
-        with:
-          name: cypress-screenshots
-          path: cypress/screenshots
-      # Test run video was always captured, so this action uses "always()" condition
-      - uses: actions/upload-artifact@v3
-        if: always()
-        with:
-          name: cypress-videos
-          path: cypress/videos
-
-      - name: coverage report
-        run: npx nyc report --reporter=text-summary
+  cypress-tests:
+    name: Graasp app text input
+    uses: graasp/graasp-deploy/.github/workflows/cypress.yml@v1
+    # Insert required inputs based on repository
+    with:
+      # Test values
+      tsc: false
+      node-env-test: test
+      graasp-domain-test: localhost
+      graasp-app-id-test: id-1234567890
+      mock-api-test: true
+    # Insert required secrets based on repository with the following format: ${{ secrets.SECRET_NAME }}
+    secrets:
+      api-host-test: http://localhost:3636
