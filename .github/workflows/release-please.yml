@@ -36,6 +36,7 @@ jobs:
           TAG=$(echo '${{ steps.release.outputs.tag_name }}')
           JSON=$(jq -c --null-input --arg repository "$REPOSITORY" --arg tag "$TAG" '{"repository": $repository, "tag": $tag}')
           echo "json=$JSON" >> $GITHUB_OUTPUT
+
       # Trigger an 'on: repository_dispatch' workflow to run in graasp-deploy repository
       - name: Push tag to Graasp Deploy (Staging)
         if: ${{ steps.release.outputs.release_created }}
