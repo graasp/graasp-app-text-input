@@ -22,7 +22,7 @@ const DownloadCsvButton = () => {
   }
 
   const formattedData = appData
-    ?.groupBy((data) => data.memberId)
+    ?.groupBy((data) => data.member.id)
     ?.map((elements, memberId) => {
       try {
         const userData = context

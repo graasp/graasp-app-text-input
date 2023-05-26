@@ -1,4 +1,4 @@
-import { CONTEXTS } from '../../src/config/contexts';
+import { Context } from '@graasp/sdk';
 import {
   appTitleCypress,
   dataCyWrapper,
@@ -15,7 +15,7 @@ describe('<BuilderView />', () => {
       cy.setUpApi({
         appContext: {
           permission: PERMISSION_LEVELS.ADMIN,
-          context: CONTEXTS.ANALYZER,
+          context: Context.Analytics,
         },
       });
       cy.visit('/');
@@ -33,7 +33,7 @@ describe('<BuilderView />', () => {
         database: { appData: [MOCK_APP_DATA, MOCK_FEEDBACK] },
         appContext: {
           permission: PERMISSION_LEVELS.ADMIN,
-          context: CONTEXTS.ANALYZER,
+          context: Context.Analytics,
         },
       });
       cy.visit('/');

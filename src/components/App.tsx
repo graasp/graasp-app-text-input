@@ -1,34 +1,39 @@
-import React, { useEffect } from 'react';
+import { useEffect } from 'react';
 import Header from './layout/Header';
-import { DEFAULT_LANG } from '../config/settings';
 import i18n from '../config/i18n';
 import { useLocalContext } from '@graasp/apps-query-client';
 import AnalyzerView from './views/admin/AnalyzerView';
-import { CONTEXTS } from '../config/contexts';
 import BuilderView from './views/admin/BuilderView';
 import PlayerView from './views/read/PlayerView';
+import { Context, DEFAULT_LANG } from '@graasp/sdk';
+import { hooks } from '../config/queryClient';
+import { SETTINGS } from '../config/settings';
 
 export const App = () => {
   const context = useLocalContext();
+  const { data: settings } = hooks.useAppSettings();
+  const isHeaderVisible = settings?.find(
+    ({ name }) => name === SETTINGS.HEADER_VISIBILITY
+  )?.data[SETTINGS.HEADER_VISIBILITY];
 
   useEffect(() => {
     // handle a change of language
     const lang = context?.get('lang') ?? DEFAULT_LANG;
-    if (i18n.lang !== lang) {
+    if (i18n.language !== lang) {
       i18n.changeLanguage(lang);
     }
   }, [context]);
 
   const renderContent = () => {
     switch (context?.get('context')) {
-      case CONTEXTS.BUILDER:
+      case Context.Builder:
         return (
           <>
             <Header />
             <BuilderView />
           </>
         );
-      case CONTEXTS.ANALYZER:
+      case Context.Analytics:
         return (
           <>
             <Header />
@@ -36,11 +41,11 @@ export const App = () => {
           </>
         );
 
-      case CONTEXTS.PLAYER:
+      case Context.Player:
       default:
         return (
           <>
-            {context?.get('standalone') && <Header />}
+            {(context?.get('standalone') || isHeaderVisible) && <Header />}
             <PlayerView />
           </>
         );

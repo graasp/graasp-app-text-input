@@ -8,8 +8,8 @@ const mockAppDataId = v4();
 export const MOCK_APP_DATA = {
   id: mockAppDataId,
   data: { text: 'some text' },
-  memberId: CURRENT_MEMBER.id,
-  itemId: MOCK_SERVER_ITEM.id,
+  member: CURRENT_MEMBER,
+  item: MOCK_SERVER_ITEM,
   createdAt: Date.now(),
   type: APP_DATA_TYPES.INPUT,
 };
@@ -18,8 +18,8 @@ const mockFeedback = v4();
 export const MOCK_FEEDBACK = {
   id: mockFeedback,
   data: { text: 'some feedback', memberId: CURRENT_MEMBER.id },
-  memberId: MEMBERS.BOB.id,
-  itemId: MOCK_SERVER_ITEM.id,
+  member: MEMBERS.BOB,
+  item: MOCK_SERVER_ITEM,
   createdAt: Date.now(),
   type: APP_DATA_TYPES.FEEDBACK,
 };

@@ -1,19 +1,9 @@
 import { withContext, withToken } from '@graasp/apps-query-client';
 import { styled } from '@mui/material';
-import grey from '@mui/material/colors/grey';
-import orange from '@mui/material/colors/orange';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-import React from 'react';
-import ReactGa from 'react-ga';
 import { I18nextProvider } from 'react-i18next';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import {
-  REACT_APP_GOOGLE_ANALYTICS_ID,
-  REACT_APP_GRAASP_APP_ID,
-  REACT_APP_GRAASP_DEVELOPER_ID,
-  REACT_APP_VERSION,
-} from '../config/env';
 import i18nConfig from '../config/i18n';
 import {
   queryClient,
@@ -26,16 +16,6 @@ import Loader from './common/Loader';
 import { hooks } from '../config/queryClient';
 import { showErrorToast } from '../utils/toasts';
 
-// todo: to change
-if (REACT_APP_GOOGLE_ANALYTICS_ID) {
-  ReactGa.initialize(REACT_APP_GOOGLE_ANALYTICS_ID);
-  ReactGa.ga(
-    'send',
-    'pageview',
-    `/${REACT_APP_GRAASP_DEVELOPER_ID}/${REACT_APP_GRAASP_APP_ID}/${REACT_APP_VERSION}/`
-  );
-}
-
 const Wrapper = styled('div')({
   flexGrow: 1,
 });
@@ -46,19 +26,9 @@ const theme = createTheme({
       main: '#5050d2',
     },
     secondary: { main: '#fff' },
-    default: grey,
     background: {
       paper: '#fff',
     },
-  },
-  status: {
-    danger: {
-      background: orange,
-      color: '#fff',
-    },
-  },
-  typography: {
-    useNextVariants: true,
   },
 });
 

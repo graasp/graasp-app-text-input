@@ -2,9 +2,12 @@
   "extends": [
     "prettier",
     "eslint:recommended",
-    "react-app"
+    "react-app",
+    "plugin:@typescript-eslint/recommended"
   ],
   "plugins": [
+    "react",
+    "@typescript-eslint"
   ],
   "env": {
     "browser": true,
@@ -16,7 +19,14 @@
     "cy": true,
     "Cypress": true
   },
-  "parser": "@babel/eslint-parser",
+  "parser": "@typescript-eslint/parser",
+  "parserOptions": {
+    "ecmaFeatures": {
+      "jsx": true
+    },
+    "ecmaVersion": "latest",
+    "sourceType": "module"
+  },
   "rules": {
     "jsx-a11y/anchor-is-valid": [
       "error",

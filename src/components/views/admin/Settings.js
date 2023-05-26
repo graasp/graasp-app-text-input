@@ -90,7 +90,9 @@ Settings.propTypes = {
 
 Settings.defaultProps = {
   open: false,
-  handleClose: () => {},
+  handleClose: () => {
+    // do nothing
+  },
 };
 
 export default Settings;
