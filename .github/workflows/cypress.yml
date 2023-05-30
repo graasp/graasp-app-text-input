@@ -35,7 +35,7 @@ jobs:
         with:
           install: false
           build: yarn build
-          config: baseUrl=http://localhost:3000
+          config: baseUrl=http://localhost:3333
           start: yarn start:ci
           browser: chrome
           quiet: true
