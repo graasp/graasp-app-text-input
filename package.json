@@ -12,7 +12,7 @@
   "dependencies": {
     "@emotion/styled": "11.8.1",
     "@graasp/apps-query-client": "github:graasp/graasp-apps-query-client.git#44-app-key-typeorm",
-    "@graasp/sdk": "github:graasp/graasp-sdk.git",
+    "@graasp/sdk": "v1.0.0-rc1",
     "@mui/icons-material": "5.8.2",
     "@mui/material": "5.8.2",
     "@tanstack/react-query": "4.28.0",
