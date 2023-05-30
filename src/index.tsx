@@ -1,6 +1,6 @@
 import { createRoot } from 'react-dom/client';
 import Root from './components/Root';
-import { buildDatabase, mockApi } from '@graasp/apps-query-client';
+import { mockApi } from '@graasp/apps-query-client';
 import { DEFAULT_LOCAL_CONTEXT, ENABLE_MOCK_API } from './config/settings';
 import './index.css';
 
