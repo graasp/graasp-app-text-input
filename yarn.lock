@@ -2285,7 +2285,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@graasp/sdk@npm:v1.0.0-rc1":
+"@graasp/sdk@npm:1.0.0-rc1":
   version: 1.0.0-rc1
   resolution: "@graasp/sdk@npm:1.0.0-rc1"
   dependencies:
@@ -9150,7 +9150,7 @@ __metadata:
     "@cypress/instrument-cra": 1.4.0
     "@emotion/styled": 11.8.1
     "@graasp/apps-query-client": "github:graasp/graasp-apps-query-client.git#44-app-key-typeorm"
-    "@graasp/sdk": v1.0.0-rc1
+    "@graasp/sdk": 1.0.0-rc1
     "@mui/icons-material": 5.8.2
     "@mui/material": 5.8.2
     "@tanstack/react-query": 4.28.0
