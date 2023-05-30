@@ -63,19 +63,19 @@ values between `<>` with anyone, as they are confidential.
 
 ```sh
 REACT_APP_GRAASP_DOMAIN=<domain>
-REACT_APP_GRAASP_APP_ID=<app-id>
-REACT_APP_MOCK_API=false
+REACT_APP_GRAASP_APP_KEY=<app-key>
+REACT_APP_ENABLE_MOCK_API=false
 REACT_APP_API_HOST=<api-host>
 ```
 
-**⚠️Warning ⚠️**: Make sure to set `REACT_APP_MOCK_API=false` when you build for use in the real-world (prod or dev).
+**⚠️Warning ⚠️**: Make sure to set `REACT_APP_ENABLE_MOCK_API=false` when you build for use in the real-world (prod or dev).
 
 ### Running Locally
 
 Navigate to the cloned or forked project directory using the command line, type `yarn start`.
 The app will automatically run on `localhost:3000`. Any changes you make should be automatically rendered in the browser.
 
-To develop without running our backend and frontend you have to put `REACT_APP_MOCK_API=true` in the `.env` file used when running your project (we assume `.env.local` here). This **mocks the API** which simulates a backend and provides your app with a context.
+To develop without running our backend and frontend you have to put `REACT_APP_ENABLE_MOCK_API=true` in the `.env` file used when running your project (we assume `.env.local` here). This **mocks the API** which simulates a backend and provides your app with a context.
 
 #### Set your app's context
 
