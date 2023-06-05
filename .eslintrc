@@ -2,11 +2,9 @@
   "extends": [
     "prettier",
     "eslint:recommended",
-    "react-app",
     "plugin:@typescript-eslint/recommended"
   ],
   "plugins": [
-    "react",
     "@typescript-eslint"
   ],
   "env": {
@@ -26,15 +24,5 @@
     },
     "ecmaVersion": "latest",
     "sourceType": "module"
-  },
-  "rules": {
-    "jsx-a11y/anchor-is-valid": [
-      "error",
-      {
-        "components": ["Link"],
-        "specialLink": ["to", "hrefLeft", "hrefRight"],
-        "aspects": ["noHref", "invalidHref", "preferButton"]
-      }
-    ]
   }
 }
