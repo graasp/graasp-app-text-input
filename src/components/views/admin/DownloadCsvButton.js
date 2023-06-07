@@ -3,7 +3,7 @@ import { CSVLink as CsvLink } from 'react-csv';
 import { IconButton } from '@mui/material';
 import DownloadIcon from '@mui/icons-material/CloudDownload';
 import { useTranslation } from 'react-i18next';
-import { Parser } from 'json2csv';
+import { Parser } from '@json2csv/plainjs';
 import { ACTION_TYPES } from '../../../config/actionTypes';
 import { hooks } from '../../../config/queryClient';
 
@@ -22,7 +22,7 @@ const DownloadCsvButton = () => {
   }
 
   const formattedData = appData
-    ?.groupBy((data) => data.memberId)
+    ?.groupBy((data) => data.member.id)
     ?.map((elements, memberId) => {
       try {
         const userData = context

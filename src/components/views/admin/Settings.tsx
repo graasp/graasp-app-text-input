@@ -1,27 +1,28 @@
-import React, { Fragment, useEffect, useState } from 'react';
-import PropTypes from 'prop-types';
+import { Fragment, useEffect, useState } from 'react';
 import Switch from '@mui/material/Switch';
 import DialogTitle from '@mui/material/DialogTitle';
 import DialogContent from '@mui/material/DialogContent';
-import Dialog from '@mui/material/Dialog';
+import Dialog, { DialogProps } from '@mui/material/Dialog';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import { useTranslation } from 'react-i18next';
 import Loader from '../../common/Loader';
-import { MUTATION_KEYS, useMutation } from '../../../config/queryClient';
+import { mutations } from '../../../config/queryClient';
 import { headerVisibilityCypress } from '../../../config/selectors';
 import { hooks } from '../../../config/queryClient';
 import { SETTINGS } from '../../../config/settings';
+import { AppSettingRecord } from '@graasp/sdk/frontend';
 
-const Settings = ({ open, handleClose }) => {
+type Props = {
+  open?: boolean;
+  handleClose?: DialogProps['onClose'];
+};
+
+const Settings = ({ open = false, handleClose }: Props): JSX.Element => {
   const { t } = useTranslation();
   const { data: settings, isLoading } = hooks.useAppSettings();
-  const [headerVisibility, setHeaderVisibility] = useState(null);
-  const { mutate: postAppSetting } = useMutation(
-    MUTATION_KEYS.POST_APP_SETTING
-  );
-  const { mutate: patchAppSetting } = useMutation(
-    MUTATION_KEYS.PATCH_APP_SETTING
-  );
+  const [headerVisibility, setHeaderVisibility] = useState<AppSettingRecord>();
+  const { mutate: postAppSetting } = mutations.usePostAppSetting();
+  const { mutate: patchAppSetting } = mutations.usePatchAppSetting();
 
   useEffect(() => {
     if (settings && !settings.isEmpty()) {
@@ -55,7 +56,9 @@ const Settings = ({ open, handleClose }) => {
       <Switch
         data-cy={headerVisibilityCypress}
         color="primary"
-        checked={headerVisibility?.data?.[SETTINGS.HEADER_VISIBILITY]}
+        checked={
+          headerVisibility?.data?.[SETTINGS.HEADER_VISIBILITY] as boolean
+        }
         onChange={handleChangeHeaderVisibility}
         value={SETTINGS.HEADER_VISIBILITY}
       />
@@ -81,16 +84,6 @@ const Settings = ({ open, handleClose }) => {
       <DialogContent>{renderModalContent()}</DialogContent>
     </Dialog>
   );
-};
-
-Settings.propTypes = {
-  open: PropTypes.bool,
-  handleClose: PropTypes.func,
-};
-
-Settings.defaultProps = {
-  open: false,
-  handleClose: () => {},
 };
 
 export default Settings;

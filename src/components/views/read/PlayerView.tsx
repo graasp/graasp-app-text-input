@@ -1,16 +1,18 @@
-import { Context } from '@graasp/apps-query-client';
-import { styled } from '@mui/material';
 import Grid from '@mui/material/Grid';
-import TextField from '@mui/material/TextField';
-import React, { useContext, useEffect, useRef, useState } from 'react';
+import TextField, { TextFieldProps } from '@mui/material/TextField';
+import { useEffect, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import { Alert, styled } from '@mui/material';
+import { useLocalContext } from '@graasp/apps-query-client';
+import Loader from '../../common/Loader';
+import { MAX_INPUT_LENGTH, MAX_ROWS } from '../../../config/settings';
+import { mutations } from '../../../config/queryClient';
+import { hooks } from '../../../config/queryClient';
+import SaveButton from './SaveButton';
+import { inputCypress, inputTextFieldId } from '../../../config/selectors';
 import { ACTION_TYPES } from '../../../config/actionTypes';
 import { APP_DATA_TYPES } from '../../../config/appDataTypes';
-import { hooks, MUTATION_KEYS, useMutation } from '../../../config/queryClient';
-import { inputCypress, inputTextFieldId } from '../../../config/selectors';
-import { MAX_INPUT_LENGTH, MAX_ROWS } from '../../../config/settings';
-import Loader from '../../common/Loader';
-import SaveButton from './SaveButton';
+import { AppDataRecord } from '@graasp/sdk/frontend';
 
 const FormContainer = styled('form')({
   display: 'flex',
@@ -29,17 +31,18 @@ const MainContainer = styled(Grid)(({ theme }) => ({
   padding: theme.spacing(1),
 }));
 
-const PlayerView = () => {
+const PlayerView = (): JSX.Element => {
   const { t } = useTranslation();
   const [text, setText] = useState('');
-  const [inputResource, setInputResource] = useState(null);
-  const [feedbackResource, setFeedbackResource] = useState(null);
-  const rootRef = useRef();
-  const { mutate: postAppData } = useMutation(MUTATION_KEYS.POST_APP_DATA);
-  const { mutate: patchAppData } = useMutation(MUTATION_KEYS.PATCH_APP_DATA);
-  const { mutate: postAction } = useMutation(MUTATION_KEYS.POST_APP_ACTION);
+  const [inputResource, setInputResource] = useState<AppDataRecord>();
+  const [feedbackResource, setFeedbackResource] = useState<AppDataRecord>();
+  const rootRef = useRef(null);
+  const { mutate: postAppData } = mutations.usePostAppData();
+  const { mutate: patchAppData } = mutations.usePatchAppData();
+  const { mutate: postAction } = mutations.usePostAppAction();
 
-  const context = useContext(Context);
+  const context = useLocalContext();
+  const memberId = context?.get('memberId');
   const {
     data: appData,
     isLoading: isAppDataLoading,
@@ -48,26 +51,30 @@ const PlayerView = () => {
 
   useEffect(() => {
     if (isAppDataSuccess) {
-      const memberId = context?.get('memberId');
       const data = appData.find(
         ({ type, creator }) =>
-          type === APP_DATA_TYPES.INPUT && creator === memberId
+          type === APP_DATA_TYPES.INPUT && creator?.id === memberId
       );
       if (data) {
         setInputResource(data);
-        setFeedbackResource(
-          appData.find(
-            ({ type, memberId: thisMId }) =>
-              type === APP_DATA_TYPES.FEEDBACK && memberId === thisMId
-          )
+        const feedback = appData.find(
+          ({ type, member: { id: thisMId } }) =>
+            type === APP_DATA_TYPES.FEEDBACK && memberId === thisMId
         );
+        if (feedback) {
+          setFeedbackResource(feedback);
+        }
+      }
+      // create resource if no input exists
+      else if (memberId) {
+        postAppData({ data: { text: '' }, type: APP_DATA_TYPES.INPUT });
       }
     }
-  }, [context, appData, isAppDataSuccess, postAppData]);
+  }, [context, appData, isAppDataSuccess, memberId]);
 
   useEffect(() => {
     if (inputResource) {
-      setText(inputResource.data.text);
+      setText(inputResource.data.text as string);
     }
   }, [inputResource]);
 
@@ -75,7 +82,7 @@ const PlayerView = () => {
     return <Loader />;
   }
 
-  const handleChangeText = ({ target }) => {
+  const handleChangeText: TextFieldProps['onChange'] = ({ target }) => {
     const { value } = target;
     setText(value);
   };
@@ -114,12 +121,18 @@ const PlayerView = () => {
   return (
     <Grid container spacing={0} ref={rootRef}>
       <MainContainer item xs={12}>
+        {Boolean(!memberId) && (
+          <Alert severity="error">
+            {t('You cannot answer if you are not authenticated')}
+          </Alert>
+        )}
         <FormContainer noValidate autoComplete="off">
           <StyledTextField
             autoFocus={context?.get('standalone')}
             inputProps={{
               maxLength: MAX_INPUT_LENGTH,
             }}
+            disabled={Boolean(!memberId)}
             data-cy={inputCypress}
             id={inputTextFieldId}
             label={t('Type Here')}

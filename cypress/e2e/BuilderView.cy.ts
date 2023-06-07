@@ -1,4 +1,4 @@
-import { CONTEXTS } from '../../src/config/contexts';
+import { Context, PermissionLevel } from '@graasp/sdk';
 import {
   appTitleCypress,
   dataCyWrapper,
@@ -15,10 +15,7 @@ import {
   settingsButtonCypress,
   headerVisibilityCypress,
 } from '../../src/config/selectors';
-import {
-  PERMISSION_LEVELS,
-  RESPONSES_COLUMNS,
-} from '../../src/config/settings';
+import { RESPONSES_COLUMNS } from '../../src/config/settings';
 import { MOCK_APP_DATA, MOCK_FEEDBACK } from '../fixtures/appData';
 
 describe('<BuilderView />', () => {
@@ -28,8 +25,8 @@ describe('<BuilderView />', () => {
         cy.setUpApi({
           database: { appData: [MOCK_APP_DATA, MOCK_FEEDBACK] },
           appContext: {
-            permission: PERMISSION_LEVELS.ADMIN,
-            context: CONTEXTS.BUILDER,
+            permission: PermissionLevel.Admin,
+            context: Context.Builder,
           },
         });
         cy.visit('/');
@@ -70,8 +67,8 @@ describe('<BuilderView />', () => {
         cy.setUpApi({
           database: { appData: [MOCK_APP_DATA] },
           appContext: {
-            permission: PERMISSION_LEVELS.ADMIN,
-            context: CONTEXTS.BUILDER,
+            permission: PermissionLevel.Admin,
+            context: Context.Builder,
           },
         });
         cy.visit('/');
@@ -112,8 +109,8 @@ describe('<BuilderView />', () => {
       beforeEach(() => {
         cy.setUpApi({
           appContext: {
-            permission: PERMISSION_LEVELS.ADMIN,
-            context: CONTEXTS.BUILDER,
+            permission: PermissionLevel.Admin,
+            context: Context.Builder,
           },
         });
         cy.visit('/');

@@ -1,14 +1,16 @@
-import { buildDatabase } from '@graasp/apps-query-client';
 import { inputTextFieldSelector } from '../../src/config/selectors';
 import { MEMBERS } from '../fixtures/members';
 
 Cypress.Commands.add('setUpApi', ({ database = {}, appContext } = {}) => {
   // mock api and database
   Cypress.on('window:before:load', (win) => {
-    win.database = buildDatabase({
+    win.database = {
+      appData: [],
+      appActions: [],
+      appSettings: [],
       members: Object.values(MEMBERS),
       ...database,
-    });
+    };
     win.appContext = appContext;
   });
 });

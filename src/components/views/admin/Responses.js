@@ -56,16 +56,16 @@ const Responses = ({ students, appData }) => {
       ({ type }) => type === APP_DATA_TYPES.FEEDBACK
     );
     // map each app instance resource to a row in the table
-    return responses.map(({ id, memberId, data }) => {
-      const member = students.find((m) => m.id === memberId) ?? anonymousUser;
+    return responses.map(({ id, member, data }) => {
+      const m = students.find((m) => m.id === member.id) ?? anonymousUser;
       const feedbackResource = feedbacks.find(
-        ({ data: { memberId: mId } }) => mId === member.id
+        ({ data: { memberId: mId } }) => mId === m.id
       );
       return (
         <Response
           id={id}
           key={id}
-          student={member}
+          student={m}
           data={data?.text}
           feedbackResource={feedbackResource}
         />
