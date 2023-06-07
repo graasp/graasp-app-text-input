@@ -39,8 +39,8 @@ Inside the project directory, run `yarn` to install the project dependencies.
 You will also need to create a file called `.env.local` with the following contents.
 
 ```sh
-REACT_APP_GRAASP_APP_ID=<app-id>
-REACT_APP_MOCK_API=true
+REACT_APP_GRAASP_APP_KEY=<app-key>
+REACT_APP_ENABLE_MOCK_API=true
 REACT_APP_API_HOST=<api-host>
 ```
 
@@ -50,9 +50,8 @@ with those that you received from our developers. Please make sure you do not co
 values between `<>` with anyone, as they are confidential.
 
 ```sh
-REACT_APP_GRAASP_DOMAIN=<domain>
-REACT_APP_GRAASP_APP_ID=<app-id>
-REACT_APP_MOCK_API=false
+REACT_APP_GRAASP_APP_KEY=<app-key>
+REACT_APP_ENABLE_MOCK_API=false
 REACT_APP_API_HOST=<api-host>
 ```
 
@@ -62,7 +61,6 @@ with those that you received from our developers. Please make sure you do not co
 values between `<>` with anyone, as they are confidential.
 
 ```sh
-REACT_APP_GRAASP_DOMAIN=<domain>
 REACT_APP_GRAASP_APP_KEY=<app-key>
 REACT_APP_ENABLE_MOCK_API=false
 REACT_APP_API_HOST=<api-host>
