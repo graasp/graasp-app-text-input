@@ -1,4 +1,4 @@
-import { Context } from '@graasp/sdk';
+import { Context, PermissionLevel } from '@graasp/sdk';
 import {
   appTitleCypress,
   dataCyWrapper,
@@ -6,15 +6,14 @@ import {
   refreshButtonCypress,
   wordCloudId,
 } from '../../src/config/selectors';
-import { PERMISSION_LEVELS } from '../../src/config/settings';
 import { MOCK_APP_DATA, MOCK_FEEDBACK } from '../fixtures/appData';
 
-describe('<BuilderView />', () => {
+describe('<AnalyzerView />', () => {
   describe('Dashboard', () => {
     it('Display no data', () => {
       cy.setUpApi({
         appContext: {
-          permission: PERMISSION_LEVELS.ADMIN,
+          permission: PermissionLevel.Admin,
           context: Context.Analytics,
         },
       });
@@ -32,7 +31,7 @@ describe('<BuilderView />', () => {
       cy.setUpApi({
         database: { appData: [MOCK_APP_DATA, MOCK_FEEDBACK] },
         appContext: {
-          permission: PERMISSION_LEVELS.ADMIN,
+          permission: PermissionLevel.Admin,
           context: Context.Analytics,
         },
       });

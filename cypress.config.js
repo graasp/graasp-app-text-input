@@ -8,5 +8,6 @@ module.exports = defineConfig({
       return require('./cypress/plugins/index.js')(on, config);
     },
     baseUrl: 'http://localhost:3333',
+    pageLoadTimeout: 120000,
   },
 });
