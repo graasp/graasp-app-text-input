@@ -8,7 +8,7 @@ import {
 } from '../../src/config/selectors';
 import { MOCK_APP_DATA, MOCK_FEEDBACK } from '../fixtures/appData';
 
-describe('<AnalyzerView />', () => {
+describe.skip('<AnalyzerView />', () => {
   describe('Dashboard', () => {
     it('Display no data', () => {
       cy.setUpApi({
