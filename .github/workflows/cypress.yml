@@ -26,7 +26,7 @@ jobs:
           cypress: true
 
       - name: cypress run
-        uses: cypress-io/github-action@v4
+        uses: cypress-io/github-action@v5
         env:
           PORT: 3333
           REACT_APP_GRAASP_APP_KEY: mock-key
