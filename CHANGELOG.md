@@ -2,6 +2,22 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.0.0-rc.1](https://github.com/graasp/graasp-app-text-input/compare/v0.5.1...v1.0.0-rc.1) (2023-06-07)
+
+
+### ⚠ BREAKING CHANGES
+
+* update for typeorm ([#70](https://github.com/graasp/graasp-app-text-input/issues/70))
+
+### Features
+
+* update for typeorm ([#70](https://github.com/graasp/graasp-app-text-input/issues/70)) ([8dc3dd7](https://github.com/graasp/graasp-app-text-input/commit/8dc3dd77ccc7756ae81ac2576dacd6086b92cb5b))
+
+
+### chore
+
+* release 1.0.0-rc.1 ([4492bac](https://github.com/graasp/graasp-app-text-input/commit/4492bac959750b159cf68d3e781fd68e809915f3))
+
 ### 0.5.1 (2022-11-21)
 
 ## 0.5.0 (2022-11-18)
