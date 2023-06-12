@@ -42,7 +42,7 @@ const PlayerView = (): JSX.Element => {
   const { mutate: postAction } = mutations.usePostAppAction();
 
   const context = useLocalContext();
-  const memberId = context?.get('memberId');
+  const memberId = context?.memberId;
   const {
     data: appData,
     isLoading: isAppDataLoading,
@@ -58,8 +58,8 @@ const PlayerView = (): JSX.Element => {
       if (data) {
         setInputResource(data);
         const feedback = appData.find(
-          ({ type, member: { id: thisMId } }) =>
-            type === APP_DATA_TYPES.FEEDBACK && memberId === thisMId
+          ({ type, member }) =>
+            type === APP_DATA_TYPES.FEEDBACK && memberId === member?.id
         );
         if (feedback) {
           setFeedbackResource(feedback);

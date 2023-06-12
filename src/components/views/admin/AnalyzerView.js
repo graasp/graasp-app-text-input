@@ -1,4 +1,3 @@
-import React from 'react';
 import _ from 'lodash';
 import Typography from '@mui/material/Typography';
 import { styled } from '@mui/material';

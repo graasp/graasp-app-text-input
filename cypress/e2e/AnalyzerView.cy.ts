@@ -8,8 +8,7 @@ import {
 } from '../../src/config/selectors';
 import { MOCK_APP_DATA, MOCK_FEEDBACK } from '../fixtures/appData';
 
-// bug: disabled because it fails in ci
-describe.skip('<AnalyzerView />', () => {
+describe('<AnalyzerView />', () => {
   describe('Dashboard', () => {
     it('Display no data', () => {
       cy.setUpApi({
