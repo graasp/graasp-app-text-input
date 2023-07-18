@@ -51,10 +51,15 @@ const PlayerView = (): JSX.Element => {
 
   useEffect(() => {
     if (isAppDataSuccess) {
-      const data = appData.find(
-        ({ type, creator }) =>
-          type === APP_DATA_TYPES.INPUT && creator?.id === memberId
-      );
+      // for security we get the latest of all the app data
+      const appDataForMemberId = appData
+        .filter(
+          ({ type, creator }) =>
+            type === APP_DATA_TYPES.INPUT && creator?.id === memberId
+        )
+        .sort((a, b) => (a.updatedAt > b.updatedAt ? 1 : -1));
+      const data = appDataForMemberId.last();
+
       if (data) {
         setInputResource(data);
         const feedback = appData.find(

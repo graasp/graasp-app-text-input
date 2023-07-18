@@ -31,6 +31,11 @@ describe('<PlayerView />', () => {
         .should('be.visible')
         .should('have.attr', 'disabled');
       cy.get(inputTextFieldSelector).contains(text);
+
+      // input new content and should display it
+      const text2 = 'new text again';
+      cy.enterStudentResponse(text2);
+      cy.get(inputTextFieldSelector).contains(text2);
     });
   });
 
