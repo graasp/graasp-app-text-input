@@ -61,7 +61,7 @@
     "release:patch": "standard-version -a --release-as patch",
     "cypress:open": "env-cmd -f ./.env.test cypress open",
     "cypress": "concurrently -k -s first \"yarn start:test\" \"wait-on http://127.0.0.1:3333 && yarn cypress:run\"",
-    "cypress:run": "env-cmd -f ./.env.test cypress run --headless --browser chrome --spec \"cypress/**/*.cy.js\""
+    "cypress:run": "env-cmd -f ./.env.test cypress run --headless --browser chrome"
   },
   "devDependencies": {
     "@commitlint/cli": "17.6.5",

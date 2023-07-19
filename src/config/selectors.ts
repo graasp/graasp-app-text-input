@@ -19,5 +19,5 @@ export const feedbackInputCypress = 'feedbackInput';
 export const submitButtonCypress = 'submitButton';
 export const deleteConfirmButtonCypress = 'deleteConfirmButton';
 
-export const dataCyWrapper = (cypressSelector) =>
+export const dataCyWrapper = (cypressSelector: string) =>
   `[data-cy=${cypressSelector}]`;

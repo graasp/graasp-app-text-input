@@ -37,6 +37,8 @@ jobs:
           build: yarn build
           config: baseUrl=http://localhost:3333
           start: yarn start:ci
+          wait-on: http://localhost:3333
+          wait-on-timeout: 180
           browser: chrome
           quiet: true
           # point to new cypress@10 config file
