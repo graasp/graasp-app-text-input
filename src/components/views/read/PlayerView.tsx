@@ -71,8 +71,9 @@ const PlayerView = (): JSX.Element => {
         }
       }
       // create resource if no input exists
-      else if (!isAppDataLoading && memberId) {
-        postAppData({ data: { text: '' }, type: APP_DATA_TYPES.INPUT });
+      else if (memberId) {
+        console.log('wueifjkn')
+        // postAppData({ data: { text: '' }, type: APP_DATA_TYPES.INPUT });
       }
     }
   }, [context, appData, isAppDataSuccess, memberId]);
