@@ -46,11 +46,11 @@ const PlayerView = (): JSX.Element => {
   const {
     data: appData,
     isLoading: isAppDataLoading,
+    isSuccess: isAppDataSuccess,
   } = hooks.useAppData();
 
   useEffect(() => {
-    // check on appData since isSuccess may flicker a lot
-    if (appData) {
+    if (isAppDataSuccess) {
       // for security we get the latest of all the app data
       const appDataForMemberId = appData
         .filter(
@@ -70,12 +70,8 @@ const PlayerView = (): JSX.Element => {
           setFeedbackResource(feedback);
         }
       }
-      // create resource if no input exists
-      else if (memberId) {
-        postAppData({ data: { text: '' }, type: APP_DATA_TYPES.INPUT });
-      }
     }
-  }, [context, appData, memberId]);
+  }, [context, appData, isAppDataSuccess, memberId]);
 
   useEffect(() => {
     if (inputResource) {
