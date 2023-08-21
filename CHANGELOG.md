@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.0.2](https://github.com/graasp/graasp-app-text-input/compare/v1.0.1...v1.0.2) (2023-07-19)
+
+
+### Bug Fixes
+
+* cypress workflow to wait on build finished ([8915938](https://github.com/graasp/graasp-app-text-input/commit/89159383cd88fd0a00b8619d5152c327163ef50c))
+
 ## [1.0.1](https://github.com/graasp/graasp-app-text-input/compare/v1.0.0-rc.1...v1.0.1) (2023-07-18)
 
 
