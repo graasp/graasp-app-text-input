@@ -3119,7 +3119,7 @@ __metadata:
 
 "@graasp/apps-query-client@github:graasp/graasp-apps-query-client#181-remove-immutable":
   version: 2.0.4
-  resolution: "@graasp/apps-query-client@https://github.com/graasp/graasp-apps-query-client.git#commit=5686cde6a9caaba53f1ac41fb746a66ec3703929"
+  resolution: "@graasp/apps-query-client@https://github.com/graasp/graasp-apps-query-client.git#commit=ee8789f2ae7a4e8d9f11b846089143384b4396f7"
   dependencies:
     "@graasp/sdk": 1.9.0
     axios: 1.4.0
@@ -3132,7 +3132,7 @@ __metadata:
     "@tanstack/react-query-devtools": ^4.28.0
     react: ^18.0.0
     react-dom: ^18.0.0
-  checksum: 860f03da65b2eefdc7dd8b8dc20ab3d84af93dc73a036c94e692a3a783f1e64b47eb46e7cabd78eb8415058c567ba923d8598729d925d502f07b1b889584788f
+  checksum: 43e9dfe94e3507d269d788d410bbf73bd6714b6cd61414cf992f2df997b91af595d88bfd1e9af45e9f078eebe92dc103f3bc426273af2c23b124479aca9681ed
   languageName: node
   linkType: hard
 

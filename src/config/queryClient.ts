@@ -10,10 +10,8 @@ const {
   queryClient,
   QueryClientProvider,
   hooks,
-  useMutation,
   ReactQueryDevtools,
   API_ROUTES,
-  MUTATION_KEYS,
   QUERY_KEYS,
   mutations,
 } = configureQueryClient({
@@ -37,9 +35,7 @@ export {
   mutations,
   QueryClientProvider,
   hooks,
-  useMutation,
   ReactQueryDevtools,
   API_ROUTES,
-  MUTATION_KEYS,
   QUERY_KEYS,
 };

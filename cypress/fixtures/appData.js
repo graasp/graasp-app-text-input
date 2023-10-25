@@ -13,6 +13,14 @@ export const MOCK_APP_DATA = {
   createdAt: Date.now(),
   type: APP_DATA_TYPES.INPUT,
 };
+export const MOCK_APP_DATA_BOB = {
+  id: mockAppDataId,
+  data: { text: 'some text' },
+  member: CURRENT_MEMBER,
+  item: MOCK_SERVER_ITEM,
+  createdAt: Date.now(),
+  type: APP_DATA_TYPES.INPUT,
+};
 
 const mockFeedback = v4();
 export const MOCK_FEEDBACK = {
