@@ -1,4 +1,3 @@
-import React from 'react';
 import Typography from '@mui/material/Typography';
 import Paper from '@mui/material/Paper';
 import Table from '@mui/material/Table';
@@ -7,9 +6,7 @@ import TableRow from '@mui/material/TableRow';
 import TableCell from '@mui/material/TableCell';
 import TableBody from '@mui/material/TableBody';
 import { styled } from '@mui/material';
-import { List } from 'immutable';
 import { useTranslation } from 'react-i18next';
-import PropTypes from 'prop-types';
 import Response from './Response';
 import { RESPONSES_COLUMNS } from '../../../config/settings';
 import {
@@ -17,6 +14,7 @@ import {
   tableNoResponsesCypress,
 } from '../../../config/selectors';
 import { APP_DATA_TYPES } from '../../../config/appDataTypes';
+import { AppData, Member } from '@graasp/sdk';
 
 const StyledPaper = styled(Paper)(({ theme }) => ({
   width: '100%',
@@ -28,18 +26,19 @@ const StyledTable = styled(Table)({
   minWidth: 700,
 });
 
-const Responses = ({ students, appData }) => {
-  const { t } = useTranslation();
+type Props = {
+  students: Member[];
+  appData: AppData[];
+};
 
-  const anonymousUser = {
-    name: t('Anonymous'),
-  };
+const Responses = ({ students, appData }: Props) => {
+  const { t } = useTranslation();
 
   const renderAppInstanceResources = () => {
     const nonEmptyData = appData.filter(({ data }) => Boolean(data?.text));
 
     // if there are no resources, show an empty table
-    if (nonEmptyData.isEmpty()) {
+    if (!nonEmptyData.length) {
       return (
         <TableRow data-cy={tableNoResponsesCypress}>
           <TableCell align="center" colSpan={4}>
@@ -57,16 +56,16 @@ const Responses = ({ students, appData }) => {
     );
     // map each app instance resource to a row in the table
     return responses.map(({ id, member, data }) => {
-      const m = students.find((m) => m.id === member.id) ?? anonymousUser;
-      const feedbackResource = feedbacks.find(
-        ({ data: { memberId: mId } }) => mId === m.id
-      );
+      const m = students.find((m) => m.id === member.id);
+      const feedbackResource = m
+        ? feedbacks.find(({ data: { memberId: mId } }) => mId === m.id)
+        : undefined;
       return (
         <Response
           id={id}
           key={id}
           student={m}
-          data={data?.text}
+          data={data?.text as string}
           feedbackResource={feedbackResource}
         />
       );
@@ -92,21 +91,6 @@ const Responses = ({ students, appData }) => {
       </StyledPaper>
     </div>
   );
-};
-
-Responses.propTypes = {
-  appData: PropTypes.instanceOf(List),
-  students: PropTypes.arrayOf(
-    PropTypes.shape({
-      id: PropTypes.string.isRequired,
-      name: PropTypes.string.isRequired,
-    })
-  ),
-};
-
-Responses.defaultProps = {
-  appData: List(),
-  students: [],
 };
 
 export default Responses;

@@ -6,13 +6,12 @@ import { Alert, styled } from '@mui/material';
 import { useLocalContext } from '@graasp/apps-query-client';
 import Loader from '../../common/Loader';
 import { MAX_INPUT_LENGTH, MAX_ROWS } from '../../../config/settings';
-import { mutations } from '../../../config/queryClient';
-import { hooks } from '../../../config/queryClient';
+import { mutations, hooks } from '../../../config/queryClient';
 import SaveButton from './SaveButton';
 import { inputCypress, inputTextFieldId } from '../../../config/selectors';
 import { ACTION_TYPES } from '../../../config/actionTypes';
 import { APP_DATA_TYPES } from '../../../config/appDataTypes';
-import { AppDataRecord } from '@graasp/sdk/frontend';
+import { AppData } from '@graasp/sdk';
 
 const FormContainer = styled('form')({
   display: 'flex',
@@ -34,8 +33,8 @@ const MainContainer = styled(Grid)(({ theme }) => ({
 const PlayerView = (): JSX.Element => {
   const { t } = useTranslation();
   const [text, setText] = useState('');
-  const [inputResource, setInputResource] = useState<AppDataRecord>();
-  const [feedbackResource, setFeedbackResource] = useState<AppDataRecord>();
+  const [inputResource, setInputResource] = useState<AppData>();
+  const [feedbackResource, setFeedbackResource] = useState<AppData>();
   const rootRef = useRef(null);
   const { mutate: postAppData } = mutations.usePostAppData();
   const { mutate: patchAppData } = mutations.usePatchAppData();
@@ -58,7 +57,7 @@ const PlayerView = (): JSX.Element => {
             type === APP_DATA_TYPES.INPUT && creator?.id === memberId
         )
         .sort((a, b) => (a.updatedAt > b.updatedAt ? 1 : -1));
-      const data = appDataForMemberId.last();
+      const data = appDataForMemberId[appDataForMemberId.length - 1];
 
       if (data) {
         setInputResource(data);
@@ -83,7 +82,7 @@ const PlayerView = (): JSX.Element => {
     }
   }, [inputResource]);
 
-  if (!context?.get('standalone') && isAppDataLoading) {
+  if (!context?.standalone && isAppDataLoading) {
     return <Loader />;
   }
 
@@ -133,7 +132,7 @@ const PlayerView = (): JSX.Element => {
         )}
         <FormContainer noValidate autoComplete="off">
           <StyledTextField
-            autoFocus={context?.get('standalone')}
+            autoFocus={context?.standalone}
             inputProps={{
               maxLength: MAX_INPUT_LENGTH,
             }}

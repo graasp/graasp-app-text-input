@@ -1,7 +1,6 @@
 import _ from 'lodash';
 import Typography from '@mui/material/Typography';
 import { styled } from '@mui/material';
-import { List } from 'immutable';
 import { removeStopwords } from 'stopword';
 import Loader from '../../common/Loader';
 import WordCloud from 'react-wordcloud';
@@ -13,7 +12,7 @@ import { wordCloudId } from '../../../config/selectors';
 const formatWords = (appData) => {
   const wordArray = appData
     .filter((a) => a.type === APP_DATA_TYPES.INPUT)
-    .map((a) => List(_.words(a.data?.text?.toLowerCase())))
+    .map((a) => _.words(a.data?.text?.toLowerCase()))
     .flatten();
 
   // strip stopwords and create count map

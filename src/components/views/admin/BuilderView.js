@@ -1,12 +1,11 @@
-import React, { useContext } from 'react';
-import { Context } from '@graasp/apps-query-client';
 import AdminView from './AdminView';
 import { PERMISSION_LEVELS } from '../../../config/settings';
 import PlayerView from '../read/PlayerView';
+import { useLocalContext } from '@graasp/apps-query-client';
 
 const BuilderView = () => {
-  const context = useContext(Context);
-  switch (context.get('permission')) {
+  const context = useLocalContext();
+  switch (context.permission) {
     case PERMISSION_LEVELS.ADMIN:
     case PERMISSION_LEVELS.WRITE:
       return <AdminView />;

@@ -18,14 +18,14 @@ export const App = () => {
 
   useEffect(() => {
     // handle a change of language
-    const lang = context?.get('lang') ?? DEFAULT_LANG;
+    const lang = context?.lang ?? DEFAULT_LANG;
     if (i18n.language !== lang) {
       i18n.changeLanguage(lang);
     }
   }, [context]);
 
   const renderContent = () => {
-    switch (context?.get('context')) {
+    switch (context?.context) {
       case Context.Builder:
         return (
           <>
@@ -45,7 +45,7 @@ export const App = () => {
       default:
         return (
           <>
-            {(context?.get('standalone') || isHeaderVisible) && <Header />}
+            {(context?.standalone || isHeaderVisible) && <Header />}
             <PlayerView />
           </>
         );
