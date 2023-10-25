@@ -4,7 +4,6 @@ export const inputTextFieldId = 'inputTextField';
 export const inputTextFieldSelector = `[data-cy=${inputCypress}] textarea#${inputTextFieldId}`;
 export const appTitleCypress = 'appTitle';
 export const refreshButtonCypress = 'refreshButton';
-export const logoCypress = 'logo';
 export const settingsButtonCypress = 'settingsButton';
 export const settingsModalCypress = 'settingsModal';
 export const responsesTableCypress = 'responses';

@@ -7,7 +7,6 @@ import {
   editFeedbackButtonCypress,
   feedbackInputCypress,
   feedbackTextCypress,
-  logoCypress,
   refreshButtonCypress,
   responsesTableCypress,
   submitButtonCypress,
@@ -33,7 +32,6 @@ describe('<BuilderView />', () => {
       });
 
       it('Default layout', () => {
-        cy.get(dataCyWrapper(logoCypress)).should('be.visible');
         cy.get(dataCyWrapper(appTitleCypress)).should('be.visible');
         cy.get(dataCyWrapper(refreshButtonCypress)).should('be.visible');
 
@@ -75,7 +73,6 @@ describe('<BuilderView />', () => {
       });
 
       it('Add feedback', () => {
-        cy.get(dataCyWrapper(logoCypress)).should('be.visible');
         cy.get(dataCyWrapper(appTitleCypress)).should('be.visible');
         cy.get(dataCyWrapper(refreshButtonCypress)).should('be.visible');
 
@@ -117,7 +114,6 @@ describe('<BuilderView />', () => {
       });
 
       it('Empty layout', () => {
-        cy.get(dataCyWrapper(logoCypress)).should('be.visible');
         cy.get(dataCyWrapper(appTitleCypress)).should('be.visible');
         cy.get(dataCyWrapper(refreshButtonCypress)).should('be.visible');
 

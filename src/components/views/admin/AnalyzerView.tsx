@@ -8,15 +8,16 @@ import { hooks } from '../../../config/queryClient';
 import { useTranslation } from 'react-i18next';
 import { APP_DATA_TYPES } from '../../../config/appDataTypes';
 import { wordCloudId } from '../../../config/selectors';
+import { AppData } from '@graasp/sdk';
 
-const formatWords = (appData) => {
+const formatWords = (appData: AppData[]) => {
   const wordArray = appData
     .filter((a) => a.type === APP_DATA_TYPES.INPUT)
-    .map((a) => _.words(a.data?.text?.toLowerCase()))
-    .flatten();
+    .map((a) => _.words((a.data?.text as string)?.toLowerCase()))
+    .flat();
 
   // strip stopwords and create count map
-  const strippedWordArray = removeStopwords(wordArray.toJS());
+  const strippedWordArray = removeStopwords(wordArray);
   const wordMap = _.countBy(strippedWordArray);
 
   // prepare map in format required by word cloud
@@ -41,7 +42,7 @@ const TeacherDashboard = () => {
     return <Loader />;
   }
 
-  if (!appData || appData.isEmpty()) {
+  if (!appData?.length) {
     return (
       <Typography variant="h6" align="center">
         {t('No Responses to display')}
