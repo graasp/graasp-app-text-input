@@ -1,8 +1,7 @@
 import { v4 } from 'uuid';
 import { APP_DATA_TYPES } from '../../src/config/appDataTypes';
 import { CURRENT_MEMBER, MEMBERS } from './members';
-
-export const MOCK_SERVER_ITEM = { id: '1234567890' };
+import { MOCK_SERVER_ITEM } from '../../src/config/settings';
 
 const mockAppDataId = v4();
 export const MOCK_APP_DATA = {
