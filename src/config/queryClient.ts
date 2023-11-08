@@ -1,6 +1,10 @@
 import { configureQueryClient } from '@graasp/apps-query-client';
 import { APP_KEY, ENABLE_MOCK_API, REACT_APP_API_HOST } from './settings';
 
+if (!APP_KEY) {
+  throw new Error('APP_KEY should be defined');
+}
+
 const {
   queryClient,
   QueryClientProvider,
@@ -19,6 +23,7 @@ const {
   staleTime: 1000, // ms
   GRAASP_APP_KEY: APP_KEY,
   isStandalone: ENABLE_MOCK_API,
+  enableWebsocket: false,
 });
 
 export {

@@ -5,13 +5,13 @@ import {
   ItemType,
   PermissionLevel,
 } from '@graasp/sdk';
-import { REACT_APP_API_HOST } from '../config/settings';
+import { MOCK_ITEM_ID, REACT_APP_API_HOST } from '../config/settings';
 
 export const defaultMockContext: LocalContext = {
   apiHost: REACT_APP_API_HOST,
   permission: PermissionLevel.Admin,
   context: 'builder',
-  itemId: '1234-1234-123456-8123-123456',
+  itemId: MOCK_ITEM_ID,
   memberId: 'mock-member-id',
 };
 
@@ -52,30 +52,32 @@ export const mockItem: DiscriminatedItem = {
 const buildDatabase = (
   appContext: Partial<LocalContext>,
   members?: CompleteMember[]
-): Database => ({
-  appContext: { ...defaultMockContext, ...appContext },
-  appData: [],
-  appActions: [
-    {
-      id: 'cecc1671-6c9d-4604-a3a2-6d7fad4a5996',
-      type: 'admin-action',
-      member: mockMembers[0],
-      createdAt: new Date().toISOString(),
-      item: mockItem,
-      data: { content: 'hello' },
-    },
-    {
-      id: '0c11a63a-f333-47e1-8572-b8f99fe883b0',
-      type: 'other-action',
-      member: mockMembers[1],
-      createdAt: new Date().toISOString(),
-      item: mockItem,
-      data: { content: 'other member' },
-    },
-  ],
-  members: members ?? mockMembers,
-  appSettings: [],
-  items: [mockItem],
-});
+): Database => {
+  return {
+    appContext: { ...defaultMockContext, ...appContext },
+    appData: [],
+    appActions: [
+      {
+        id: 'cecc1671-6c9d-4604-a3a2-6d7fad4a5996',
+        type: 'admin-action',
+        member: mockMembers[0],
+        createdAt: new Date().toISOString(),
+        item: mockItem,
+        data: { content: 'hello' },
+      },
+      {
+        id: '0c11a63a-f333-47e1-8572-b8f99fe883b0',
+        type: 'other-action',
+        member: mockMembers[1],
+        createdAt: new Date().toISOString(),
+        item: mockItem,
+        data: { content: 'other member' },
+      },
+    ],
+    members: members ?? mockMembers,
+    appSettings: [],
+    items: [mockItem],
+  };
+};
 
 export default buildDatabase;

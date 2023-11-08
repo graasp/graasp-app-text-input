@@ -39,7 +39,11 @@ const Root = () => {
               onError={() => {
                 showErrorToast('An error occured while fetching the context.');
               }}
-              defaultValue={buildMockLocalContext(defaultMockContext)}
+              defaultValue={
+                window.Cypress
+                  ? window.appContext
+                  : buildMockLocalContext(defaultMockContext)
+              }
             >
               <WithTokenContext
                 LoadingComponent={<Loader />}
