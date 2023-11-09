@@ -1,6 +1,7 @@
 import type { Database, LocalContext } from '@graasp/apps-query-client';
 import {
   CompleteMember,
+  Context,
   DiscriminatedItem,
   ItemType,
   PermissionLevel,
@@ -9,8 +10,8 @@ import { MOCK_ITEM_ID, REACT_APP_API_HOST } from '../config/settings';
 
 export const defaultMockContext: LocalContext = {
   apiHost: REACT_APP_API_HOST,
-  permission: PermissionLevel.Admin,
-  context: 'builder',
+  permission: PermissionLevel.Read,
+  context: Context.Player,
   itemId: MOCK_ITEM_ID,
   memberId: 'mock-member-id',
 };
