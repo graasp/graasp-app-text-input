@@ -2,6 +2,17 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.0.0](https://github.com/graasp/graasp-app-text-input/compare/v1.0.2...v2.0.0) (2023-11-09)
+
+
+### ⚠ BREAKING CHANGES
+
+* remove immutable and fix feedback ([#105](https://github.com/graasp/graasp-app-text-input/issues/105))
+
+### Features
+
+* remove immutable and fix feedback ([#105](https://github.com/graasp/graasp-app-text-input/issues/105)) ([8a82e02](https://github.com/graasp/graasp-app-text-input/commit/8a82e0294702cc5a80b4bd78ed85a687a9d0bc1d))
+
 ## [1.0.2](https://github.com/graasp/graasp-app-text-input/compare/v1.0.1...v1.0.2) (2023-07-19)
 
 
