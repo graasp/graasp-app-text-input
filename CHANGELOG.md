@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.0.1](https://github.com/graasp/graasp-app-text-input/compare/v2.0.0...v2.0.1) (2023-11-09)
+
+
+### Bug Fixes
+
+* fix aws region and rename workflows ([#108](https://github.com/graasp/graasp-app-text-input/issues/108)) ([3088fe4](https://github.com/graasp/graasp-app-text-input/commit/3088fe47d28b79d47b05957cfd30817788d15097))
+
 ## [2.0.0](https://github.com/graasp/graasp-app-text-input/compare/v1.0.2...v2.0.0) (2023-11-09)
 
 
