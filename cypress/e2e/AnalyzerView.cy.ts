@@ -2,7 +2,6 @@ import { Context, PermissionLevel } from '@graasp/sdk';
 import {
   appTitleCypress,
   dataCyWrapper,
-  logoCypress,
   refreshButtonCypress,
   wordCloudId,
 } from '../../src/config/selectors';
@@ -20,7 +19,6 @@ describe('<AnalyzerView />', () => {
       cy.visit('/');
 
       // visible elements
-      cy.get(dataCyWrapper(logoCypress)).should('be.visible');
       cy.get(dataCyWrapper(appTitleCypress)).should('be.visible');
       cy.get(dataCyWrapper(refreshButtonCypress)).should('be.visible');
 
@@ -38,7 +36,6 @@ describe('<AnalyzerView />', () => {
       cy.visit('/');
 
       // visible elements
-      cy.get(dataCyWrapper(logoCypress)).should('be.visible');
       cy.get(dataCyWrapper(appTitleCypress)).should('be.visible');
       cy.get(dataCyWrapper(refreshButtonCypress)).should('be.visible');
 

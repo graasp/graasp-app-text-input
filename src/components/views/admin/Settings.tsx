@@ -6,11 +6,10 @@ import Dialog, { DialogProps } from '@mui/material/Dialog';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import { useTranslation } from 'react-i18next';
 import Loader from '../../common/Loader';
-import { mutations } from '../../../config/queryClient';
+import { mutations, hooks } from '../../../config/queryClient';
 import { headerVisibilityCypress } from '../../../config/selectors';
-import { hooks } from '../../../config/queryClient';
 import { SETTINGS } from '../../../config/settings';
-import { AppSettingRecord } from '@graasp/sdk/frontend';
+import { AppSetting } from '@graasp/sdk';
 
 type Props = {
   open?: boolean;
@@ -20,12 +19,12 @@ type Props = {
 const Settings = ({ open = false, handleClose }: Props): JSX.Element => {
   const { t } = useTranslation();
   const { data: settings, isLoading } = hooks.useAppSettings();
-  const [headerVisibility, setHeaderVisibility] = useState<AppSettingRecord>();
+  const [headerVisibility, setHeaderVisibility] = useState<AppSetting>();
   const { mutate: postAppSetting } = mutations.usePostAppSetting();
   const { mutate: patchAppSetting } = mutations.usePatchAppSetting();
 
   useEffect(() => {
-    if (settings && !settings.isEmpty()) {
+    if (settings?.length) {
       setHeaderVisibility(
         settings.find(({ name }) => name === SETTINGS.HEADER_VISIBILITY)
       );

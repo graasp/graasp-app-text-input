@@ -1,10 +1,17 @@
 import {
   dataCyWrapper,
+  inputTextFieldId,
   inputTextFieldSelector,
   saveButtonCypress,
 } from '../../src/config/selectors';
 import { LOAD_PAGE_PAUSE } from '../constants/constants';
-import { MOCK_APP_DATA } from '../fixtures/appData';
+import { MEMBERS } from '../fixtures/members';
+
+import {
+  MOCK_APP_DATA,
+  MOCK_APP_DATA_BOB,
+  MOCK_FEEDBACK,
+} from '../fixtures/appData';
 
 const text = 'Some input text.';
 
@@ -40,13 +47,22 @@ describe('<PlayerView />', () => {
   });
 
   describe('Default database', () => {
-    beforeEach(() => {
+    it('Display pre-saved data', () => {
       cy.setUpApi({ database: { appData: [MOCK_APP_DATA] } });
       cy.visit('/');
+      cy.get(inputTextFieldSelector).contains(MOCK_APP_DATA.data.text);
     });
 
-    it('Display pre-saved data', () => {
-      cy.get(inputTextFieldSelector).contains(MOCK_APP_DATA.data.text);
+    it('Display pre-saved data and feedback', () => {
+      cy.setUpApi({
+        appContext: { memberId: MEMBERS.BOB.id },
+        database: { appData: [MOCK_APP_DATA_BOB, MOCK_FEEDBACK] },
+      });
+      cy.visit('/');
+      cy.get(inputTextFieldSelector).contains(MOCK_APP_DATA_BOB.data.text);
+      cy.get(`#${inputTextFieldId}-helper-text`).contains(
+        MOCK_FEEDBACK.data.text
+      );
     });
   });
 });

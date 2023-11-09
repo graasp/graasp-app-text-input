@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import Grid from '@mui/material/Grid';
 import { useTranslation } from 'react-i18next';
 import Fab from '@mui/material/Fab';
@@ -40,7 +40,7 @@ export const AdminView = () => {
     return <Loader />;
   }
 
-  const members = context?.get('members') ?? [];
+  const members = context?.members ?? [];
 
   const onClick = () => {
     setIsOpenSettings(true);

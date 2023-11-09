@@ -58,6 +58,7 @@ ConfirmDialog.propTypes = {
   text: PropTypes.string,
   confirmText: PropTypes.string,
   cancelText: PropTypes.string,
+  confirmButtonCypress: PropTypes.string.isRequired,
 };
 
 ConfirmDialog.defaultProps = {

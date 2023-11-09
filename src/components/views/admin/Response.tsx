@@ -1,36 +1,44 @@
 import _ from 'lodash';
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import TableRow from '@mui/material/TableRow';
 import TableCell from '@mui/material/TableCell';
 import IconButton from '@mui/material/IconButton';
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
 import { useTranslation } from 'react-i18next';
-import PropTypes from 'prop-types';
 import ConfirmDialog from '../../common/ConfirmDialog';
 import FormDialog from '../../common/FormDialog';
 import { showErrorToast } from '../../../utils/toasts';
 import { ACTION_TYPES } from '../../../config/actionTypes';
-import { MUTATION_KEYS, useMutation } from '../../../config/queryClient';
+import { mutations } from '../../../config/queryClient';
 import {
   deleteButtonCypress,
   deleteConfirmButtonCypress,
   editFeedbackButtonCypress,
   feedbackTextCypress,
 } from '../../../config/selectors';
+import { AppData, Member, UUID } from '@graasp/sdk';
 
-const Response = ({ id, data, student, feedbackResource }) => {
+type Props = {
+  id: UUID;
+  data?: string;
+  student?: Member;
+  feedbackResource?: AppData;
+};
+
+const Response = ({ id, data, student, feedbackResource }: Props) => {
   const { t } = useTranslation();
-  const [feedbackText, setFeedbackText] = useState('');
+  const [feedbackText, setFeedbackText] = useState<string>('');
   const [confirmDialogOpen, setConfirmDialogOpen] = useState(false);
   const [feedbackDialogOpen, setFeedbackDialogOpen] = useState(false);
-  const { mutate: postAppData } = useMutation(MUTATION_KEYS.POST_APP_DATA);
-  const { mutate: patchAppData } = useMutation(MUTATION_KEYS.PATCH_APP_DATA);
-  const { mutate: deleteAppData } = useMutation(MUTATION_KEYS.DELETE_APP_DATA);
+  const { mutate: postAppData } = mutations.usePostAppData();
+  const { mutate: patchAppData } = mutations.usePatchAppData();
+  const { mutate: deleteAppData } = mutations.useDeleteAppData();
 
   useEffect(() => {
     if (feedbackResource) {
-      setFeedbackText(feedbackResource?.data?.text);
+      // todo: use app data with generic type
+      setFeedbackText(feedbackResource.data.text as string);
     }
   }, [feedbackResource]);
 
@@ -44,31 +52,31 @@ const Response = ({ id, data, student, feedbackResource }) => {
 
   const handleConfirmDelete = () => {
     deleteAppData({ id });
-    if (!_.isEmpty(feedbackResource)) {
+    if (feedbackResource && !_.isEmpty(feedbackResource)) {
       deleteAppData({ id: feedbackResource.id });
     }
     handleToggleConfirmDialog();
   };
 
-  const handleSubmitFeedback = (text) => {
+  const handleSubmitFeedback = (text: string) => {
     if (!student?.id) {
       showErrorToast(
         'Currently we do not support giving feedback to anonymous users.'
       );
-    }
-
-    // if no feedback resource yet, create it, otherwise, update it
-    if (_.isEmpty(feedbackResource)) {
-      postAppData({
-        memberId: student.id,
-        data: { text, memberId: student.id },
-        type: ACTION_TYPES.FEEDBACK,
-      });
     } else {
-      patchAppData({
-        id: feedbackResource.id,
-        data: { text, memberId: student.id },
-      });
+      // if no feedback resource yet, create it, otherwise, update it
+      if (!feedbackResource || _.isEmpty(feedbackResource)) {
+        postAppData({
+          memberId: student.id,
+          data: { text, memberId: student.id },
+          type: ACTION_TYPES.FEEDBACK,
+        });
+      } else {
+        patchAppData({
+          id: feedbackResource.id,
+          data: { text, memberId: student.id },
+        });
+      }
     }
     handleToggleFeedbackDialog();
   };
@@ -98,7 +106,7 @@ const Response = ({ id, data, student, feedbackResource }) => {
 
   return (
     <TableRow key={id}>
-      <TableCell>{student.name}</TableCell>
+      <TableCell>{student?.name ?? t('Anonymous')}</TableCell>
       <TableCell>{data}</TableCell>
       <TableCell>{renderFeedbackCell()}</TableCell>
       <TableCell>
@@ -124,26 +132,6 @@ const Response = ({ id, data, student, feedbackResource }) => {
       </TableCell>
     </TableRow>
   );
-};
-
-Response.propTypes = {
-  data: PropTypes.string,
-  student: PropTypes.shape({
-    id: PropTypes.string.isRequired,
-    name: PropTypes.string.isRequired,
-  }).isRequired,
-  feedbackResource: PropTypes.shape({
-    data: PropTypes.shape({
-      text: PropTypes.string.isRequired,
-      memberId: PropTypes.string.isRequired,
-    }).isRequired,
-  }),
-  id: PropTypes.string.isRequired,
-};
-
-Response.defaultProps = {
-  data: '',
-  feedbackResource: {},
 };
 
 export default Response;
