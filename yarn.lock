@@ -5019,10 +5019,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@tanstack/query-core@npm:4.29.11":
-  version: 4.29.11
-  resolution: "@tanstack/query-core@npm:4.29.11"
-  checksum: b0045f76a5fad81224c9329c07fe5d4f6bae3613dfcd32dd654d34b1d493ec57e8c3f999bc0711d52e523c03bc9c3c979dc37bc8da1b67a634d67bb0f2a46a62
+"@tanstack/query-core@npm:4.29.25":
+  version: 4.29.25
+  resolution: "@tanstack/query-core@npm:4.29.25"
+  checksum: 409e5abc95e773651de55aad2e453df92172bba568dcd02d236cd2b6cb284bd893c2ddb882fb7181890afa301e139f448c2dcc5fb9e9635d7e6d34f1de7863af
   languageName: node
   linkType: hard
 
@@ -5041,11 +5041,11 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@tanstack/react-query@npm:4.29.12":
-  version: 4.29.12
-  resolution: "@tanstack/react-query@npm:4.29.12"
+"@tanstack/react-query@npm:4.29.25":
+  version: 4.29.25
+  resolution: "@tanstack/react-query@npm:4.29.25"
   dependencies:
-    "@tanstack/query-core": "npm:4.29.11"
+    "@tanstack/query-core": "npm:4.29.25"
     use-sync-external-store: "npm:^1.2.0"
   peerDependencies:
     react: ^16.8.0 || ^17.0.0 || ^18.0.0
@@ -5056,7 +5056,7 @@ __metadata:
       optional: true
     react-native:
       optional: true
-  checksum: f6dae856b0eda189ea8ce13f1cdb1d0153a70ace6ed9f53c8a8379e6be28d26cf522dabe5d2d04e6f29ffbe3fbf7aca327321cfc089e1792fa30070a5c34bc71
+  checksum: f304107ddee4d2e330f47493c678750b85efa8b6148601128aa7eed6ad53339ad1f70fd5cc71397b787c07d660c17cccc19e3f6202ccb21822f1989d8bcb677c
   languageName: node
   linkType: hard
 
@@ -11300,7 +11300,7 @@ __metadata:
     "@mui/icons-material": "npm:5.11.16"
     "@mui/lab": "npm:5.0.0-alpha.150"
     "@mui/material": "npm:5.13.3"
-    "@tanstack/react-query": "npm:4.29.12"
+    "@tanstack/react-query": "npm:4.29.25"
     "@tanstack/react-query-devtools": "npm:4.29.12"
     "@testing-library/jest-dom": "npm:5.16.5"
     "@testing-library/react": "npm:14.0.0"
