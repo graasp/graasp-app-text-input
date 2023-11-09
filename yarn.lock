@@ -3094,9 +3094,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@graasp/apps-query-client@github:graasp/graasp-apps-query-client#181-remove-immutable":
-  version: 2.0.4
-  resolution: "@graasp/apps-query-client@https://github.com/graasp/graasp-apps-query-client.git#commit=1d950993ecc6bf59f0894726c5d4cdda72e44cf1"
+"@graasp/apps-query-client@npm:3.0.0":
+  version: 3.0.0
+  resolution: "@graasp/apps-query-client@npm:3.0.0"
   dependencies:
     "@emotion/react": "npm:11.11.1"
     "@emotion/styled": "npm:11.11.0"
@@ -3115,7 +3115,7 @@ __metadata:
     "@tanstack/react-query-devtools": ^4.28.0
     react: ^18.0.0
     react-dom: ^18.0.0
-  checksum: b9b9e84a17618aef2ac53eee40fd3868abd98fd0e195ab90376705fb2760f17488db7a1a9105bdb3dcdcc3cf62fc4b991a892abc4eb4b42f993b45d48d69f0da
+  checksum: bb40d65d1c0c4595ee9e71546d484b96e149731d2c746745a99a1c0fff9080d3b03654226b275c4c4f818e6470feca6b4a914f62d93cb1826facd09b461b6dbf
   languageName: node
   linkType: hard
 
@@ -11293,7 +11293,7 @@ __metadata:
     "@emotion/cache": "npm:11.11.0"
     "@emotion/react": "npm:11.11.0"
     "@emotion/styled": "npm:11.11.0"
-    "@graasp/apps-query-client": "github:graasp/graasp-apps-query-client#181-remove-immutable"
+    "@graasp/apps-query-client": "npm:3.0.0"
     "@graasp/sdk": "npm:2.0.0"
     "@graasp/ui": "npm:4.0.0"
     "@json2csv/plainjs": "npm:7.0.1"
