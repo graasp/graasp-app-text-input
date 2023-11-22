@@ -15,7 +15,7 @@ export const App = () => {
   const isHeaderVisible = settings?.find(
     ({ name }) => name === SETTINGS.HEADER_VISIBILITY
   )?.data[SETTINGS.HEADER_VISIBILITY];
-
+  console.log('Context', context);
   useEffect(() => {
     // handle a change of language
     const lang = context?.lang ?? DEFAULT_LANG;

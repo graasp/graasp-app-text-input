@@ -21,7 +21,7 @@ Sentry.init({
 if (MOCK_API) {
   mockApi(
     {
-      // dbName: window.Cypress ? 'graasp-app-cypress' : undefined,
+      dbName: window.Cypress ? 'graasp-app-cypress' : undefined,
       appContext: window.Cypress ? window.appContext : defaultMockContext,
       database: window.Cypress ? window.database : buildDatabase(mockMembers),
     },

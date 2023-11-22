@@ -2,12 +2,10 @@ import { useState } from 'react';
 import Grid from '@mui/material/Grid';
 import { useTranslation } from 'react-i18next';
 import Fab from '@mui/material/Fab';
-import { Alert, styled } from '@mui/material';
+import { styled } from '@mui/material';
 import SettingsIcon from '@mui/icons-material/Settings';
-import Loader from '../../common/Loader';
 import Responses from './Responses';
 import Settings from './Settings';
-import { hooks } from '../../../config/queryClient';
 import { settingsButtonCypress } from '../../../config/selectors';
 
 const Container = styled(Grid)(({ theme }) => ({

@@ -1,3 +1,4 @@
+/// <reference types="../../src/window.d.ts" />
 import { inputTextFieldSelector } from '../../src/config/selectors';
 import { MEMBERS } from '../fixtures/members';
 import { mockItem, defaultMockContext } from '../../src/mocks/db';
@@ -15,7 +16,6 @@ Cypress.Commands.add('setUpApi', ({ database = {}, appContext } = {}) => {
       appSettings: [],
       members: Object.values(MEMBERS),
       items: [mockItem],
-      appContext: fullAppContext,
       ...database,
     };
     win.appContext = fullAppContext;

@@ -1,4 +1,3 @@
-import _ from 'lodash';
 import { useEffect, useState } from 'react';
 import TableRow from '@mui/material/TableRow';
 import TableCell from '@mui/material/TableCell';
@@ -19,6 +18,7 @@ import {
 } from '../../../config/selectors';
 import { AppData, Member, UUID, formatDate } from '@graasp/sdk';
 import { useTableSettingsContext } from '@/context/TableSettingsContext';
+import isEmpty from 'lodash.isempty';
 
 type Props = {
   id: UUID;
@@ -61,7 +61,7 @@ const Response = ({
 
   const handleConfirmDelete = () => {
     deleteAppData({ id });
-    if (feedbackResource && !_.isEmpty(feedbackResource)) {
+    if (feedbackResource && !isEmpty(feedbackResource)) {
       deleteAppData({ id: feedbackResource.id });
     }
     handleToggleConfirmDialog();
@@ -74,7 +74,7 @@ const Response = ({
       );
     } else {
       // if no feedback resource yet, create it, otherwise, update it
-      if (!feedbackResource || _.isEmpty(feedbackResource)) {
+      if (!feedbackResource || isEmpty(feedbackResource)) {
         postAppData({
           memberId: student.id,
           data: { text, memberId: student.id },

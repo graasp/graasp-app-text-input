@@ -11,8 +11,8 @@ import { API_HOST } from '@/config/env';
 
 export const defaultMockContext: LocalContext = {
   apiHost: API_HOST,
-  permission: PermissionLevel.Read,
-  context: Context.Player,
+  permission: PermissionLevel.Admin,
+  context: Context.Builder,
   itemId: MOCK_ITEM_ID,
   memberId: 'mock-member-id',
 };

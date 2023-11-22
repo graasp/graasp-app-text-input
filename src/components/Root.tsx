@@ -1,5 +1,4 @@
 import {
-  buildMockLocalContext,
   GraaspContextDevTool,
   useObjectState,
   WithLocalContext,
@@ -43,11 +42,7 @@ const Root = () => {
               onError={() => {
                 showErrorToast('An error occured while fetching the context.');
               }}
-              defaultValue={
-                window.Cypress
-                  ? window.appContext
-                  : buildMockLocalContext(defaultMockContext)
-              }
+              defaultValue={window.Cypress ? window.appContext : mockContext}
             >
               <WithTokenContext
                 LoadingComponent={<Loader />}
@@ -68,7 +63,7 @@ const Root = () => {
                 )}
               </WithTokenContext>
             </WithLocalContext>
-            {process.env.NODE_ENV === 'development' && <ReactQueryDevtools />}
+            {import.meta.env.DEV && <ReactQueryDevtools />}
           </QueryClientProvider>
           <ToastContainer />
         </I18nextProvider>
