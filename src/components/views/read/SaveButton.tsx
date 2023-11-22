@@ -10,10 +10,15 @@ const Container = styled('div')(({ theme }) => ({
   marginRight: theme.spacing(1),
 }));
 
-function SaveButton({ disabled, onClick }) {
+type SaveButtonProps = {
+  disabled: boolean;
+  onClick: () => void;
+};
+
+const SaveButton = ({ disabled, onClick }: SaveButtonProps) => {
   const { t } = useTranslation();
 
-  const withTooltip = (elem) => {
+  const withTooltip = (elem: JSX.Element) => {
     return (
       <Tooltip title={t('All changes saved.')}>
         <span>{React.cloneElement(elem)}</span>
@@ -36,6 +41,6 @@ function SaveButton({ disabled, onClick }) {
   return (
     <Container>{disabled ? withTooltip(saveButton) : saveButton}</Container>
   );
-}
+};
 
 export default SaveButton;

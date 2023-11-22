@@ -17,17 +17,26 @@ import {
   editFeedbackButtonCypress,
   feedbackTextCypress,
 } from '../../../config/selectors';
-import { AppData, Member, UUID } from '@graasp/sdk';
+import { AppData, Member, UUID, formatDate } from '@graasp/sdk';
+import { useTableSettingsContext } from '@/context/TableSettingsContext';
 
 type Props = {
   id: UUID;
   data?: string;
+  updatedAt: string;
   student?: Member;
   feedbackResource?: AppData;
 };
 
-const Response = ({ id, data, student, feedbackResource }: Props) => {
-  const { t } = useTranslation();
+const Response = ({
+  id,
+  data,
+  updatedAt,
+  student,
+  feedbackResource,
+}: Props) => {
+  const { t, i18n } = useTranslation();
+  const { settings } = useTableSettingsContext();
   const [feedbackText, setFeedbackText] = useState<string>('');
   const [confirmDialogOpen, setConfirmDialogOpen] = useState(false);
   const [feedbackDialogOpen, setFeedbackDialogOpen] = useState(false);
@@ -108,6 +117,11 @@ const Response = ({ id, data, student, feedbackResource }: Props) => {
     <TableRow key={id}>
       <TableCell>{student?.name ?? t('Anonymous')}</TableCell>
       <TableCell>{data}</TableCell>
+      <TableCell>
+        {settings.useRelativeTime
+          ? formatDate(updatedAt, { locale: i18n.language })
+          : updatedAt}
+      </TableCell>
       <TableCell>{renderFeedbackCell()}</TableCell>
       <TableCell>
         <IconButton

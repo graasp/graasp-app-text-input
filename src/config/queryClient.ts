@@ -1,7 +1,7 @@
 import { configureQueryClient } from '@graasp/apps-query-client';
-import { APP_KEY, ENABLE_MOCK_API, REACT_APP_API_HOST } from './settings';
+import { API_HOST, GRAASP_APP_KEY, MOCK_API } from './env';
 
-if (!APP_KEY) {
+if (!GRAASP_APP_KEY) {
   throw new Error('APP_KEY should be defined');
 }
 
@@ -14,15 +14,16 @@ const {
   QUERY_KEYS,
   mutations,
 } = configureQueryClient({
-  API_HOST: REACT_APP_API_HOST,
+  API_HOST,
+  GRAASP_APP_KEY,
   notifier: (data) => {
+    // todo: use toasts
     console.log('notifier: ', data);
   },
   keepPreviousData: true,
   // avoid refetching when same data are closely fetched
   staleTime: 1000, // ms
-  GRAASP_APP_KEY: APP_KEY,
-  isStandalone: ENABLE_MOCK_API,
+  isStandalone: MOCK_API,
   enableWebsocket: false,
 });
 

@@ -1,5 +1,7 @@
 import {
   buildMockLocalContext,
+  GraaspContextDevTool,
+  useObjectState,
   WithLocalContext,
   WithTokenContext,
 } from '@graasp/apps-query-client';
@@ -20,13 +22,15 @@ import Loader from './common/Loader';
 import { hooks } from '../config/queryClient';
 import { showErrorToast } from '../utils/toasts';
 import { theme } from '@graasp/ui';
-import { defaultMockContext } from '../mocks/db';
+import { defaultMockContext, mockMembers } from '../mocks/db';
 
 const Wrapper = styled('div')({
   flexGrow: 1,
 });
 
 const Root = () => {
+  const [mockContext, setMockContext] = useObjectState(defaultMockContext);
+
   return (
     <Wrapper>
       <ThemeProvider theme={theme}>
@@ -55,6 +59,13 @@ const Root = () => {
                 }}
               >
                 <App />
+                {import.meta.env.DEV && (
+                  <GraaspContextDevTool
+                    members={mockMembers}
+                    context={mockContext}
+                    setContext={setMockContext}
+                  />
+                )}
               </WithTokenContext>
             </WithLocalContext>
             {process.env.NODE_ENV === 'development' && <ReactQueryDevtools />}

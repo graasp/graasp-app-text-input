@@ -32,11 +32,7 @@ const StyledFab = styled(Fab)(({ theme }) => ({
 
 export const AdminView = () => {
   const { t } = useTranslation();
-  const { data: context, isLoading } = hooks.useAppContext();
-  const { data: appData, isLoading: isAppDataLoading } = hooks.useAppData();
   const [isOpenSettings, setIsOpenSettings] = useState(false);
-
-  const members = context?.members ?? [];
 
   const onClick = () => {
     setIsOpenSettings(true);
@@ -45,32 +41,24 @@ export const AdminView = () => {
     setIsOpenSettings(false);
   };
 
-  if (appData) {
-    return (
-      <>
-        <Container container spacing={0}>
-          <MainContainer item xs={12}>
-            <Responses students={members} appData={appData} />
-          </MainContainer>
-        </Container>
-        <Settings open={isOpenSettings} handleClose={handleClose} />
-        <StyledFab
-          data-cy={settingsButtonCypress}
-          color="primary"
-          aria-label={t('Settings')}
-          onClick={onClick}
-        >
-          <SettingsIcon />
-        </StyledFab>
-      </>
-    );
-  }
-
-  if (isLoading || isAppDataLoading) {
-    return <Loader />;
-  }
-
-  return <Alert severity="error">Something went wrong</Alert>;
+  return (
+    <>
+      <Container container spacing={0}>
+        <MainContainer item xs={12}>
+          <Responses />
+        </MainContainer>
+      </Container>
+      <Settings open={isOpenSettings} handleClose={handleClose} />
+      <StyledFab
+        data-cy={settingsButtonCypress}
+        color="primary"
+        aria-label={t('Settings')}
+        onClick={onClick}
+      >
+        <SettingsIcon />
+      </StyledFab>
+    </>
+  );
 };
 
 export default AdminView;
