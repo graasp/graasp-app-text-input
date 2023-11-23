@@ -39,18 +39,20 @@ const Root = () => {
               LoadingComponent={<Loader />}
               useGetLocalContext={hooks.useGetLocalContext}
               useAutoResize={hooks.useAutoResize}
-              onError={() => {
-                showErrorToast('An error occured while fetching the context.');
+              onError={(err) => {
+                showErrorToast('An error occurred while fetching the context.');
+                console.log('Local Context err', err);
               }}
               defaultValue={window.Cypress ? window.appContext : mockContext}
             >
               <WithTokenContext
                 LoadingComponent={<Loader />}
                 useAuthToken={hooks.useAuthToken}
-                onError={() => {
+                onError={(err) => {
                   showErrorToast(
-                    'An error occured while requesting the token.'
+                    'An error occurred while requesting the token.'
                   );
+                  console.log('token context err', err);
                 }}
               >
                 <App />

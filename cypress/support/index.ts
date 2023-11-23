@@ -9,8 +9,8 @@ declare global {
        * @example cy.dataCy('greeting')
        */
       setUpApi(value?: {
-        database: Database;
-        appContext: LocalContext;
+        database?: Partial<Database>;
+        appContext?: Partial<LocalContext>;
       }): Chainable<JQuery<HTMLElement>>;
       enterStudentResponse(value: string): Chainable<JQuery<HTMLElement>>;
       clearStudentResponse(): Chainable<JQuery<HTMLElement>>;

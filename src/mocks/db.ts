@@ -7,7 +7,7 @@ import {
   PermissionLevel,
 } from '@graasp/sdk';
 import { MOCK_ITEM_ID } from '../config/settings';
-import { API_HOST } from '@/config/env';
+import { API_HOST } from '../config/env';
 
 export const defaultMockContext: LocalContext = {
   apiHost: API_HOST,
