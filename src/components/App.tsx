@@ -1,20 +1,13 @@
 import { useEffect } from 'react';
-import Header from './layout/Header';
 import i18n from '../config/i18n';
 import { useLocalContext } from '@graasp/apps-query-client';
 import AnalyzerView from './views/admin/AnalyzerView';
 import BuilderView from './views/admin/BuilderView';
 import PlayerView from './views/read/PlayerView';
 import { Context, DEFAULT_LANG } from '@graasp/sdk';
-import { hooks } from '../config/queryClient';
-import { SETTINGS } from '../config/settings';
 
 export const App = () => {
   const context = useLocalContext();
-  const { data: settings } = hooks.useAppSettings();
-  const isHeaderVisible = settings?.find(
-    ({ name }) => name === SETTINGS.HEADER_VISIBILITY
-  )?.data[SETTINGS.HEADER_VISIBILITY];
 
   useEffect(() => {
     // handle a change of language
@@ -27,28 +20,13 @@ export const App = () => {
   const renderContent = () => {
     switch (context?.context) {
       case Context.Builder:
-        return (
-          <>
-            <Header />
-            <BuilderView />
-          </>
-        );
+        return <BuilderView />;
       case Context.Analytics:
-        return (
-          <>
-            <Header />
-            <AnalyzerView />
-          </>
-        );
+        return <AnalyzerView />;
 
       case Context.Player:
       default:
-        return (
-          <>
-            {(context?.standalone || isHeaderVisible) && <Header />}
-            <PlayerView />
-          </>
-        );
+        return <PlayerView />;
     }
   };
 

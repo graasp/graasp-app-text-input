@@ -2,7 +2,7 @@ import { configureQueryClient } from '@graasp/apps-query-client';
 import { API_HOST, GRAASP_APP_KEY, MOCK_API } from './env';
 
 if (!GRAASP_APP_KEY) {
-  throw new Error('APP_KEY should be defined');
+  throw new Error('GRAASP_APP_KEY should be defined');
 }
 
 const {

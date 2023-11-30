@@ -1,6 +1,6 @@
 import Grid from '@mui/material/Grid';
 import TextField, { TextFieldProps } from '@mui/material/TextField';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Alert, styled } from '@mui/material';
 import { useLocalContext } from '@graasp/apps-query-client';
@@ -42,32 +42,26 @@ const PlayerView = (): JSX.Element => {
   const context = useLocalContext();
   const memberId = context.memberId;
 
-  // todo: check if we need this or not
-  // useEffect(() => {
-  //   if (inputResource) {
-  //     setText(inputResource.data.text as string);
-  //   }
-  // }, [inputResource]);
+  const appDataForMemberId = appData
+    ?.filter(
+      ({ type, creator }) =>
+        type === APP_DATA_TYPES.INPUT && creator?.id === memberId
+    )
+    .sort((a, b) => (a.updatedAt > b.updatedAt ? 1 : -1));
+  const inputResource =
+    appDataForMemberId && appDataForMemberId[appDataForMemberId.length - 1];
+
+  useEffect(() => {
+    if (inputResource?.data.text) {
+      setText(inputResource.data.text as string);
+    }
+  }, [inputResource]);
 
   if (appData) {
-    const appDataForMemberId = appData
-      .filter(
-        ({ type, creator }) =>
-          type === APP_DATA_TYPES.INPUT && creator?.id === memberId
-      )
-      .sort((a, b) => (a.updatedAt > b.updatedAt ? 1 : -1));
-    const inputResource = appDataForMemberId[appDataForMemberId.length - 1];
-
-    // if (data) {
-    //   setInputResource(data);
     const feedbackResource = appData.find(
       ({ type, member }) =>
         type === APP_DATA_TYPES.FEEDBACK && memberId === member?.id
     );
-    // if (feedback) {
-    //   setFeedbackResource(feedback);
-    // }
-    // }
 
     const handleChangeText: TextFieldProps['onChange'] = ({ target }) => {
       const { value } = target;

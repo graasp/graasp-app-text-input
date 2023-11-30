@@ -47,6 +47,7 @@ const FormDialog = ({
   return (
     <div>
       <Dialog
+        disableRestoreFocus
         open={open}
         onClose={handleClose}
         aria-labelledby="form-dialog-title"
@@ -57,6 +58,7 @@ const FormDialog = ({
           <TextField
             data-cy={feedbackInputCypress}
             multiline
+            autoFocus
             value={input}
             maxRows="5"
             onChange={handleChangeTextField}
