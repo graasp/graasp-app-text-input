@@ -61,7 +61,6 @@ const Settings = ({ open = false, handleClose }: Props): JSX.Element => {
             | undefined) ?? false
         }
         onChange={handleChangeHeaderVisibility}
-        // value={SETTINGS.HEADER_VISIBILITY}
       />
     );
 

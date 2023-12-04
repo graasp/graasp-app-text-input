@@ -32,8 +32,6 @@ const MainContainer = styled(Grid)(({ theme }) => ({
 const PlayerView = (): JSX.Element => {
   const { t } = useTranslation();
   const [text, setText] = useState('');
-  // const [inputResource, setInputResource] = useState<AppData>();
-  // const [feedbackResource, setFeedbackResource] = useState<AppData>();
   const { data: appData, isLoading: isAppDataLoading } = hooks.useAppData();
   const { mutate: postAppData } = mutations.usePostAppData();
   const { mutate: patchAppData } = mutations.usePatchAppData();

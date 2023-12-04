@@ -55,13 +55,11 @@ const TableContent = () => {
     );
     // map each app instance resource to a row in the table
     return responses.map(({ id, creator, data, updatedAt }) => {
-      console.log(feedbacks, creator);
       const feedbackResource = feedbacks.find(
         // todo: Should we support the legacy way of putting the memberId in the data ? Does it even work ??
         ({ member: { id: mId }, data: { memberId: dataMemberId } }) =>
           mId === creator?.id || dataMemberId === creator?.id
       );
-      console.log(feedbackResource);
       return (
         <Response
           id={id}
