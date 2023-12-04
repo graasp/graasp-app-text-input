@@ -17,7 +17,7 @@
     "@emotion/styled": "11.11.0",
     "@graasp/apps-query-client": "3.2.1",
     "@graasp/sdk": "3.3.0",
-    "@graasp/ui": "4.1.0",
+    "@graasp/ui": "4.1.1",
     "@json2csv/plainjs": "7.0.4",
     "@mui/icons-material": "5.14.19",
     "@mui/lab": "5.0.0-alpha.150",
@@ -97,7 +97,7 @@
     "standard-version": "9.5.0",
     "typescript": "5.3.2",
     "uuid": "9.0.1",
-    "vite": "5.0.4",
+    "vite": "5.0.5",
     "vite-plugin-checker": "0.6.2",
     "vite-plugin-istanbul": "5.0.0"
   },
