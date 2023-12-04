@@ -11,7 +11,6 @@ type Props = {
 
 const TableSwitchSetting = ({ label, settingKey }: Props) => {
   const { settings, setSettings } = useTableSettingsContext();
-  console.log(settingKey, settings);
   return (
     <FormControlLabel
       label={label}

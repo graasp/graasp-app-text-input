@@ -14,7 +14,7 @@ export const MEMBERS: { [key: string]: CompleteMember } = {
     id: '1f0a2774-a965-4b97-afb4-bccc3796e060',
     name: 'bob',
     type: 'individual',
-    email: 'anna@graap.org',
+    email: 'bob@graap.org',
     extra: {},
     createdAt: new Date().toISOString(),
     updatedAt: new Date().toISOString(),

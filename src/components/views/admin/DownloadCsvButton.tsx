@@ -12,8 +12,6 @@ const DownloadCsvButton = () => {
   const { data: appData } = hooks.useAppData();
   const { data: context } = hooks.useAppContext();
 
-  console.log(appData, context?.members);
-
   // if there are no users or no app instance resources do not show button
   if (appData && context?.members?.length) {
     const formattedData = Object.entries(
@@ -21,7 +19,6 @@ const DownloadCsvButton = () => {
     )
       ?.map(([memberId, elements]) => {
         try {
-          console.log(memberId, elements);
           const userData = context?.members.find(({ id }) => id === memberId);
           const name = userData ? userData.name : t('Anonymous');
 
@@ -52,13 +49,12 @@ const DownloadCsvButton = () => {
         }
       })
       .filter((e) => e);
-    console.log(formattedData);
 
     // do not show download button if there is an issue parsing the data
     let csvData: string | null = null;
     try {
       const json2csvParser = new Parser();
-      csvData = json2csvParser.parse(Object.values(formattedData));
+      csvData = json2csvParser.parse(Object.values(formattedData) || []);
     } catch (err) {
       console.error(err);
     }

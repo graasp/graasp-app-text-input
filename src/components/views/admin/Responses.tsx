@@ -34,9 +34,8 @@ const TableContent = () => {
   const { t } = useTranslation();
   const { data: appData, isLoading: isAppDataLoading } = hooks.useAppData();
 
-  if (appData) {
+  if (appData && context) {
     const nonEmptyData = appData.filter(({ data }) => Boolean(data?.text));
-
     // if there are no resources, show an empty table
     if (!nonEmptyData.length) {
       return (
@@ -55,16 +54,19 @@ const TableContent = () => {
       ({ type }) => type === APP_DATA_TYPES.FEEDBACK
     );
     // map each app instance resource to a row in the table
-    return responses.map(({ id, member, data, updatedAt }) => {
-      const m = context?.members.find((m) => m.id === member.id);
-      const feedbackResource = m
-        ? feedbacks.find(({ data: { memberId: mId } }) => mId === m.id)
-        : undefined;
+    return responses.map(({ id, creator, data, updatedAt }) => {
+      console.log(feedbacks, creator);
+      const feedbackResource = feedbacks.find(
+        // todo: Should we support the legacy way of putting the memberId in the data ? Does it even work ??
+        ({ member: { id: mId }, data: { memberId: dataMemberId } }) =>
+          mId === creator?.id || dataMemberId === creator?.id
+      );
+      console.log(feedbackResource);
       return (
         <Response
           id={id}
           key={id}
-          student={m}
+          student={creator}
           updatedAt={updatedAt}
           data={data?.text as string}
           feedbackResource={feedbackResource}
@@ -73,7 +75,11 @@ const TableContent = () => {
     });
   }
   if (isAppDataLoading) {
-    return <Loader />;
+    return (
+      <TableRow>
+        <Loader />
+      </TableRow>
+    );
   }
 
   return <Alert severity="error">Something went wrong</Alert>;

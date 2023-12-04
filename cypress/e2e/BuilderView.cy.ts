@@ -13,17 +13,28 @@ import {
   tableNoResponsesCypress,
   settingsButtonCypress,
   headerVisibilityCypress,
+  studentResponseId,
+  responseCellCypress,
+  feedbackCellCypress,
 } from '../../src/config/selectors';
 import { RESPONSES_COLUMNS } from '../../src/config/settings';
-import { MOCK_APP_DATA, MOCK_FEEDBACK } from '../fixtures/appData';
+import {
+  MOCK_APP_DATA,
+  MOCK_APP_DATA_BOB,
+  MOCK_FEEDBACK,
+} from '../fixtures/appData';
+import { CURRENT_MEMBER, MEMBERS } from '../fixtures/members';
 
 describe('<BuilderView />', () => {
   describe('Responses', () => {
     describe('Default data', () => {
       beforeEach(() => {
         cy.setUpApi({
-          database: { appData: [MOCK_APP_DATA, MOCK_FEEDBACK] },
+          database: {
+            appData: [MOCK_APP_DATA, MOCK_APP_DATA_BOB, MOCK_FEEDBACK],
+          },
           appContext: {
+            memberId: CURRENT_MEMBER.id,
             permission: PermissionLevel.Admin,
             context: Context.Builder,
           },
@@ -31,7 +42,7 @@ describe('<BuilderView />', () => {
         cy.visit('/');
       });
 
-      it('Default layout', () => {
+      it.only('Default layout', () => {
         cy.get(dataCyWrapper(appTitleCypress)).should('be.visible');
         cy.get(dataCyWrapper(refreshButtonCypress)).should('be.visible');
 
@@ -40,17 +51,24 @@ describe('<BuilderView />', () => {
           cy.get(dataCyWrapper(responsesTableCypress)).contains(field);
         });
 
-        cy.get(`${dataCyWrapper(responsesTableCypress)} tbody tr`).contains(
-          MOCK_APP_DATA.data.text
-        );
+        cy.get(
+          `${dataCyWrapper(studentResponseId(MEMBERS.ANNA.id))} ${dataCyWrapper(
+            responseCellCypress
+          )}`
+        ).contains(MOCK_APP_DATA.data.text);
 
-        cy.get(dataCyWrapper(feedbackTextCypress)).should(
-          'contain',
-          MOCK_FEEDBACK.data.text
-        );
+        cy.get(
+          `${dataCyWrapper(studentResponseId(MEMBERS.ANNA.id))} ${dataCyWrapper(
+            feedbackCellCypress
+          )}`
+        ).should('contain', MOCK_FEEDBACK.data.text);
 
         // delete feedback
-        cy.get(dataCyWrapper(deleteButtonCypress)).click();
+        cy.get(
+          `${dataCyWrapper(studentResponseId(MEMBERS.ANNA.id))} ${dataCyWrapper(
+            deleteButtonCypress
+          )}`
+        ).click();
         cy.get(dataCyWrapper(deleteConfirmButtonCypress)).click();
         cy.get(dataCyWrapper(tableNoResponsesCypress)).should('exist');
       });

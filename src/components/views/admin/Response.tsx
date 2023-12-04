@@ -14,7 +14,10 @@ import {
   deleteButtonCypress,
   deleteConfirmButtonCypress,
   editFeedbackButtonCypress,
+  feedbackCellCypress,
   feedbackTextCypress,
+  responseCellCypress,
+  studentResponseId,
 } from '../../../config/selectors';
 import { AppData, Member, UUID, formatDate } from '@graasp/sdk';
 import { useTableSettingsContext } from '@/context/TableSettingsContext';
@@ -24,7 +27,7 @@ type Props = {
   id: UUID;
   data?: string;
   updatedAt: string;
-  student?: Member;
+  student?: Member | null;
   feedbackResource?: AppData;
 };
 
@@ -114,15 +117,17 @@ const Response = ({
   };
 
   return (
-    <TableRow key={id}>
+    <TableRow key={id} data-cy={studentResponseId(student?.id ?? 'none')}>
       <TableCell>{student?.name ?? t('Anonymous')}</TableCell>
-      <TableCell>{data}</TableCell>
+      <TableCell data-cy={responseCellCypress}>{data}</TableCell>
       <TableCell>
         {settings.useRelativeTime
           ? formatDate(updatedAt, { locale: i18n.language })
           : updatedAt}
       </TableCell>
-      <TableCell>{renderFeedbackCell()}</TableCell>
+      <TableCell data-cy={feedbackCellCypress}>
+        {renderFeedbackCell()}
+      </TableCell>
       <TableCell>
         <IconButton
           data-cy={deleteButtonCypress}
