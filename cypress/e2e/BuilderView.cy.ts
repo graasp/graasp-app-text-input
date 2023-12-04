@@ -42,7 +42,7 @@ describe('<BuilderView />', () => {
         cy.visit('/');
       });
 
-      it.only('Default layout', () => {
+      it('Default layout', () => {
         cy.get(dataCyWrapper(appTitleCypress)).should('be.visible');
         cy.get(dataCyWrapper(refreshButtonCypress)).should('be.visible');
 
@@ -58,7 +58,7 @@ describe('<BuilderView />', () => {
         ).contains(MOCK_APP_DATA.data.text);
 
         cy.get(
-          `${dataCyWrapper(studentResponseId(MEMBERS.ANNA.id))} ${dataCyWrapper(
+          `${dataCyWrapper(studentResponseId(MEMBERS.BOB.id))} ${dataCyWrapper(
             feedbackCellCypress
           )}`
         ).should('contain', MOCK_FEEDBACK.data.text);
@@ -66,6 +66,15 @@ describe('<BuilderView />', () => {
         // delete feedback
         cy.get(
           `${dataCyWrapper(studentResponseId(MEMBERS.ANNA.id))} ${dataCyWrapper(
+            deleteButtonCypress
+          )}`
+        ).click();
+        cy.get(dataCyWrapper(deleteConfirmButtonCypress)).click();
+        cy.get(`${dataCyWrapper(studentResponseId(MEMBERS.ANNA.id))}`).should(
+          'not.exist'
+        );
+        cy.get(
+          `${dataCyWrapper(studentResponseId(MEMBERS.BOB.id))} ${dataCyWrapper(
             deleteButtonCypress
           )}`
         ).click();
