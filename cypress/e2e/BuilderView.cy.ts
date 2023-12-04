@@ -48,14 +48,14 @@ describe('<BuilderView />', () => {
 
         cy.get(dataCyWrapper(responsesTableCypress)).should('be.visible');
         RESPONSES_COLUMNS.forEach((field) => {
-          cy.get(dataCyWrapper(responsesTableCypress)).contains(field);
+          cy.get(dataCyWrapper(responsesTableCypress)).should('contain', field);
         });
 
         cy.get(
           `${dataCyWrapper(studentResponseId(MEMBERS.ANNA.id))} ${dataCyWrapper(
             responseCellCypress
           )}`
-        ).contains(MOCK_APP_DATA.data.text);
+        ).should('contain', MOCK_APP_DATA.data.text);
 
         cy.get(
           `${dataCyWrapper(studentResponseId(MEMBERS.BOB.id))} ${dataCyWrapper(
@@ -105,10 +105,11 @@ describe('<BuilderView />', () => {
 
         cy.get(dataCyWrapper(responsesTableCypress)).should('be.visible');
         RESPONSES_COLUMNS.forEach((field) => {
-          cy.get(dataCyWrapper(responsesTableCypress)).contains(field);
+          cy.get(dataCyWrapper(responsesTableCypress)).should('contain', field);
         });
 
-        cy.get(`${dataCyWrapper(responsesTableCypress)} tbody tr`).contains(
+        cy.get(`${dataCyWrapper(responsesTableCypress)} tbody tr`).should(
+          'contain',
           MOCK_APP_DATA.data.text
         );
         cy.get(dataCyWrapper(feedbackTextCypress)).should(
@@ -146,7 +147,7 @@ describe('<BuilderView />', () => {
 
         cy.get(dataCyWrapper(responsesTableCypress)).should('be.visible');
         RESPONSES_COLUMNS.forEach((field) => {
-          cy.get(dataCyWrapper(responsesTableCypress)).contains(field);
+          cy.get(dataCyWrapper(responsesTableCypress)).should('contain', field);
         });
 
         cy.get(`${dataCyWrapper(tableNoResponsesCypress)}`).should(

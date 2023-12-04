@@ -46,7 +46,7 @@ VITE_PORT=3004
 VITE_VERSION=local
 ```
 
-**⚠️Warning ⚠️**: Make sure to set `REACT_APP_ENABLE_MOCK_API=false` when you build for use in the real-world (prod or dev).
+**⚠️Warning ⚠️**: Make sure to set `VITE_ENABLE_MOCK_API=false` when you build for use in the real-world (prod or dev).
 
 ### Running Locally
 

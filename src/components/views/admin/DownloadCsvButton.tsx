@@ -13,65 +13,67 @@ const DownloadCsvButton = () => {
   const { data: context } = hooks.useAppContext();
 
   // if there are no users or no app instance resources do not show button
-  if (appData && context?.members?.length) {
-    const formattedData = Object.entries(
-      groupBy(appData, (appData) => appData.member.id)
-    )
-      ?.map(([memberId, elements]) => {
-        try {
-          const userData = context?.members.find(({ id }) => id === memberId);
-          const name = userData ? userData.name : t('Anonymous');
-
-          // fall back to empty object in case there is no match
-          const maybeAppData = elements.find(
-            ({ type }) => type === APP_DATA_TYPES.INPUT
-          );
-          // if there is no input, we ignore this entry
-          if (!maybeAppData || !maybeAppData.data.text) {
-            return undefined;
-          }
-
-          const entry: { name: string; input: unknown; feedback?: unknown } = {
-            name,
-            input: maybeAppData.data.text as string,
-          };
-
-          // export feedback if any
-          const feedback = elements.find(
-            ({ type }) => type === APP_DATA_TYPES.FEEDBACK
-          );
-          if (feedback) {
-            entry.feedback = feedback.data;
-          }
-          return entry;
-        } catch (error) {
-          return undefined;
-        }
-      })
-      .filter((e) => e);
-
-    // do not show download button if there is an issue parsing the data
-    let csvData: string | null = null;
-    try {
-      const json2csvParser = new Parser();
-      csvData = json2csvParser.parse(Object.values(formattedData) || []);
-    } catch (err) {
-      console.error(err);
-    }
-    if (csvData) {
-      return (
-        <IconButton
-          href={`data:application/octet-stream,${encodeURI(csvData)}`}
-          download="data.csv"
-        >
-          <DownloadIcon color="secondary" />
-        </IconButton>
-      );
-    }
-    return <Warning color="error" />;
+  if (!appData || !context?.members?.length) {
+    return null;
   }
 
-  return null;
+  const formattedData = Object.entries(
+    groupBy(appData, (appData) => appData.member.id)
+  )
+    ?.map(([memberId, elements]) => {
+      try {
+        const userData = context?.members.find(({ id }) => id === memberId);
+        const name = userData ? userData.name : t('Anonymous');
+
+        // fall back to empty object in case there is no match
+        const maybeAppData = elements.find(
+          ({ type }) => type === APP_DATA_TYPES.INPUT
+        );
+        // if there is no input, we ignore this entry
+        if (!maybeAppData || !maybeAppData.data.text) {
+          return undefined;
+        }
+
+        const entry: { name: string; input: unknown; feedback?: unknown } = {
+          name,
+          input: maybeAppData.data.text as string,
+        };
+
+        // export feedback if any
+        const feedback = elements.find(
+          ({ type }) => type === APP_DATA_TYPES.FEEDBACK
+        );
+        if (feedback) {
+          entry.feedback = feedback.data;
+        }
+        return entry;
+      } catch (error) {
+        return undefined;
+      }
+    })
+    .filter((e) => e);
+
+  // do not show download button if there is an issue parsing the data
+  let csvData: string | null = null;
+  try {
+    const json2csvParser = new Parser();
+    csvData = json2csvParser.parse(Object.values(formattedData) || []);
+  } catch (err) {
+    console.error(err);
+  }
+
+  if (csvData) {
+    return (
+      <IconButton
+        href={`data:application/octet-stream,${encodeURI(csvData)}`}
+        download="data.csv"
+      >
+        <DownloadIcon color="secondary" />
+      </IconButton>
+    );
+  }
+
+  return <Warning color="error" />;
 };
 
 export default DownloadCsvButton;
