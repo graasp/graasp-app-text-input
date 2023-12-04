@@ -28,6 +28,8 @@ jobs:
           VITE_API_HOST: ${{ vars.API_HOST }}
           VITE_GRAASP_APP_KEY: ${{ secrets.APP_KEY }}
           VITE_VERSION: ${{ github.sha }}
+          VITE_SENTRY_ENV: development
+          VITE_SENTRY_DSN: ${{ secrets.SENTRY_DSN }}
         run: yarn build
         shell: bash
 
