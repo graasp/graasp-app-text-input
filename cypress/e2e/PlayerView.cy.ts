@@ -55,6 +55,7 @@ describe('<PlayerView />', () => {
       cy.setUpApi({
         database: { appData: [MOCK_APP_DATA] },
         appContext: {
+          memberId: MEMBERS.ANNA.id,
           context: Context.Player,
           permission: PermissionLevel.Read,
         },
