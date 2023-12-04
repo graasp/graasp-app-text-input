@@ -56,10 +56,11 @@ const Settings = ({ open = false, handleClose }: Props): JSX.Element => {
         data-cy={headerVisibilityCypress}
         color="primary"
         checked={
-          headerVisibility?.data?.[SETTINGS.HEADER_VISIBILITY] as boolean
+          (headerVisibility?.data?.[SETTINGS.HEADER_VISIBILITY] as
+            | boolean
+            | undefined) ?? false
         }
         onChange={handleChangeHeaderVisibility}
-        value={SETTINGS.HEADER_VISIBILITY}
       />
     );
 

@@ -4,7 +4,6 @@ import {
   inputTextFieldSelector,
   saveButtonCypress,
 } from '../../src/config/selectors';
-import { LOAD_PAGE_PAUSE } from '../constants/constants';
 import { MEMBERS } from '../fixtures/members';
 
 import {
@@ -12,15 +11,20 @@ import {
   MOCK_APP_DATA_BOB,
   MOCK_FEEDBACK,
 } from '../fixtures/appData';
+import { Context, PermissionLevel } from '@graasp/sdk';
 
 const text = 'Some input text.';
 
 describe('<PlayerView />', () => {
   describe('Empty database', () => {
     beforeEach(() => {
-      cy.setUpApi({ appContext: { offline: true } });
+      cy.setUpApi({
+        appContext: {
+          context: Context.Player,
+          permission: PermissionLevel.Read,
+        },
+      });
       cy.visit('/');
-      cy.wait(LOAD_PAGE_PAUSE);
     });
 
     // save with button when offline
@@ -31,7 +35,7 @@ describe('<PlayerView />', () => {
       // click save and check content is saved with button being disabled
       cy.get(dataCyWrapper(saveButtonCypress))
         .should('be.visible')
-        .should('not.have.attr', 'disabled');
+        .and('not.have.attr', 'disabled');
       cy.get(dataCyWrapper(saveButtonCypress)).click();
 
       cy.get(dataCyWrapper(saveButtonCypress))
@@ -48,14 +52,25 @@ describe('<PlayerView />', () => {
 
   describe('Default database', () => {
     it('Display pre-saved data', () => {
-      cy.setUpApi({ database: { appData: [MOCK_APP_DATA] } });
+      cy.setUpApi({
+        database: { appData: [MOCK_APP_DATA] },
+        appContext: {
+          memberId: MEMBERS.ANNA.id,
+          context: Context.Player,
+          permission: PermissionLevel.Read,
+        },
+      });
       cy.visit('/');
       cy.get(inputTextFieldSelector).contains(MOCK_APP_DATA.data.text);
     });
 
     it('Display pre-saved data and feedback', () => {
       cy.setUpApi({
-        appContext: { memberId: MEMBERS.BOB.id },
+        appContext: {
+          memberId: MEMBERS.BOB.id,
+          context: Context.Player,
+          permission: PermissionLevel.Read,
+        },
         database: { appData: [MOCK_APP_DATA_BOB, MOCK_FEEDBACK] },
       });
       cy.visit('/');

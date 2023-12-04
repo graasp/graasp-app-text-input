@@ -1,4 +1,3 @@
-import _ from 'lodash';
 import Typography from '@mui/material/Typography';
 import { styled } from '@mui/material';
 import { removeStopwords } from 'stopword';
@@ -9,23 +8,25 @@ import { useTranslation } from 'react-i18next';
 import { APP_DATA_TYPES } from '../../../config/appDataTypes';
 import { wordCloudId } from '../../../config/selectors';
 import { AppData } from '@graasp/sdk';
+import countBy from 'lodash.countby';
+import words from 'lodash.words';
 
 const formatWords = (appData: AppData[]) => {
   const wordArray = appData
     .filter((a) => a.type === APP_DATA_TYPES.INPUT)
-    .map((a) => _.words((a.data?.text as string)?.toLowerCase()))
+    .map((a) => words((a.data?.text as string)?.toLowerCase()))
     .flat();
 
   // strip stopwords and create count map
   const strippedWordArray = removeStopwords(wordArray);
-  const wordMap = _.countBy(strippedWordArray);
+  const wordMap = countBy(strippedWordArray);
 
   // prepare map in format required by word cloud
-  const words = Object.entries(wordMap).map(([text, value]) => ({
+  const newWords = Object.entries(wordMap).map(([text, value]) => ({
     text,
     value,
   }));
-  return words;
+  return newWords;
 };
 
 const Container = styled('div')({

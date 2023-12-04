@@ -1,5 +1,6 @@
 import {
-  buildMockLocalContext,
+  GraaspContextDevTool,
+  useObjectState,
   WithLocalContext,
   WithTokenContext,
 } from '@graasp/apps-query-client';
@@ -20,13 +21,15 @@ import Loader from './common/Loader';
 import { hooks } from '../config/queryClient';
 import { showErrorToast } from '../utils/toasts';
 import { theme } from '@graasp/ui';
-import { defaultMockContext } from '../mocks/db';
+import { defaultMockContext, mockMembers } from '../mocks/db';
 
 const Wrapper = styled('div')({
   flexGrow: 1,
 });
 
 const Root = () => {
+  const [mockContext, setMockContext] = useObjectState(defaultMockContext);
+
   return (
     <Wrapper>
       <ThemeProvider theme={theme}>
@@ -36,28 +39,31 @@ const Root = () => {
               LoadingComponent={<Loader />}
               useGetLocalContext={hooks.useGetLocalContext}
               useAutoResize={hooks.useAutoResize}
-              onError={() => {
-                showErrorToast('An error occured while fetching the context.');
+              onError={(_err) => {
+                showErrorToast('An error occurred while fetching the context.');
               }}
-              defaultValue={
-                window.Cypress
-                  ? window.appContext
-                  : buildMockLocalContext(defaultMockContext)
-              }
+              defaultValue={window.Cypress ? window.appContext : mockContext}
             >
               <WithTokenContext
                 LoadingComponent={<Loader />}
                 useAuthToken={hooks.useAuthToken}
-                onError={() => {
+                onError={(_err) => {
                   showErrorToast(
-                    'An error occured while requesting the token.'
+                    'An error occurred while requesting the token.'
                   );
                 }}
               >
                 <App />
+                {import.meta.env.DEV && (
+                  <GraaspContextDevTool
+                    members={mockMembers}
+                    context={mockContext}
+                    setContext={setMockContext}
+                  />
+                )}
               </WithTokenContext>
             </WithLocalContext>
-            {process.env.NODE_ENV === 'development' && <ReactQueryDevtools />}
+            {import.meta.env.DEV && <ReactQueryDevtools />}
           </QueryClientProvider>
           <ToastContainer />
         </I18nextProvider>

@@ -3,8 +3,6 @@ name: Cypress
 on:
   merge_group:
   push:
-    branches-ignore:
-      - 'release-please-**'
 
 jobs:
   cypress-run:
@@ -15,32 +13,36 @@ jobs:
       - name: checkout
         uses: actions/checkout@v4
 
-      - name: set up node
-        uses: actions/setup-node@v3
-
       - name: Yarn Install and Cache
         uses: graasp/graasp-deploy/.github/actions/yarn-install-and-cache@v1
         with:
           cypress: true
 
-      - name: cypress run
+      - name: Build App
+        run: yarn build:test
+        shell: bash
+        env:
+          VITE_PORT: 3000
+          VITE_API_HOST: http://localhost:3636
+          VITE_GRAASP_APP_KEY: id-1234567890
+          VITE_ENABLE_MOCK_API: true
+          VITE_VERSION: cypress-tests
+
+      - name: Cypress Run
         uses: cypress-io/github-action@v5
         env:
-          PORT: 3333
-          REACT_APP_GRAASP_APP_KEY: mock-key
-          REACT_APP_ENABLE_MOCK_API: true
-          REACT_APP_API_HOST: http://localhost:3000
+          VITE_PORT: 3000
+          VITE_API_HOST: http://localhost:3636
+          VITE_GRAASP_APP_KEY: id-1234567890
+          VITE_ENABLE_MOCK_API: true
         with:
           install: false
-          build: yarn build
-          config: baseUrl=http://localhost:3333
-          start: yarn start:ci
-          wait-on: http://localhost:3333
-          wait-on-timeout: 180
+          config: baseUrl=http://localhost:3000
+          start: yarn preview:test
           browser: chrome
           quiet: true
           # point to new cypress@10 config file
-          config-file: cypress.config.js
+          config-file: cypress.config.ts
 
       # component tests are not running ok in the CI
       # - name: Run Component tests 🧪

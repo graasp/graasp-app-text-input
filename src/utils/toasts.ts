@@ -6,11 +6,11 @@ import {
   UNEXPECTED_ERROR_MESSAGE,
 } from '../constants/messages';
 
-const showErrorToast = (payload) => {
+const showErrorToast = (payload: string | { message: string }) => {
   let message = UNEXPECTED_ERROR_MESSAGE;
-  if (_.isString(payload)) {
+  if (typeof payload === 'string') {
     message = payload;
-  } else if (_.isObject(payload)) {
+  } else {
     if (payload.message) {
       ({ message } = payload);
     }
@@ -22,7 +22,6 @@ const showErrorToast = (payload) => {
 
   toast.error(message, {
     toastId: message,
-    autoClose: true,
     position: 'bottom-right',
   });
 };

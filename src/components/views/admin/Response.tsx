@@ -1,4 +1,3 @@
-import _ from 'lodash';
 import { useEffect, useState } from 'react';
 import TableRow from '@mui/material/TableRow';
 import TableCell from '@mui/material/TableCell';
@@ -15,19 +14,32 @@ import {
   deleteButtonCypress,
   deleteConfirmButtonCypress,
   editFeedbackButtonCypress,
+  feedbackCellCypress,
   feedbackTextCypress,
+  responseCellCypress,
+  studentResponseId,
 } from '../../../config/selectors';
-import { AppData, Member, UUID } from '@graasp/sdk';
+import { AppData, Member, UUID, formatDate } from '@graasp/sdk';
+import { useTableSettingsContext } from '@/context/TableSettingsContext';
+import isEmpty from 'lodash.isempty';
 
 type Props = {
   id: UUID;
   data?: string;
-  student?: Member;
+  updatedAt: string;
+  student?: Member | null;
   feedbackResource?: AppData;
 };
 
-const Response = ({ id, data, student, feedbackResource }: Props) => {
-  const { t } = useTranslation();
+const Response = ({
+  id,
+  data,
+  updatedAt,
+  student,
+  feedbackResource,
+}: Props) => {
+  const { t, i18n } = useTranslation();
+  const { settings } = useTableSettingsContext();
   const [feedbackText, setFeedbackText] = useState<string>('');
   const [confirmDialogOpen, setConfirmDialogOpen] = useState(false);
   const [feedbackDialogOpen, setFeedbackDialogOpen] = useState(false);
@@ -52,7 +64,7 @@ const Response = ({ id, data, student, feedbackResource }: Props) => {
 
   const handleConfirmDelete = () => {
     deleteAppData({ id });
-    if (feedbackResource && !_.isEmpty(feedbackResource)) {
+    if (feedbackResource && !isEmpty(feedbackResource)) {
       deleteAppData({ id: feedbackResource.id });
     }
     handleToggleConfirmDialog();
@@ -65,7 +77,7 @@ const Response = ({ id, data, student, feedbackResource }: Props) => {
       );
     } else {
       // if no feedback resource yet, create it, otherwise, update it
-      if (!feedbackResource || _.isEmpty(feedbackResource)) {
+      if (!feedbackResource || isEmpty(feedbackResource)) {
         postAppData({
           memberId: student.id,
           data: { text, memberId: student.id },
@@ -105,10 +117,17 @@ const Response = ({ id, data, student, feedbackResource }: Props) => {
   };
 
   return (
-    <TableRow key={id}>
+    <TableRow key={id} data-cy={studentResponseId(student?.id ?? 'none')}>
       <TableCell>{student?.name ?? t('Anonymous')}</TableCell>
-      <TableCell>{data}</TableCell>
-      <TableCell>{renderFeedbackCell()}</TableCell>
+      <TableCell data-cy={responseCellCypress}>{data}</TableCell>
+      <TableCell>
+        {settings.useRelativeTime
+          ? formatDate(updatedAt, { locale: i18n.language })
+          : updatedAt}
+      </TableCell>
+      <TableCell data-cy={feedbackCellCypress}>
+        {renderFeedbackCell()}
+      </TableCell>
       <TableCell>
         <IconButton
           data-cy={deleteButtonCypress}
