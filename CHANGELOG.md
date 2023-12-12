@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.1.1](https://github.com/graasp/graasp-app-text-input/compare/v2.1.0...v2.1.1) (2023-12-12)
+
+
+### Bug Fixes
+
+* udpate release-please condition ([4c74e18](https://github.com/graasp/graasp-app-text-input/commit/4c74e1827ca4e820f665737df73bbd9a9c1cc443))
+* update env to use vars instead of old secrets ([86043c6](https://github.com/graasp/graasp-app-text-input/commit/86043c63ca451dff4361c43726a99b4a4e53c347))
+
 ## [2.1.0](https://github.com/graasp/graasp-app-text-input/compare/v2.0.2...v2.1.0) (2023-12-04)
 
 
