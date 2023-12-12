@@ -7648,7 +7648,7 @@ __metadata:
     eslint-config-react-app: "npm:7.0.1"
     http-status-codes: "npm:2.3.0"
     husky: "npm:8.0.3"
-    i18next: "npm:23.7.7"
+    i18next: "npm:23.7.9"
     istanbul-lib-coverage: "npm:3.2.2"
     lodash.countby: "npm:4.6.0"
     lodash.groupby: "npm:4.6.0"
@@ -7975,12 +7975,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"i18next@npm:23.7.7":
-  version: 23.7.7
-  resolution: "i18next@npm:23.7.7"
+"i18next@npm:23.7.9":
+  version: 23.7.9
+  resolution: "i18next@npm:23.7.9"
   dependencies:
     "@babel/runtime": "npm:^7.23.2"
-  checksum: c8d112f5bbe62b3402b0fc47094f85e6ae6f939ff0b3299c5f2b3d30e05125184ae3faa10abfc14e21ea7f8dc78526455c251dc7e5eb40cf1a204257f22e6071
+  checksum: 388ee7706848c875f1ffbd8b8ec082171a8b1cae8916551e07ddff50dafdf10ca5143bc71263c098c5224a926944698cccd439c1c75174a3af85e7567625f4a5
   languageName: node
   linkType: hard
 
