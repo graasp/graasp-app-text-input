@@ -2,6 +2,19 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.1.2](https://github.com/graasp/graasp-app-text-input/compare/v2.1.1...v2.1.2) (2023-12-19)
+
+
+### Bug Fixes
+
+* **deps:** update dependency @graasp/apps-query-client to v3.3.0 ([#118](https://github.com/graasp/graasp-app-text-input/issues/118)) ([97de944](https://github.com/graasp/graasp-app-text-input/commit/97de9449ace449e6ca2e0a51d38d5b5f5ec6f996))
+* **deps:** update dependency @graasp/apps-query-client to v3.4.0 ([#130](https://github.com/graasp/graasp-app-text-input/issues/130)) ([5b0afdd](https://github.com/graasp/graasp-app-text-input/commit/5b0afddc7243ed9887f2e15c8b070e87d878c87e))
+* **deps:** update dependency @sentry/react to v7.88.0 ([#116](https://github.com/graasp/graasp-app-text-input/issues/116)) ([092c7f6](https://github.com/graasp/graasp-app-text-input/commit/092c7f6d2c3a983bd1a8fd5d7c2343ffb2da3e75))
+* **deps:** update dependency @sentry/react to v7.89.0 ([#131](https://github.com/graasp/graasp-app-text-input/issues/131)) ([0ea0e2f](https://github.com/graasp/graasp-app-text-input/commit/0ea0e2f82570f6f7dbeff4a868dace9cafbc8365))
+* **deps:** update dependency i18next to v23.7.11 ([#125](https://github.com/graasp/graasp-app-text-input/issues/125)) ([0354c48](https://github.com/graasp/graasp-app-text-input/commit/0354c48caf3f20ec4e14b0b92453e4aa83b69c74))
+* **deps:** update dependency i18next to v23.7.9 ([34d7808](https://github.com/graasp/graasp-app-text-input/commit/34d7808849c272239b33a408cdc75225f39fd92b))
+* **deps:** update mui (non-major) to v5.15.1 ([#123](https://github.com/graasp/graasp-app-text-input/issues/123)) ([f7416a1](https://github.com/graasp/graasp-app-text-input/commit/f7416a111b616c6a3008c37e5c76c46398d420b9))
+
 ## [2.1.1](https://github.com/graasp/graasp-app-text-input/compare/v2.1.0...v2.1.1) (2023-12-12)
 
 
