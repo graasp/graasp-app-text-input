@@ -4,7 +4,7 @@ import Toolbar from '@mui/material/Toolbar';
 import { IconButton } from '@mui/material';
 import RefreshIcon from '@mui/icons-material/Refresh';
 import { useTranslation } from 'react-i18next';
-import { queryClient, QUERY_KEYS } from '../../config/queryClient';
+import { QUERY_KEYS, queryClient } from '../../config/queryClient';
 import DownloadCsvButton from '../views/admin/DownloadCsvButton';
 import { useLocalContext } from '@graasp/apps-query-client';
 import { GraaspLogo } from '@graasp/ui';
@@ -17,7 +17,7 @@ const Header = () => {
 
   const handleRefresh = () => {
     const itemId = context.itemId;
-    queryClient.invalidateQueries(QUERY_KEYS.buildAppDataKey(itemId));
+    queryClient.invalidateQueries(QUERY_KEYS.appDataKeys.all);
     queryClient.invalidateQueries(QUERY_KEYS.buildAppContextKey(itemId));
   };
 
