@@ -13,6 +13,7 @@
       src="https://img.shields.io/badge/Conventional%20Commits-1.0.0-yellow.svg"
     >
   </a>
+  <a href="https://gitlocalize.com/repo/9182?utm_source=badge"> <img src="https://gitlocalize.com/repo/9182/whole_project/badge.svg" /> </a>
 </p>
 
 <p align="center">
