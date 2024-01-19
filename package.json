@@ -40,7 +40,7 @@
     "react-select": "5.8.0",
     "react-toastify": "10.0.3",
     "react-wordcloud": "1.2.7",
-    "stopword": "2.0.8",
+    "stopword": "3.0.1",
     "stylis": "^4.3.1",
     "stylis-plugin-rtl": "2.1.1"
   },
