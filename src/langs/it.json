@@ -1,0 +1,22 @@
+{
+  "translations": {
+    "Feedback": "Feedback",
+    "Currently we do not support giving feedback to anonymous users.": "Al momento non supportiamo l'invio di feedback agli utenti anonimi.",
+    "By clicking \"Delete\", you will be deleting the student's response. This action cannot be undone.": "Facendo clic su \"Elimina\", eliminerai la risposta dello studente. Questa azione non può essere annullata.",
+    "Text Input": "L'immissione di testo",
+    "Save": "Salva",
+    "Type Here": "Digitare qui",
+    "Submit feedback that will be visible to the student.": "Invia feedback che sarà visibile allo studente.",
+    "Delete Student Response": "Elimina la risposta dello studente",
+    "Delete": "Eliminare",
+    "Cancel": "Annulla",
+    "No Responses": "Nessuna Risposta",
+    "These are the responses submitted by the students.": "Queste le risposte fornite dagli studenti.",
+    "Student": "Alunno",
+    "Input": "Ingresso",
+    "Settings": "Impostazioni",
+    "Show Header to Students": "Mostra intestazione agli studenti",
+    "Anonymous": "Anonimo",
+    "Actions": "Azioni"
+  }
+}
