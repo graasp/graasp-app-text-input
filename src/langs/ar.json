@@ -1,0 +1,22 @@
+{
+  "translations": {
+    "Feedback": "تعليق",
+    "Currently we do not support giving feedback to anonymous users.": "لا ندعم حاليًا تقديم تعليقات للمستخدمين المجهولين.",
+    "By clicking \"Delete\", you will be deleting the student's response. This action cannot be undone.": "بالنقر على \"حذف\"، سيتم حذف إجابة الطالب. لا يمكن التراجع عن هذا الإجراء.",
+    "Text Input": "إدخال النص",
+    "Save": "يحفظ",
+    "Type Here": "أكتب هنا",
+    "Submit feedback that will be visible to the student.": "أرسل الملاحظات التي ستكون مرئية للطالب.",
+    "Delete Student Response": "حذف رد الطالب",
+    "Delete": "يمسح",
+    "Cancel": "يلغي",
+    "No Responses": "لا أجابات",
+    "These are the responses submitted by the students.": "وهذه هي الردود التي قدمها الطلاب.",
+    "Student": "طالب",
+    "Input": "مدخل",
+    "Settings": "إعدادات",
+    "Show Header to Students": "إظهار الرأس للطلاب",
+    "Anonymous": "مجهول",
+    "Actions": "أجراءات"
+  }
+}
