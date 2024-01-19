@@ -1,0 +1,22 @@
+{
+  "translations": {
+    "Feedback": "Rückmeldung",
+    "Currently we do not support giving feedback to anonymous users.": "Derzeit unterstützen wir kein Feedback an anonyme Benutzer.",
+    "By clicking \"Delete\", you will be deleting the student's response. This action cannot be undone.": "Durch Klicken auf „Löschen“ löschen Sie die Antwort des Schülers. Diese Aktion kann nicht rückgängig gemacht werden.",
+    "Text Input": "Text Eingabe",
+    "Save": "Speichern",
+    "Type Here": "Geben Sie hier ein",
+    "Submit feedback that will be visible to the student.": "Geben Sie Feedback ab, das für den Schüler sichtbar ist.",
+    "Delete Student Response": "Schülerantwort löschen",
+    "Delete": "Löschen",
+    "Cancel": "Stornieren",
+    "No Responses": "Keine Antworten",
+    "These are the responses submitted by the students.": "Dies sind die Antworten der Studierenden.",
+    "Student": "Student",
+    "Input": "Eingang",
+    "Settings": "Einstellungen",
+    "Show Header to Students": "Kopfzeile für Schüler anzeigen",
+    "Anonymous": "Anonym",
+    "Actions": "Aktionen"
+  }
+}
