@@ -68,8 +68,8 @@
     "cov:report": "open ./coverage/lcov-report/index.html"
   },
   "devDependencies": {
-    "@commitlint/cli": "18.4.4",
-    "@commitlint/config-conventional": "18.4.4",
+    "@commitlint/cli": "18.6.1",
+    "@commitlint/config-conventional": "18.6.3",
     "@cypress/code-coverage": "3.12.18",
     "@tanstack/react-query-devtools": "4.36.1",
     "@types/lodash.countby": "4.6.9",
