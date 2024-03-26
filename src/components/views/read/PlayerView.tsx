@@ -8,7 +8,11 @@ import Loader from '../../common/Loader';
 import { MAX_INPUT_LENGTH, MAX_ROWS } from '../../../config/settings';
 import { mutations, hooks } from '../../../config/queryClient';
 import SaveButton from './SaveButton';
-import { inputCypress, inputTextFieldId } from '../../../config/selectors';
+import {
+  inputCypress,
+  inputTextFieldId,
+  publicAlertBannerIdCypress,
+} from '../../../config/selectors';
 import { ACTION_TYPES } from '../../../config/actionTypes';
 import { APP_DATA_TYPES } from '../../../config/appDataTypes';
 
@@ -53,7 +57,7 @@ const PlayerViewComponent = ({
     <Grid container spacing={0}>
       <MainContainer item xs={12}>
         {!isLoggedIn && (
-          <Alert severity="error">
+          <Alert severity="error" id={publicAlertBannerIdCypress}>
             {t(
               'You cannot answer if you are not authenticated. Please log in.'
             )}

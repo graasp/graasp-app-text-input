@@ -2,6 +2,7 @@ import {
   dataCyWrapper,
   inputTextFieldId,
   inputTextFieldSelector,
+  publicAlertBannerIdCypress,
   saveButtonCypress,
 } from '../../src/config/selectors';
 import { MEMBERS } from '../fixtures/members';
@@ -78,6 +79,23 @@ describe('<PlayerView />', () => {
       cy.get(`#${inputTextFieldId}-helper-text`).contains(
         MOCK_FEEDBACK.data.text
       );
+    });
+  });
+  describe('Public Access', () => {
+    beforeEach(() => {
+      cy.setUpApi({
+        appContext: {
+          context: Context.Player,
+          permission: undefined,
+          memberId: undefined,
+        },
+      });
+      cy.visit('/');
+    });
+
+    it('Shows public alert', () => {
+      cy.get(`#${publicAlertBannerIdCypress}`).should('be.visible');
+      cy.get(`${saveButtonCypress}`).should('be.disabled');
     });
   });
 });
