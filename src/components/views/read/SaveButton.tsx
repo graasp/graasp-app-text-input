@@ -12,7 +12,7 @@ const Container = styled('div')(({ theme }) => ({
 
 type SaveButtonProps = {
   disabled: boolean;
-  onClick: () => void;
+  onClick?: () => void;
 };
 
 const SaveButton = ({ disabled, onClick }: SaveButtonProps) => {

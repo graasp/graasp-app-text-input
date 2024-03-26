@@ -1,5 +1,5 @@
 import Grid from '@mui/material/Grid';
-import TextField, { TextFieldProps } from '@mui/material/TextField';
+import TextField from '@mui/material/TextField';
 import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Alert, styled } from '@mui/material';
@@ -29,10 +29,70 @@ const MainContainer = styled(Grid)(({ theme }) => ({
   padding: theme.spacing(1),
 }));
 
+type PlayerViewComponentProps = {
+  isLoggedIn: boolean;
+  isSaveButtonDisabled: boolean;
+  text: string;
+  onChangeText?: (value: string) => void;
+  onSave?: () => void;
+  helperText?: string;
+  autoFocusTextField?: boolean;
+};
+
+const PlayerViewComponent = ({
+  isLoggedIn,
+  isSaveButtonDisabled,
+  text,
+  onChangeText,
+  onSave,
+  helperText,
+  autoFocusTextField = false,
+}: PlayerViewComponentProps) => {
+  const { t } = useTranslation();
+  return (
+    <Grid container spacing={0}>
+      <MainContainer item xs={12}>
+        {!isLoggedIn && (
+          <Alert severity="error">
+            {t(
+              'You cannot answer if you are not authenticated. Please log in.'
+            )}
+          </Alert>
+        )}
+        <FormContainer noValidate autoComplete="off">
+          <StyledTextField
+            autoFocus={autoFocusTextField}
+            inputProps={{
+              maxLength: MAX_INPUT_LENGTH,
+            }}
+            disabled={!isLoggedIn}
+            data-cy={inputCypress}
+            id={inputTextFieldId}
+            label={t('Type Here')}
+            multiline
+            maxRows={MAX_ROWS}
+            value={text}
+            onChange={(e) => onChangeText?.(e.target.value)}
+            margin="normal"
+            helperText={helperText}
+            variant="outlined"
+            fullWidth
+          />
+        </FormContainer>
+        <SaveButton disabled={isSaveButtonDisabled} onClick={onSave} />
+      </MainContainer>
+    </Grid>
+  );
+};
+
 const PlayerView = (): JSX.Element => {
   const { t } = useTranslation();
   const [text, setText] = useState('');
-  const { data: appData, isLoading: isAppDataLoading } = hooks.useAppData();
+  const {
+    data: appData,
+    isLoading: isAppDataLoading,
+    isSuccess: isAppDataSuccess,
+  } = hooks.useAppData();
   const { mutate: postAppData } = mutations.usePostAppData();
   const { mutate: patchAppData } = mutations.usePatchAppData();
   const { mutate: postAction } = mutations.usePostAppAction();
@@ -55,14 +115,12 @@ const PlayerView = (): JSX.Element => {
     }
   }, [inputResource]);
 
-  if (appData) {
-    const feedbackResource = appData.find(
+  if (appData || isAppDataSuccess) {
+    const feedbackResource = appData?.find(
       ({ type, member }) =>
         type === APP_DATA_TYPES.FEEDBACK && memberId === member?.id
     );
-
-    const handleChangeText: TextFieldProps['onChange'] = ({ target }) => {
-      const { value } = target;
+    const handleChangeText = (value: string) => {
       setText(value);
     };
 
@@ -92,45 +150,21 @@ const PlayerView = (): JSX.Element => {
       if (feedbackResource) {
         return `${t('Feedback')}: ${feedbackResource.data?.text}`;
       }
-      return null;
+      return undefined;
     };
 
     const textIsDifferent = text === inputResource?.data?.text;
 
     return (
-      <Grid container spacing={0}>
-        <MainContainer item xs={12}>
-          {Boolean(!memberId) && (
-            <Alert severity="error">
-              {t('You cannot answer if you are not authenticated')}
-            </Alert>
-          )}
-          <FormContainer noValidate autoComplete="off">
-            <StyledTextField
-              autoFocus={context?.standalone}
-              inputProps={{
-                maxLength: MAX_INPUT_LENGTH,
-              }}
-              disabled={Boolean(!memberId)}
-              data-cy={inputCypress}
-              id={inputTextFieldId}
-              label={t('Type Here')}
-              multiline
-              maxRows={MAX_ROWS}
-              value={text}
-              onChange={handleChangeText}
-              margin="normal"
-              helperText={buildFeedbackText()}
-              variant="outlined"
-              fullWidth
-            />
-          </FormContainer>
-          <SaveButton
-            disabled={textIsDifferent}
-            onClick={handleClickSaveText}
-          />
-        </MainContainer>
-      </Grid>
+      <PlayerViewComponent
+        text={text}
+        helperText={buildFeedbackText()}
+        onChangeText={handleChangeText}
+        onSave={handleClickSaveText}
+        isSaveButtonDisabled={textIsDifferent}
+        isLoggedIn={Boolean(memberId)}
+        autoFocusTextField={context?.standalone}
+      />
     );
   }
 
@@ -138,7 +172,14 @@ const PlayerView = (): JSX.Element => {
     return <Loader />;
   }
 
-  return <Alert severity="error">Could not get App Data</Alert>;
+  return (
+    <PlayerViewComponent
+      text=""
+      helperText={t('You need to login to use this app')}
+      isSaveButtonDisabled
+      isLoggedIn={false}
+    />
+  );
 };
 
 export default PlayerView;

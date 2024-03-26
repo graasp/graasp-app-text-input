@@ -17,6 +17,7 @@
     "Settings": "Settings",
     "Show Header to Students": "Show Header to Students",
     "Anonymous": "Anonymous",
-    "Actions": "Actions"
+    "Actions": "Actions",
+    "You cannot answer if you are not authenticated. Please log in.": "You cannot answer if you are not authenticated. Please log in."
   }
 }
