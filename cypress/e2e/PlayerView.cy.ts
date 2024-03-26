@@ -87,7 +87,7 @@ describe('<PlayerView />', () => {
         appContext: {
           context: Context.Player,
           permission: undefined,
-          memberId: undefined,
+          memberId: null,
         },
       });
       cy.visit('/');
@@ -95,7 +95,7 @@ describe('<PlayerView />', () => {
 
     it('Shows public alert', () => {
       cy.get(`#${publicAlertBannerIdCypress}`).should('be.visible');
-      cy.get(`${saveButtonCypress}`).should('be.disabled');
+      cy.get(dataCyWrapper(saveButtonCypress)).should('be.disabled');
     });
   });
 });
