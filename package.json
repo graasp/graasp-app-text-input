@@ -22,7 +22,7 @@
     "@mui/icons-material": "5.15.5",
     "@mui/lab": "5.0.0-alpha.161",
     "@mui/material": "5.15.5",
-    "@sentry/react": "7.93.0",
+    "@sentry/react": "7.109.0",
     "@tanstack/react-query": "4.36.1",
     "@testing-library/jest-dom": "6.2.0",
     "@testing-library/react": "14.1.2",
