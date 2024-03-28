@@ -2266,9 +2266,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@cypress/code-coverage@npm:3.12.18":
-  version: 3.12.18
-  resolution: "@cypress/code-coverage@npm:3.12.18"
+"@cypress/code-coverage@npm:3.12.32":
+  version: 3.12.32
+  resolution: "@cypress/code-coverage@npm:3.12.32"
   dependencies:
     "@cypress/webpack-preprocessor": "npm:^6.0.0"
     chalk: "npm:4.1.2"
@@ -2285,7 +2285,7 @@ __metadata:
     babel-loader: ^8.3 || ^9
     cypress: "*"
     webpack: ^4 || ^5
-  checksum: bf18c96cadeee5bcdebb4e6a45c0eea119399f67b1b06eebf6e27fd20e9305e22d87da5447dcf5248f8ae55f6a8c523262711027e77bb014e731de06bf79c6ad
+  checksum: fc67b523c7341bd6b970e2007af8e82024ae00240aaa45d49116a300e0d578942cec5b140e40f6b91db93862cdc92fc829fc96396d9b852c2dc6082dd067daad
   languageName: node
   linkType: hard
 
@@ -4702,12 +4702,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/react-dom@npm:18.2.18":
-  version: 18.2.18
-  resolution: "@types/react-dom@npm:18.2.18"
+"@types/react-dom@npm:18.2.23":
+  version: 18.2.23
+  resolution: "@types/react-dom@npm:18.2.23"
   dependencies:
     "@types/react": "npm:*"
-  checksum: 4ef7725b4cebd4a32e049097ddfdfd855a178e63ead97ab6d3084872e7d6c1acd71aa923488123cd1015f0e0b11489d2b44f674a1df8fe82d7827eabbec6dbf1
+  checksum: 8311c67767b0aafb5cd94176a90f801f0f5f6930731d57caaa04bb0d87fdef6bc6f723a116d9777d2082ec022682acaad7a62d04dc27e330e818cf34f2ef2703
   languageName: node
   linkType: hard
 
@@ -4749,14 +4749,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/react@npm:18.2.48":
-  version: 18.2.48
-  resolution: "@types/react@npm:18.2.48"
+"@types/react@npm:18.2.73":
+  version: 18.2.73
+  resolution: "@types/react@npm:18.2.73"
   dependencies:
     "@types/prop-types": "npm:*"
-    "@types/scheduler": "npm:*"
     csstype: "npm:^3.0.2"
-  checksum: 2e56ea6bd821ae96bd943f727a59d85384eaf5f8a3e6fce4fa1d34453e32d8eedda742432b3857fa0de7a4214bf84ce4239757eb52918e76452c00384731e585
+  checksum: 799e30e73464dff40e04f4eb7499ebc31f99b1711a69263b9af340af738e35c9cdf53084e3dacc3b21c031aaa0cba1b51f4ba60490204b7abb75f115b841583f
   languageName: node
   linkType: hard
 
@@ -4848,10 +4847,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/uuid@npm:9.0.7":
-  version: 9.0.7
-  resolution: "@types/uuid@npm:9.0.7"
-  checksum: c7321194aeba9ea173efd1e721403bdf4e7ae6945f8f8cdbc87c791f4b505ccf3dbc4a8883d90b394ef13b7c2dc778045792b05dbb23b3c746f8ea347804d448
+"@types/uuid@npm:9.0.8":
+  version: 9.0.8
+  resolution: "@types/uuid@npm:9.0.8"
+  checksum: b8c60b7ba8250356b5088302583d1704a4e1a13558d143c549c408bf8920535602ffc12394ede77f8a8083511b023704bc66d1345792714002bfa261b17c5275
   languageName: node
   linkType: hard
 
@@ -5971,7 +5970,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"buffer@npm:^5.5.0, buffer@npm:^5.6.0":
+"buffer@npm:^5.5.0, buffer@npm:^5.7.1":
   version: 5.7.1
   resolution: "buffer@npm:5.7.1"
   dependencies:
@@ -6929,9 +6928,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"cypress@npm:13.6.3":
-  version: 13.6.3
-  resolution: "cypress@npm:13.6.3"
+"cypress@npm:13.6.6":
+  version: 13.6.6
+  resolution: "cypress@npm:13.6.6"
   dependencies:
     "@cypress/request": "npm:^3.0.0"
     "@cypress/xvfb": "npm:^1.2.4"
@@ -6940,7 +6939,7 @@ __metadata:
     arch: "npm:^2.2.0"
     blob-util: "npm:^2.0.2"
     bluebird: "npm:^3.7.2"
-    buffer: "npm:^5.6.0"
+    buffer: "npm:^5.7.1"
     cachedir: "npm:^2.3.0"
     chalk: "npm:^4.1.0"
     check-more-types: "npm:^2.24.0"
@@ -6958,7 +6957,7 @@ __metadata:
     figures: "npm:^3.2.0"
     fs-extra: "npm:^9.1.0"
     getos: "npm:^3.2.1"
-    is-ci: "npm:^3.0.0"
+    is-ci: "npm:^3.0.1"
     is-installed-globally: "npm:~0.4.0"
     lazy-ass: "npm:^1.6.0"
     listr2: "npm:^3.8.3"
@@ -6977,7 +6976,7 @@ __metadata:
     yauzl: "npm:^2.10.0"
   bin:
     cypress: bin/cypress
-  checksum: 9ec41974d3e6cb4a293ff1df88f742287650416d4061b5d44484aa98e78da254f190efb2bdfa79090db84eadc7a94c164de28e65ee1a106f8b213967022da2de
+  checksum: c86cc38fa25f04575d496fbf26edf8c738f2c98b0faeced9788ec691293424336f6be180f597256d38124df9ce75daddd42a015127af76d8f8df9eb071e3d90e
   languageName: node
   linkType: hard
 
@@ -9263,7 +9262,7 @@ __metadata:
   dependencies:
     "@commitlint/cli": "npm:18.4.4"
     "@commitlint/config-conventional": "npm:18.4.4"
-    "@cypress/code-coverage": "npm:3.12.18"
+    "@cypress/code-coverage": "npm:3.12.32"
     "@emotion/cache": "npm:11.11.0"
     "@emotion/react": "npm:11.11.3"
     "@emotion/styled": "npm:11.11.0"
@@ -9283,16 +9282,16 @@ __metadata:
     "@types/lodash.groupby": "npm:4.6.9"
     "@types/lodash.isempty": "npm:4.4.9"
     "@types/lodash.words": "npm:4.2.9"
-    "@types/react": "npm:18.2.48"
-    "@types/react-dom": "npm:18.2.18"
+    "@types/react": "npm:18.2.73"
+    "@types/react-dom": "npm:18.2.23"
     "@types/stopword": "npm:2.0.3"
-    "@types/uuid": "npm:9.0.7"
+    "@types/uuid": "npm:9.0.8"
     "@typescript-eslint/eslint-plugin": "npm:6.19.0"
     "@typescript-eslint/parser": "npm:6.19.0"
     "@vitejs/plugin-react": "npm:4.2.1"
     concurrently: "npm:8.2.2"
     cross-env: "npm:7.0.3"
-    cypress: "npm:13.6.3"
+    cypress: "npm:13.6.6"
     env-cmd: "npm:10.1.0"
     eslint: "npm:8.56.0"
     eslint-config-prettier: "npm:9.1.0"
@@ -9306,7 +9305,7 @@ __metadata:
     lodash.isempty: "npm:4.4.0"
     lodash.words: "npm:4.2.0"
     nyc: "npm:15.1.0"
-    prettier: "npm:3.2.4"
+    prettier: "npm:3.2.5"
     react: "npm:18.2.0"
     react-dom: "npm:18.2.0"
     react-ga4: "npm:2.1.0"
@@ -9322,7 +9321,7 @@ __metadata:
     typescript: "npm:5.3.3"
     uuid: "npm:9.0.1"
     vite: "npm:5.0.11"
-    vite-plugin-checker: "npm:0.6.2"
+    vite-plugin-checker: "npm:0.6.4"
     vite-plugin-istanbul: "npm:5.0.0"
   languageName: unknown
   linkType: soft
@@ -9901,7 +9900,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"is-ci@npm:^3.0.0":
+"is-ci@npm:^3.0.1":
   version: 3.0.1
   resolution: "is-ci@npm:3.0.1"
   dependencies:
@@ -10803,13 +10802,6 @@ __metadata:
   version: 4.1.1
   resolution: "lodash.once@npm:4.1.1"
   checksum: 202f2c8c3d45e401b148a96de228e50ea6951ee5a9315ca5e15733d5a07a6b1a02d9da1e7fdf6950679e17e8ca8f7190ec33cae47beb249b0c50019d753f38f3
-  languageName: node
-  linkType: hard
-
-"lodash.pick@npm:^4.4.0":
-  version: 4.4.0
-  resolution: "lodash.pick@npm:4.4.0"
-  checksum: 5a76778aa1c245ce081d19c5a625a44cdf4853f421c8789ec962cb5d73dd21be7cf11ae3bc2123ff5f432326ed0176d674d22ca6e0e8f9eaba5b74b00f632c12
   languageName: node
   linkType: hard
 
@@ -12159,12 +12151,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"prettier@npm:3.2.4":
-  version: 3.2.4
-  resolution: "prettier@npm:3.2.4"
+"prettier@npm:3.2.5":
+  version: 3.2.5
+  resolution: "prettier@npm:3.2.5"
   bin:
     prettier: bin/prettier.cjs
-  checksum: e2b735d0552501b3a7ac8bd3ba3b6de2920bb35bd4cd02d08cb9057ebe3e96d83b9a7e4b903d987b7530a50223b12c74d107c154337236ae2c68156ba1e65cd2
+  checksum: d509f9da0b70e8cacc561a1911c0d99ec75117faed27b95cc8534cb2349667dee6351b0ca83fa9d5703f14127faa52b798de40f5705f02d843da133fc3aa416a
   languageName: node
   linkType: hard
 
@@ -14659,9 +14651,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"vite-plugin-checker@npm:0.6.2":
-  version: 0.6.2
-  resolution: "vite-plugin-checker@npm:0.6.2"
+"vite-plugin-checker@npm:0.6.4":
+  version: 0.6.4
+  resolution: "vite-plugin-checker@npm:0.6.4"
   dependencies:
     "@babel/code-frame": "npm:^7.12.13"
     ansi-escapes: "npm:^4.3.0"
@@ -14670,8 +14662,6 @@ __metadata:
     commander: "npm:^8.0.0"
     fast-glob: "npm:^3.2.7"
     fs-extra: "npm:^11.1.0"
-    lodash.debounce: "npm:^4.0.8"
-    lodash.pick: "npm:^4.4.0"
     npm-run-path: "npm:^4.0.1"
     semver: "npm:^7.5.0"
     strip-ansi: "npm:^6.0.0"
@@ -14707,7 +14697,7 @@ __metadata:
       optional: true
     vue-tsc:
       optional: true
-  checksum: 768e291e75863f456844f60793f881e1e35bda3566adae10363e36818d2773913a1fcd2a2b24471bd562435b9fd378914a4c1100d4d7914c8646e956cc600767
+  checksum: 286dcc11d71e05ba09df2f3e442dbbba00fe26d6fcb59a23870fa769fcb748743dfc9c1fb04bb369758cdd13a91c2a5b5a39c85996f468aea33685ffba2d8b37
   languageName: node
   linkType: hard
 
