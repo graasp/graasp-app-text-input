@@ -20,6 +20,7 @@ export const editFeedbackButtonCypress = 'editFeedbackButton';
 export const feedbackInputCypress = 'feedbackInput';
 export const submitButtonCypress = 'submitButton';
 export const deleteConfirmButtonCypress = 'deleteConfirmButton';
+export const publicAlertBannerIdCypress = 'publicAlertBanner';
 
 export const dataCyWrapper = (cypressSelector: string) =>
   `[data-cy=${cypressSelector}]`;
