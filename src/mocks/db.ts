@@ -1,5 +1,6 @@
 import type { Database, LocalContext } from '@graasp/apps-query-client';
 import {
+  AppItemFactory,
   CompleteMember,
   Context,
   DiscriminatedItem,
@@ -38,18 +39,14 @@ export const mockMembers: CompleteMember[] = [
   },
 ];
 
-export const mockItem: DiscriminatedItem = {
+export const mockItem: DiscriminatedItem = AppItemFactory({
   id: defaultMockContext.itemId,
   name: 'app-starter-ts-vite',
   description: null,
-  path: '',
   settings: {},
-  type: ItemType.APP,
   extra: { [ItemType.APP]: { url: 'http://localhost:3002' } },
   creator: mockMembers[0],
-  createdAt: new Date().toISOString(),
-  updatedAt: new Date().toISOString(),
-};
+});
 
 const buildDatabase = (members?: CompleteMember[]): Database => {
   return {
