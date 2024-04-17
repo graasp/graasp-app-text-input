@@ -9273,7 +9273,7 @@ __metadata:
     react-i18next: "npm:13.5.0"
     react-router-dom: "npm:6.21.3"
     react-select: "npm:5.8.0"
-    react-toastify: "npm:10.0.3"
+    react-toastify: "npm:10.0.5"
     react-wordcloud: "npm:1.2.7"
     standard-version: "npm:9.5.0"
     stopword: "npm:2.0.8"
@@ -12549,15 +12549,15 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react-toastify@npm:10.0.3":
-  version: 10.0.3
-  resolution: "react-toastify@npm:10.0.3"
+"react-toastify@npm:10.0.5":
+  version: 10.0.5
+  resolution: "react-toastify@npm:10.0.5"
   dependencies:
     clsx: "npm:^2.1.0"
   peerDependencies:
-    react: ">=16"
-    react-dom: ">=16"
-  checksum: 3c9e9cebef41cff7ea60528d1ca01f03feed98a9bba10bd0749a17d7627fa5e4719b2f1d28dee22c9f9a66df2d9ddf906e180f3f9771607e16d96c889f1bf484
+    react: ">=18"
+    react-dom: ">=18"
+  checksum: 6630f4b6d6902d827efd5e66c09df693c7ab8abeeb6ef24d880080f47b636614ef9cc251dd5e6564d49fe2f6f25f720ce0f7ef72cd4b0cd58a65b7c4b8052fac
   languageName: node
   linkType: hard
 
