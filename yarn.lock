@@ -3270,20 +3270,20 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@json2csv/formatters@npm:^7.0.4":
-  version: 7.0.4
-  resolution: "@json2csv/formatters@npm:7.0.4"
-  checksum: c38025be52786c612b2a8852f9a5e3e8600f8d39e4bd2ca88d9eca2febdcc7fa30a1119ff29b53d34257d537314f1dc70fc872db80a5e6c3de1e6d190c74e7d8
+"@json2csv/formatters@npm:^7.0.6":
+  version: 7.0.6
+  resolution: "@json2csv/formatters@npm:7.0.6"
+  checksum: 7a103acae1f2625996612495fef938478931a5b580b4920804b26c1256c5f5341b4faac233b968c9ce82f3cd8d764e56bbd1fcebec1fbbda344883eb7ce36ddd
   languageName: node
   linkType: hard
 
-"@json2csv/plainjs@npm:7.0.4":
-  version: 7.0.4
-  resolution: "@json2csv/plainjs@npm:7.0.4"
+"@json2csv/plainjs@npm:7.0.6":
+  version: 7.0.6
+  resolution: "@json2csv/plainjs@npm:7.0.6"
   dependencies:
-    "@json2csv/formatters": "npm:^7.0.4"
-    "@streamparser/json": "npm:^0.0.17"
-  checksum: e13f5969c06a59eec465f8182cbd0a0105751c3b78cde8473e59b980ec9cfe8b78203ab0a3fcf2acbd23ef5a23cee9b3e2c73faccd18fbe9b041ce0e43359312
+    "@json2csv/formatters": "npm:^7.0.6"
+    "@streamparser/json": "npm:^0.0.20"
+  checksum: 261cce8eb0f0b8c91dee75ce1b70924a4c8bb7dc7068ede89811c20025b46a903b2e23054f31102543dad73e05072aa652a94f45a47f86e0879c63f557b296e4
   languageName: node
   linkType: hard
 
@@ -4264,10 +4264,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@streamparser/json@npm:^0.0.17":
-  version: 0.0.17
-  resolution: "@streamparser/json@npm:0.0.17"
-  checksum: 29eff1034c49548116b567a6320e97f6cb26efd7bc151cde1a520fc7dc0c31b218d3f61008382a745a407433dc6516890839516ab7d0d53ceb2fb7ee38f4d063
+"@streamparser/json@npm:^0.0.20":
+  version: 0.0.20
+  resolution: "@streamparser/json@npm:0.0.20"
+  checksum: 03220090dcc7a8d9ad9d58fd80e0248c4d9ffdf66626aaa134b1f2d43f190e541c576913952f144461f6a3daf7fe71f73d459d6ec7b5699cdd24614b636e16c8
   languageName: node
   linkType: hard
 
@@ -9230,7 +9230,7 @@ __metadata:
     "@graasp/sdk": "npm:4.7.2"
     "@graasp/translations": "npm:1.26.0"
     "@graasp/ui": "npm:4.11.0"
-    "@json2csv/plainjs": "npm:7.0.4"
+    "@json2csv/plainjs": "npm:7.0.6"
     "@mui/icons-material": "npm:5.15.5"
     "@mui/lab": "npm:5.0.0-alpha.161"
     "@mui/material": "npm:5.15.5"
