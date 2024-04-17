@@ -5,6 +5,7 @@ import {
   Context,
   DiscriminatedItem,
   ItemType,
+  MemberFactory,
   PermissionLevel,
 } from '@graasp/sdk';
 import { MOCK_ITEM_ID } from '../config/settings';
@@ -19,24 +20,15 @@ export const defaultMockContext: LocalContext = {
 };
 
 export const mockMembers: CompleteMember[] = [
-  {
-    id: defaultMockContext.memberId || '',
-    name: 'current-member',
-    email: '',
+  MemberFactory({
+    id: defaultMockContext.memberId,
     extra: {},
     type: 'individual',
-    createdAt: new Date('1996-09-08T19:00:00').toISOString(),
-    updatedAt: new Date().toISOString(),
-  },
-  {
-    id: 'mock-member-id-2',
-    name: 'mock-member-2',
-    email: '',
+  }),
+  MemberFactory({
     extra: {},
     type: 'individual',
-    createdAt: new Date('1995-02-02T15:00:00').toISOString(),
-    updatedAt: new Date().toISOString(),
-  },
+  }),
 ];
 
 export const mockItem: DiscriminatedItem = AppItemFactory({

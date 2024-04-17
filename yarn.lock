@@ -3040,13 +3040,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@graasp/apps-query-client@github:graasp/graasp-apps-query-client#android-apps":
-  version: 3.4.10
-  resolution: "@graasp/apps-query-client@https://github.com/graasp/graasp-apps-query-client.git#commit=e9bbbd8c6ad53f2355ecf50a22b4e8b5274ae4bb"
+"@graasp/apps-query-client@npm:3.4.11":
+  version: 3.4.11
+  resolution: "@graasp/apps-query-client@npm:3.4.11"
   dependencies:
     "@emotion/react": "npm:11.11.4"
     "@emotion/styled": "npm:11.11.5"
-    "@graasp/sdk": "npm:4.5.0"
+    "@graasp/sdk": "npm:4.7.2"
     "@mui/icons-material": "npm:5.15.15"
     "@mui/material": "npm:5.15.15"
     axios: "npm:0.28.1"
@@ -3063,13 +3063,13 @@ __metadata:
     date-fns: ^3.3.0
     react: ^18.0.0
     react-dom: ^18.0.0
-  checksum: 981d2c3547a41058298584b1ca4df40b25dc640d2aa864d5ebb27eeff29d9803aabc850068d664a8a1f18279f106edea0ffcfe8f61c6bc11250bd1287067f244
+  checksum: ea24ff10b33822e8e45ef97ca6233b88379b203ae71d8a0b88ff77fbeaef48fe5b8640dcc5fe18a6505174152be2e58a70bfa1458a4173bb2f324329179fea05
   languageName: node
   linkType: hard
 
-"@graasp/sdk@npm:4.5.0":
-  version: 4.5.0
-  resolution: "@graasp/sdk@npm:4.5.0"
+"@graasp/sdk@npm:4.7.2":
+  version: 4.7.2
+  resolution: "@graasp/sdk@npm:4.7.2"
   dependencies:
     "@faker-js/faker": "npm:8.4.1"
     js-cookie: "npm:3.0.5"
@@ -3077,7 +3077,7 @@ __metadata:
   peerDependencies:
     date-fns: ^3
     uuid: ^9
-  checksum: 835e7613126e3fb7e0d6175c4df30f75812b578ad7a5299d538c64259ee56aec2be4a0a967ebb88162d5ddd800fd999525db747d677b8b8daa6bd5b09e60d166
+  checksum: f37de1eb4fb02fa748a00e630f8f133d937fd9eb0aa0016a6e071fa37a44d1599be61ff8754a03f77bb5996f9aebf8e6c969fdb52f4463111c71f6ce6d1fcb38
   languageName: node
   linkType: hard
 
@@ -9226,8 +9226,8 @@ __metadata:
     "@emotion/cache": "npm:11.11.0"
     "@emotion/react": "npm:11.11.3"
     "@emotion/styled": "npm:11.11.0"
-    "@graasp/apps-query-client": "github:graasp/graasp-apps-query-client#android-apps"
-    "@graasp/sdk": "npm:4.5.0"
+    "@graasp/apps-query-client": "npm:3.4.11"
+    "@graasp/sdk": "npm:4.7.2"
     "@graasp/translations": "npm:1.26.0"
     "@graasp/ui": "npm:4.11.0"
     "@json2csv/plainjs": "npm:7.0.4"
