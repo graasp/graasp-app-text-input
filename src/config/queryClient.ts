@@ -18,7 +18,7 @@ const {
   GRAASP_APP_KEY,
   notifier: (data) => {
     // todo: use toasts
-    console.log('notifier: ' + JSON.stringify(data));
+    console.log('notifier: ');
   },
   keepPreviousData: true,
   // avoid refetching when same data are closely fetched
