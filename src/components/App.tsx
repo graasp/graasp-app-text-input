@@ -4,7 +4,8 @@ import { useLocalContext } from '@graasp/apps-query-client';
 import AnalyzerView from './views/admin/AnalyzerView';
 import BuilderView from './views/admin/BuilderView';
 import PlayerView from './views/read/PlayerView';
-import { Context, DEFAULT_LANG } from '@graasp/sdk';
+import { Context } from '@graasp/sdk';
+import { DEFAULT_LANG } from '@graasp/translations';
 
 export const App = () => {
   const context = useLocalContext();
