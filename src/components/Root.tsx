@@ -5,7 +5,7 @@ import {
   WithTokenContext,
 } from '@graasp/apps-query-client';
 import { styled } from '@mui/material';
-import { ThemeProvider } from '@mui/material/styles';
+import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { I18nextProvider } from 'react-i18next';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -27,12 +27,20 @@ const Wrapper = styled('div')({
   flexGrow: 1,
 });
 
+const appTheme = createTheme({
+  ...theme,
+  palette: {
+    ...theme.palette,
+    background: { ...theme.palette.background, default: 'transparent' },
+  },
+});
+
 const Root = () => {
   const [mockContext, setMockContext] = useObjectState(defaultMockContext);
 
   return (
     <Wrapper>
-      <ThemeProvider theme={theme}>
+      <ThemeProvider theme={appTheme}>
         <I18nextProvider i18n={i18nConfig}>
           <QueryClientProvider client={queryClient}>
             <WithLocalContext
