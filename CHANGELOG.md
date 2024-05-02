@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.3.1](https://github.com/graasp/graasp-app-text-input/compare/v2.3.0...v2.3.1) (2024-05-02)
+
+
+### Bug Fixes
+
+* deps and background ([#171](https://github.com/graasp/graasp-app-text-input/issues/171)) ([6159e5d](https://github.com/graasp/graasp-app-text-input/commit/6159e5d272e19d97bdb4f22dee16a16cdff062b3))
+
 ## [2.3.0](https://github.com/graasp/graasp-app-text-input/compare/v2.2.1...v2.3.0) (2024-04-17)
 
 
