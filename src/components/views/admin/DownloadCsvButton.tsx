@@ -47,7 +47,7 @@ const DownloadCsvButton = () => {
           entry.feedback = feedback.data;
         }
         return entry;
-      } catch (error) {
+      } catch {
         return undefined;
       }
     })

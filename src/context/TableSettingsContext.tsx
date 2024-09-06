@@ -17,7 +17,7 @@ const DEFAULT_SETTINGS_VALUE: SettingsType = {
 const TableSettingsContext = createContext<TableSettingsContextType>({
   settings: DEFAULT_SETTINGS_VALUE,
   setSettings: (_: UpdateArgument<SettingsType>) => {
-    null;
+    return null;
   },
 });
 

@@ -12,10 +12,9 @@
 // This function is called when a project is opened or re-opened (e.g. due to
 // the project's config changing)
 
-/**
- * @type {Cypress.PluginConfig}
- */
-module.exports = (on, config) => {
+import setupCoverage from '@cypress/code-coverage/task';
+
+const config: Cypress.PluginConfig = (on, config) => {
   // `on` is used to hook into various events Cypress emits
   // `config` is the resolved Cypress config
   const newConfig = {
@@ -24,7 +23,7 @@ module.exports = (on, config) => {
       API_HOST: process.env.REACT_APP_API_HOST,
     },
   };
-  // eslint-disable-next-line @typescript-eslint/no-var-requires
-  require('@cypress/code-coverage/task')(on, newConfig);
+  setupCoverage(on, newConfig);
   return newConfig;
 };
+export default config;
