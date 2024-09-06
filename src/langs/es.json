@@ -17,6 +17,7 @@
     "Settings": "Ajustes",
     "Show Header to Students": "Mostrar encabezado a los estudiantes",
     "Anonymous": "Anónimo",
-    "Actions": "Comportamiento"
+    "Actions": "Comportamiento",
+    "You cannot answer if you are not authenticated. Please log in.": "No puedes responder si no estás autenticado. Inicia sesión."
   }
 }
