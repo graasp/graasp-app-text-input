@@ -17,6 +17,7 @@
     "Settings": "Paramètres",
     "Show Header to Students": "Montrer l'en-tête aux étudiants.",
     "Anonymous": "Anonyme",
-    "Actions": "Actions"
+    "Actions": "Actions",
+    "You cannot answer if you are not authenticated. Please log in.": "Vous ne pouvez pas répondre si vous n'êtes pas authentifié. Veuillez vous connecter."
   }
 }
