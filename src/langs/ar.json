@@ -17,6 +17,7 @@
     "Settings": "إعدادات",
     "Show Header to Students": "إظهار الرأس للطلاب",
     "Anonymous": "مجهول",
-    "Actions": "أجراءات"
+    "Actions": "أجراءات",
+    "You cannot answer if you are not authenticated. Please log in.": "لا يمكنك الرد إذا لم تكن موثقًا. يرجى تسجيل الدخول."
   }
 }
