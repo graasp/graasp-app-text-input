@@ -121,8 +121,8 @@ const PlayerView = (): JSX.Element => {
 
   if (appData || isAppDataSuccess) {
     const feedbackResource = appData?.find(
-      ({ type, member }) =>
-        type === APP_DATA_TYPES.FEEDBACK && memberId === member?.id
+      ({ type, account }) =>
+        type === APP_DATA_TYPES.FEEDBACK && memberId === account?.id
     );
     const handleChangeText = (value: string) => {
       setText(value);

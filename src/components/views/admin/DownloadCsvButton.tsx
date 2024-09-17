@@ -18,7 +18,7 @@ const DownloadCsvButton = () => {
   }
 
   const formattedData = Object.entries(
-    groupBy(appData, (appData) => appData.member.id)
+    groupBy(appData, (appData) => appData.account.id)
   )
     ?.map(([memberId, elements]) => {
       try {

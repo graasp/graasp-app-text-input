@@ -19,7 +19,7 @@ import {
   responseCellCypress,
   studentResponseId,
 } from '../../../config/selectors';
-import { AppData, Member, UUID, formatDate } from '@graasp/sdk';
+import { Account, AppData, UUID, formatDate } from '@graasp/sdk';
 import { useTableSettingsContext } from '@/context/TableSettingsContext';
 import isEmpty from 'lodash.isempty';
 
@@ -27,7 +27,7 @@ type Props = {
   id: UUID;
   data?: string;
   updatedAt: string;
-  student?: Member | null;
+  student?: Account | null;
   feedbackResource?: AppData;
 };
 
@@ -79,7 +79,7 @@ const Response = ({
       // if no feedback resource yet, create it, otherwise, update it
       if (!feedbackResource || isEmpty(feedbackResource)) {
         postAppData({
-          memberId: student.id,
+          accountId: student.id,
           data: { text, memberId: student.id },
           type: ACTION_TYPES.FEEDBACK,
         });
