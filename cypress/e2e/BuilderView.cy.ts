@@ -34,7 +34,7 @@ describe('<BuilderView />', () => {
             appData: [MOCK_APP_DATA, MOCK_APP_DATA_BOB, MOCK_FEEDBACK],
           },
           appContext: {
-            memberId: CURRENT_MEMBER.id,
+            accountId: CURRENT_MEMBER.id,
             permission: PermissionLevel.Admin,
             context: Context.Builder,
           },
@@ -92,6 +92,7 @@ describe('<BuilderView />', () => {
         cy.setUpApi({
           database: { appData: [MOCK_APP_DATA] },
           appContext: {
+            accountId: CURRENT_MEMBER.id,
             permission: PermissionLevel.Admin,
             context: Context.Builder,
           },
@@ -134,6 +135,7 @@ describe('<BuilderView />', () => {
       beforeEach(() => {
         cy.setUpApi({
           appContext: {
+            accountId: CURRENT_MEMBER.id,
             permission: PermissionLevel.Admin,
             context: Context.Builder,
           },

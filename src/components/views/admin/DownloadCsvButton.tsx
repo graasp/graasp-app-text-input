@@ -18,11 +18,11 @@ const DownloadCsvButton = () => {
   }
 
   const formattedData = Object.entries(
-    groupBy(appData, (appData) => appData.member.id)
+    groupBy(appData, (appData) => appData.account.id)
   )
-    ?.map(([memberId, elements]) => {
+    ?.map(([accountId, elements]) => {
       try {
-        const userData = context?.members.find(({ id }) => id === memberId);
+        const userData = context?.members.find(({ id }) => id === accountId);
         const name = userData ? userData.name : t('Anonymous');
 
         // fall back to empty object in case there is no match
@@ -47,7 +47,7 @@ const DownloadCsvButton = () => {
           entry.feedback = feedback.data;
         }
         return entry;
-      } catch (error) {
+      } catch {
         return undefined;
       }
     })

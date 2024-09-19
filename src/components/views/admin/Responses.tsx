@@ -57,7 +57,7 @@ const TableContent = () => {
     return responses.map(({ id, creator, data, updatedAt }) => {
       const feedbackResource = feedbacks.find(
         // todo: Should we support the legacy way of putting the memberId in the data ? Does it even work ??
-        ({ member: { id: mId }, data: { memberId: dataMemberId } }) =>
+        ({ account: { id: mId }, data: { memberId: dataMemberId } }) =>
           mId === creator?.id || dataMemberId === creator?.id
       );
       return (

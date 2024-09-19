@@ -9,7 +9,10 @@ import * as Sentry from '@sentry/react';
 import { generateSentryConfig } from './config/sentry';
 
 Sentry.init({
-  integrations: [new Sentry.BrowserTracing(), new Sentry.Replay()],
+  integrations: [
+    Sentry.browserTracingIntegration(),
+    Sentry.replayIntegration(),
+  ],
 
   // Set tracesSampleRate to 1.0 to capture 100%
   // of transactions for performance monitoring.

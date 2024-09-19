@@ -56,7 +56,7 @@ describe('<PlayerView />', () => {
       cy.setUpApi({
         database: { appData: [MOCK_APP_DATA] },
         appContext: {
-          memberId: MEMBERS.ANNA.id,
+          accountId: MEMBERS.ANNA.id,
           context: Context.Player,
           permission: PermissionLevel.Read,
         },
@@ -68,7 +68,7 @@ describe('<PlayerView />', () => {
     it('Display pre-saved data and feedback', () => {
       cy.setUpApi({
         appContext: {
-          memberId: MEMBERS.BOB.id,
+          accountId: MEMBERS.BOB.id,
           context: Context.Player,
           permission: PermissionLevel.Read,
         },
@@ -87,7 +87,7 @@ describe('<PlayerView />', () => {
         appContext: {
           context: Context.Player,
           permission: undefined,
-          memberId: null,
+          accountId: undefined,
         },
       });
       cy.visit('/');

@@ -1,5 +1,6 @@
-import type { Database, LocalContext } from '@graasp/apps-query-client';
+import type { Database } from '@graasp/apps-query-client';
 import {
+  AccountType,
   AppItemFactory,
   CompleteMember,
   Context,
@@ -7,6 +8,7 @@ import {
   ItemType,
   MemberFactory,
   PermissionLevel,
+  LocalContext,
 } from '@graasp/sdk';
 import { MOCK_ITEM_ID } from '../config/settings';
 import { API_HOST } from '../config/env';
@@ -16,18 +18,18 @@ export const defaultMockContext: LocalContext = {
   permission: PermissionLevel.Admin,
   context: Context.Builder,
   itemId: MOCK_ITEM_ID,
-  memberId: 'mock-member-id',
+  accountId: 'mock-member-id',
 };
 
 export const mockMembers: CompleteMember[] = [
   MemberFactory({
-    id: defaultMockContext.memberId,
+    id: defaultMockContext.accountId,
     extra: {},
-    type: 'individual',
+    type: AccountType.Individual,
   }),
   MemberFactory({
     extra: {},
-    type: 'individual',
+    type: AccountType.Individual,
   }),
 ];
 
@@ -49,7 +51,7 @@ const buildDatabase = (members?: CompleteMember[]): Database => {
         updatedAt: '2023-11-22T11:19:29.291Z',
         item: mockItem,
         creator: mockMembers[1],
-        member: mockMembers[1],
+        account: mockMembers[1],
         visibility: 'member',
         data: {
           text: 'An answer !',
@@ -61,7 +63,7 @@ const buildDatabase = (members?: CompleteMember[]): Database => {
       {
         id: 'cecc1671-6c9d-4604-a3a2-6d7fad4a5996',
         type: 'admin-action',
-        member: mockMembers[0],
+        account: mockMembers[0],
         createdAt: new Date().toISOString(),
         item: mockItem,
         data: { content: 'hello' },
@@ -69,7 +71,7 @@ const buildDatabase = (members?: CompleteMember[]): Database => {
       {
         id: '0c11a63a-f333-47e1-8572-b8f99fe883b0',
         type: 'other-action',
-        member: mockMembers[1],
+        account: mockMembers[1],
         createdAt: new Date().toISOString(),
         item: mockItem,
         data: { content: 'other member' },
@@ -78,6 +80,7 @@ const buildDatabase = (members?: CompleteMember[]): Database => {
     members: members ?? mockMembers,
     appSettings: [],
     items: [mockItem],
+    uploadedFiles: [],
   };
 };
 

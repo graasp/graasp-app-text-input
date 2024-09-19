@@ -17,12 +17,11 @@ Cypress.Commands.add(
         appData: [],
         appActions: [],
         appSettings: [],
+        uploadedFiles: [],
         members: Object.values(MEMBERS),
         items: [mockItem],
         ...database,
       };
-      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-      // @ts-expect-error
       win.appContext = fullAppContext;
     });
   }

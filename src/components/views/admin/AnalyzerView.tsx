@@ -7,11 +7,12 @@ import { hooks } from '../../../config/queryClient';
 import { useTranslation } from 'react-i18next';
 import { APP_DATA_TYPES } from '../../../config/appDataTypes';
 import { wordCloudId } from '../../../config/selectors';
-import { AppData } from '@graasp/sdk';
 import countBy from 'lodash.countby';
 import words from 'lodash.words';
+import { Data } from '@graasp/apps-query-client';
+import { AppData } from '@graasp/sdk';
 
-const formatWords = (appData: AppData[]) => {
+const formatWords = (appData: AppData<Data>[]) => {
   const wordArray = appData
     .filter((a) => a.type === APP_DATA_TYPES.INPUT)
     .map((a) => words((a.data?.text as string)?.toLowerCase()))
