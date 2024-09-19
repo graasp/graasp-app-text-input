@@ -1,7 +1,8 @@
-import { Database, LocalContext } from '@graasp/apps-query-client';
+import { Database } from '@graasp/apps-query-client';
+import { LocalContext } from '@graasp/sdk';
 export type SetupAPI = {
   database?: Partial<Database>;
-  appContext?: Partial<LocalContext | { memberId: string | null }>;
+  appContext?: Partial<LocalContext>;
 };
 declare global {
   // eslint-disable-next-line @typescript-eslint/no-namespace

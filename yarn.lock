@@ -3277,6 +3277,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@faker-js/faker@npm:9.0.1":
+  version: 9.0.1
+  resolution: "@faker-js/faker@npm:9.0.1"
+  checksum: 10/708629605392fdbe06887ca9b083d73801c64b47917f790870b240858ab65cada14b52dddf2cb7e471ad0f6ddf66ea30e7ffda741c5ba9bd5c27318b47262279
+  languageName: node
+  linkType: hard
+
 "@floating-ui/core@npm:^1.2.6":
   version: 1.2.6
   resolution: "@floating-ui/core@npm:1.2.6"
@@ -3338,9 +3345,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@graasp/apps-query-client@github:graasp/graasp-apps-query-client#build-with-tsup":
+"@graasp/apps-query-client@npm:3.6.0":
   version: 3.6.0
-  resolution: "@graasp/apps-query-client@https://github.com/graasp/graasp-apps-query-client.git#commit=39bddd90a9973b73d912e1dd88378574833f653c"
+  resolution: "@graasp/apps-query-client@npm:3.6.0"
   dependencies:
     "@emotion/react": "npm:11.13.0"
     "@emotion/styled": "npm:11.13.0"
@@ -3361,7 +3368,7 @@ __metadata:
     date-fns: ^3.3.0
     react: ^18.0.0
     react-dom: ^18.0.0
-  checksum: 10/d2c35638d8f97aa59777cf33f2f4adf064122dac0455e0b4414d94a233fa776bf093aecbe78c66d5501b7ce8ea3c62a7b5536b999450565bcddf180be5bddca7
+  checksum: 10/5cdf11d5339fa0d71461c949b16d0038e69736a2cb13a945cc733157f2d2a4ffd1b28cc24e82c40bc0d908fef3591cdf2ccce5b71860b01f54adeea3af2a7661
   languageName: node
   linkType: hard
 
@@ -3377,6 +3384,21 @@ __metadata:
     date-fns: ^3
     uuid: ^9 || ^10
   checksum: 10/9801f0429172f325d14b378d4d2b2ec1ada679da736901e8ae9fca2f52f1b29b508809b686ee0b3fd8944262958a1e9c4b77936f57e5f448ad1ca8cc5632c50b
+  languageName: node
+  linkType: hard
+
+"@graasp/sdk@npm:4.29.1":
+  version: 4.29.1
+  resolution: "@graasp/sdk@npm:4.29.1"
+  dependencies:
+    "@faker-js/faker": "npm:9.0.1"
+    filesize: "npm:10.1.6"
+    js-cookie: "npm:3.0.5"
+    validator: "npm:13.12.0"
+  peerDependencies:
+    date-fns: ^3 || ^4.0.0
+    uuid: ^9 || ^10
+  checksum: 10/f35a4c2dfbc7b9ac7d2112536dcded3da6d7fb32a3f4593921329340f96f21ccd558f68a77d723828f23055a6fb4d77493effbc746986ce7fcce913f3775a725
   languageName: node
   linkType: hard
 
@@ -9299,8 +9321,8 @@ __metadata:
     "@emotion/cache": "npm:11.13.1"
     "@emotion/react": "npm:11.13.3"
     "@emotion/styled": "npm:11.13.0"
-    "@graasp/apps-query-client": "github:graasp/graasp-apps-query-client#build-with-tsup"
-    "@graasp/sdk": "npm:4.29.0"
+    "@graasp/apps-query-client": "npm:3.6.0"
+    "@graasp/sdk": "npm:4.29.1"
     "@graasp/stylis-plugin-rtl": "npm:2.2.0"
     "@graasp/translations": "npm:1.37.0"
     "@graasp/ui": "npm:5.0.0"

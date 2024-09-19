@@ -102,12 +102,12 @@ const PlayerView = (): JSX.Element => {
   const { mutate: postAction } = mutations.usePostAppAction();
 
   const context = useLocalContext();
-  const memberId = context.memberId;
+  const accountId = context.accountId;
 
   const appDataForMemberId = appData
     ?.filter(
       ({ type, creator }) =>
-        type === APP_DATA_TYPES.INPUT && creator?.id === memberId
+        type === APP_DATA_TYPES.INPUT && creator?.id === accountId
     )
     .sort((a, b) => (a.updatedAt > b.updatedAt ? 1 : -1));
   const inputResource =
@@ -122,7 +122,7 @@ const PlayerView = (): JSX.Element => {
   if (appData || isAppDataSuccess) {
     const feedbackResource = appData?.find(
       ({ type, account }) =>
-        type === APP_DATA_TYPES.FEEDBACK && memberId === account?.id
+        type === APP_DATA_TYPES.FEEDBACK && accountId === account?.id
     );
     const handleChangeText = (value: string) => {
       setText(value);
@@ -166,7 +166,7 @@ const PlayerView = (): JSX.Element => {
         onChangeText={handleChangeText}
         onSave={handleClickSaveText}
         isSaveButtonDisabled={textIsDifferent}
-        isLoggedIn={Boolean(memberId)}
+        isLoggedIn={Boolean(accountId)}
         autoFocusTextField={context?.standalone}
       />
     );

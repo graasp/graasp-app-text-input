@@ -7,7 +7,7 @@ import { AppData, AppDataVisibility } from '@graasp/sdk';
 export const MOCK_APP_DATA: AppData<{ text: string }> = {
   id: v4(),
   data: { text: 'some text' },
-  member: CURRENT_MEMBER,
+  account: CURRENT_MEMBER,
   creator: CURRENT_MEMBER,
   item: mockItem,
   createdAt: new Date().toISOString(),
@@ -18,7 +18,7 @@ export const MOCK_APP_DATA: AppData<{ text: string }> = {
 export const MOCK_APP_DATA_BOB: AppData<{ text: string }> = {
   id: v4(),
   data: { text: 'some text from bob' },
-  member: MEMBERS.BOB,
+  account: MEMBERS.BOB,
   creator: MEMBERS.BOB,
   item: mockItem,
   createdAt: new Date().toISOString(),
@@ -30,7 +30,7 @@ export const MOCK_APP_DATA_BOB: AppData<{ text: string }> = {
 export const MOCK_FEEDBACK: AppData<{ text: string }> = {
   id: v4(),
   data: { text: 'some feedback' },
-  member: MEMBERS.BOB,
+  account: MEMBERS.BOB,
   creator: CURRENT_MEMBER,
   item: mockItem,
   createdAt: new Date().toISOString(),
