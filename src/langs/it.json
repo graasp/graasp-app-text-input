@@ -17,6 +17,7 @@
     "Settings": "Impostazioni",
     "Show Header to Students": "Mostra intestazione agli studenti",
     "Anonymous": "Anonimo",
-    "Actions": "Azioni"
+    "Actions": "Azioni",
+    "You cannot answer if you are not authenticated. Please log in.": "Non puoi rispondere se non sei autenticato. Effettua il login."
   }
 }
