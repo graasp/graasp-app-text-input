@@ -4,8 +4,8 @@
     "Currently we do not support giving feedback to anonymous users.": "Derzeit unterstützen wir kein Feedback an anonyme Benutzer.",
     "By clicking \"Delete\", you will be deleting the student's response. This action cannot be undone.": "Durch Klicken auf „Löschen“ löschen Sie die Antwort des Schülers. Diese Aktion kann nicht rückgängig gemacht werden.",
     "Text Input": "Text Eingabe",
-    "Save": "Speichern",
-    "Type Here": "Geben Sie hier ein",
+    "Save": "Sichern",
+    "Type Here": "Hier eingeben",
     "Submit feedback that will be visible to the student.": "Geben Sie Feedback ab, das für den Schüler sichtbar ist.",
     "Delete Student Response": "Schülerantwort löschen",
     "Delete": "Löschen",
@@ -17,6 +17,7 @@
     "Settings": "Einstellungen",
     "Show Header to Students": "Kopfzeile für Schüler anzeigen",
     "Anonymous": "Anonym",
-    "Actions": "Aktionen"
+    "Actions": "Aktionen",
+    "You cannot answer if you are not authenticated. Please log in.": "Sie können nicht antworten, wenn Sie nicht authentifiziert sind. Bitte melden Sie sich an."
   }
 }
