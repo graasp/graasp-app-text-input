@@ -2,6 +2,19 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.3.1](https://github.com/graasp/graasp-app-text-input/compare/v2.3.0...v2.3.1) (2024-09-19)
+
+
+### Bug Fixes
+
+* add languages other than french and english ([b7f8ea9](https://github.com/graasp/graasp-app-text-input/commit/b7f8ea98ea7fe652925d05c011689542bac4b431))
+* **arabic:** update translations ([#186](https://github.com/graasp/graasp-app-text-input/issues/186)) ([c85dd7e](https://github.com/graasp/graasp-app-text-input/commit/c85dd7e9e102231b8cc1dbeee026bbb682b66f2b))
+* deps and background ([#171](https://github.com/graasp/graasp-app-text-input/issues/171)) ([6159e5d](https://github.com/graasp/graasp-app-text-input/commit/6159e5d272e19d97bdb4f22dee16a16cdff062b3))
+* **italian:** update translations ([#185](https://github.com/graasp/graasp-app-text-input/issues/185)) ([6c9ac29](https://github.com/graasp/graasp-app-text-input/commit/6c9ac29f7fa3c1bc412916e0fa784dfd89d8bc05))
+* **spanish:** update translations ([#184](https://github.com/graasp/graasp-app-text-input/issues/184)) ([8e01b90](https://github.com/graasp/graasp-app-text-input/commit/8e01b9049e6d3cc63e9ad7c1ef6a584158030615))
+* update for new query-client ([#189](https://github.com/graasp/graasp-app-text-input/issues/189)) ([c56d763](https://github.com/graasp/graasp-app-text-input/commit/c56d7633adbaf8c1481727f12d6ea7333c632f64))
+* update yarn ([11f7460](https://github.com/graasp/graasp-app-text-input/commit/11f7460288e8c9c381a3535b094a2d1d7f52b339))
+
 ## [2.3.0](https://github.com/graasp/graasp-app-text-input/compare/v2.2.1...v2.3.0) (2024-04-17)
 
 
