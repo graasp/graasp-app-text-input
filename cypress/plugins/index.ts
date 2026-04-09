@@ -12,7 +12,7 @@
 // This function is called when a project is opened or re-opened (e.g. due to
 // the project's config changing)
 
-import setupCoverage from '@cypress/code-coverage/task';
+import setupCoverage from '@cypress/code-coverage/task.js';
 
 const config: Cypress.PluginConfig = (on, config) => {
   // `on` is used to hook into various events Cypress emits
