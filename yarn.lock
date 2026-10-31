@@ -9739,7 +9739,7 @@ __metadata:
     react-toastify: "npm:10.0.5"
     react-wordcloud: "npm:1.2.7"
     standard-version: "npm:9.5.0"
-    stopword: "npm:3.1.1"
+    stopword: "npm:3.1.5"
     stylis: "npm:^4.3.4"
     typescript: "npm:5.6.2"
     uuid: "npm:10.0.0"
@@ -13980,10 +13980,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"stopword@npm:3.1.1":
-  version: 3.1.1
-  resolution: "stopword@npm:3.1.1"
-  checksum: 10/70d66bbd58078e0da6b9b9cfcf54c07e5506399e50fa9aa72a3e6d786154e44e69b1cc839c42f078f02be5dff27ae6baca4482fed2f1513f0f0ec8151d775944
+"stopword@npm:3.1.5":
+  version: 3.1.5
+  resolution: "stopword@npm:3.1.5"
+  checksum: 10/4710a3e011de1d6d8af9fb0c39b35180fdb1fad3afd859b8d22b962ac67c11ffc703b8226e6a6cf2ef652a0c88f393186ce7e396c1653abb7e50cf87312d7507
   languageName: node
   linkType: hard
 
